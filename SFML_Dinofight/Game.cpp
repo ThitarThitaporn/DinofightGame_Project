@@ -2,18 +2,29 @@
 #include "Game.h"
 void Game::initWindow()
 {
-	this->window.create(sf::VideoMode(1900, 900), "GAME Dino", sf::Style::Close | sf::Style::Titlebar, sf::ContextSettings());
+	this->window.create(sf::VideoMode(1700, 850), "GAME Dino", sf::Style::Close | sf::Style::Titlebar, sf::ContextSettings());
 	this->window.setFramerateLimit(60);
+
 }
 void Game::initplayer()
 {
 	this->player = new Player();
+}
+void Game::initWorld()
+{
+	if (!this->worldBackgroundTex.loadFromFile("texTure/background.jpg"))
+	{
+		std::cout << "Error" << "\n";
+
+	}
+	this->worldBackground.setTexture(this->worldBackgroundTex);
 }
 Game::Game()
 
 {
 	this->initWindow();
 	this->initplayer();
+	this->initWorld();
 }
 
 Game::~Game()
@@ -38,20 +49,20 @@ void Game::updateplayer()
 	this->player->update();
 }
 
-void Game::updateCollision()
-{
-	//collision bottom of screen
-	if (this->player->getGlobalBouds().top + this->player->getGlobalBouds().height > this->window.getSize().y);
-	{
-		this->player->resetVelocityY();
-		this->player->setPosition
-		(
-			this->player->getGlobalBouds().left,
-			this->window.getSize().y - this->player->getGlobalBouds().height
-		);
-	}
-
-}
+//void Game::updateCollision()
+//{
+//	//collision bottom of screen
+//	if (this->player->getGlobalBouds().top + this->player->getGlobalBouds().height > this->window.getSize().y);
+//	{
+//		this->player->resetVelocityY();
+//		this->player->setPosition
+//		(
+//			this->player->getGlobalBouds().left,
+//			this->window.getSize().y - this->player->getGlobalBouds().height
+//		);
+//	}
+//
+//}
 
 void Game::update()
 {
@@ -85,10 +96,17 @@ void Game::renderPlayer()
 	this->player->render(this->window);
 }
 
+void Game::renderWorld()
+{
+	this->window.draw(this->worldBackground);
+}
+
 void Game::render()
 {
 	this->window.clear();
 
+	//draw wolrd
+	this->renderWorld();
 
 	//render game
 	this->renderPlayer();

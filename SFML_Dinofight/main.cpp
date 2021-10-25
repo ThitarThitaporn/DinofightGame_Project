@@ -7,9 +7,11 @@ int main()
 	srand((unsigned)time(NULL));
 
 	Game game;
-
+	//backgroud
+	
 	while (game.getWindow().isOpen())
 	{
+
 		game.update();
 		game.render();
 	}

@@ -20,7 +20,7 @@ void Player::initSprite()
 	this->sprite.setTexture(this->textureSheet);
 	this->currentFrame = sf::IntRect(48, 70, 48, 48);
 	this->sprite.setTextureRect(this->currentFrame);
-	this->sprite.setScale(5.f, 5.f);
+	this->sprite.setScale(6.f, 6.f);
 }
 
 void Player::initAnimation()
@@ -163,26 +163,37 @@ void Player::updateMovement()
 	this->animState = PLAYER_ANIMATION_STATES::IDLE;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) //Left
 	{
-		this->sprite.move(-1.f, 0.f);
-		this->animState = PLAYER_ANIMATION_STATES::MOVING_LEFT;
+		if (this->getPosition().x > 0) //scope
+		{
+			this->sprite.move(-1.f, 0.f);
+			this->animState = PLAYER_ANIMATION_STATES::MOVING_LEFT;
 
+		}
+	
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) //Right
 	{
-		this->sprite.move(1.f, 0.f);
-		this->animState = PLAYER_ANIMATION_STATES::MOVING_RIGHT;
+		if (this->getPosition().x < 1400)
+		{
+			this->sprite.move(1.f, 0.f);
+			this->animState = PLAYER_ANIMATION_STATES::MOVING_RIGHT;
+		}
+		
 
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) //Top
 	{
 		//this->sprite.move(0.f, -1.f);
-		if (delayJump > 0.02f )
+		if (this->getPosition().y > 0)
 		{
-			this->jumping = true;
-			this->jumpingup = true;
-			this->gravityBool = true;
-			this->velocity.y = -30.f;
-			this->timeJumping.restart();
+			if (delayJump > 0.02f)
+			{
+				this->jumping = true;
+				this->jumpingup = true;
+				this->gravityBool = true;
+				this->velocity.y = -30.f;
+				this->timeJumping.restart();
+			}
 		}
 	
 
@@ -224,7 +235,7 @@ void Player::updatAnimations()
 			this->sprite.setTextureRect(this->currentFrame);
 
 		}
-		this->sprite.setScale(5.f, 5.f);
+		this->sprite.setScale(6.f, 6.f);
 		this->sprite.setOrigin(0.f, 0.f);
 	}
 	else if (this->animState == PLAYER_ANIMATION_STATES::MOVING_LEFT)
@@ -240,7 +251,7 @@ void Player::updatAnimations()
 			this->sprite.setTextureRect(this->currentFrame);
 
 		}
-		this->sprite.setScale(5.f, 5.f);
+		this->sprite.setScale(6.f, 6.f);
 		/*this->sprite.setOrigin(0.f, 0.f);*/
 	}
 	
