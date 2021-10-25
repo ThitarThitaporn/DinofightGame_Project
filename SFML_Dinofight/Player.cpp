@@ -165,7 +165,7 @@ void Player::updateMovement()
 	{
 		if (this->getPosition().x > 0) //scope
 		{
-			this->sprite.move(-1.f, 0.f);
+			this->sprite.move(-3.f, 0.f); //speedPlayer
 			this->animState = PLAYER_ANIMATION_STATES::MOVING_LEFT;
 
 		}
@@ -173,9 +173,9 @@ void Player::updateMovement()
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) //Right
 	{
-		if (this->getPosition().x < 1400)
+		if (this->getPosition().x < 1450)
 		{
-			this->sprite.move(1.f, 0.f);
+			this->sprite.move(3.f, 0.f); //speedPlayer
 			this->animState = PLAYER_ANIMATION_STATES::MOVING_RIGHT;
 		}
 		
@@ -200,7 +200,10 @@ void Player::updateMovement()
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) //Down
 	{
-		this->sprite.move(0.f, 1.f);
+		
+		
+			this->sprite.move(0.f, 1.f);
+		
 	}
 	
 }

@@ -11,6 +11,7 @@ private:
 	sf::Texture worldBackgroundTex;
 	sf::Sprite worldBackground;
 	
+	float backgroundX = 0;
 
 	Player* player;
 
@@ -29,6 +30,7 @@ public:
 
 	void collision();
 	void updateplayer();
+	void updateWorld();
 	//void updateCollision();
 	void update();
 	void renderPlayer();

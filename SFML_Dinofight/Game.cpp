@@ -18,6 +18,8 @@ void Game::initWorld()
 
 	}
 	this->worldBackground.setTexture(this->worldBackgroundTex);
+	
+
 }
 Game::Game()
 
@@ -34,7 +36,7 @@ Game::~Game()
 
 void Game::collision()
 {
-	if (this->player->getPosition().y + this->player->getGlobalBouds().height >  this-> window.getSize().y)
+	if (this->player->getPosition().y + this->player->getGlobalBouds().height  >  this-> window.getSize().y)
 	{
 		this->player->resetVelocityY();
 		this->player->setPosition(this->player->getPosition().x, this->window.getSize().y - this->player->getGlobalBouds().height);
@@ -47,6 +49,12 @@ void Game::collision()
 void Game::updateplayer()
 {
 	this->player->update();
+}
+
+void Game::updateWorld()
+{
+	this->worldBackground.setPosition(backgroundX, this->worldBackground.getPosition().y);
+	this->backgroundX -= 0.6; 
 }
 
 //void Game::updateCollision()
@@ -86,6 +94,7 @@ void Game::update()
 	}
 	this->updateplayer();
 	this->collision();
+	this->updateWorld();
 
 	//this->updateCollision();
 
