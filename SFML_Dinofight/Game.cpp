@@ -2,7 +2,7 @@
 #include "Game.h"
 void Game::initWindow()
 {
-	this->window.create(sf::VideoMode(800, 600), "GAME Dino", sf::Style::Close | sf::Style::Titlebar, sf::ContextSettings());
+	this->window.create(sf::VideoMode(1900, 900), "GAME Dino", sf::Style::Close | sf::Style::Titlebar, sf::ContextSettings());
 	this->window.setFramerateLimit(60);
 }
 void Game::initplayer()
@@ -19,6 +19,18 @@ Game::Game()
 Game::~Game()
 {
 	delete this->player;
+}
+
+void Game::collision()
+{
+	if (this->player->getPosition().y + this->player->getGlobalBouds().height >  this-> window.getSize().y)
+	{
+		this->player->resetVelocityY();
+		this->player->setPosition(this->player->getPosition().x, this->window.getSize().y - this->player->getGlobalBouds().height);
+		this->player->jumping = false;
+		this->player->jumpingup = false;
+		this->player->gravityBool = false;
+	}
 }
 
 void Game::updateplayer()
@@ -62,8 +74,9 @@ void Game::update()
 			this->player->resetAnimationTimer();
 	}
 	this->updateplayer();
+	this->collision();
 
-	this->updateCollision();
+	//this->updateCollision();
 
 }
 

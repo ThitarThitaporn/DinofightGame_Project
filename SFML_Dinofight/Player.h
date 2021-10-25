@@ -6,11 +6,16 @@ private:
 	sf::Sprite sprite;
 	sf::Texture textureSheet;
 	sf::Clock animationTimer;
+	sf::Clock timeJumping;
 
 	//Animation
 	short animState;
 	sf::IntRect currentFrame;
 	bool animationSwitch;
+
+	//time
+	float delayJump;
+	bool changeJump = true;
 
 	//physics
 	sf::Vector2f velocity;
@@ -36,10 +41,12 @@ public:
 	//Accessors
 	const bool& getAnimSwitch();
 	const sf::FloatRect getGlobalBouds() const;
+	const sf::Vector2f getPosition() const;
 
 	//Modifiers
 	void setPosition(const float x, const float y);
 	void resetVelocityY();
+	void resetVelocityX();
 
 	//function
 	void resetAnimationTimer();
@@ -48,6 +55,13 @@ public:
 	void updateMovement();
 	void updatAnimations();
 	void update();
+
+	//jumping
+	bool jumping = false;
+	bool jumpingup = false;
+	bool gravityBool = false;
+	
+
 	void render(sf::RenderTarget& target);
 
 };
