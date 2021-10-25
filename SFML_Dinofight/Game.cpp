@@ -12,12 +12,13 @@ void Game::initplayer()
 }
 void Game::initWorld()
 {
-	if (!this->worldBackgroundTex.loadFromFile("texTure/background.jpg"))
+	if (!this->worldBackgroundTex.loadFromFile("texTure/bg2.jpg"))
 	{
 		std::cout << "Error" << "\n";
 
 	}
 	this->worldBackground.setTexture(this->worldBackgroundTex);
+	this->worldBackground.setScale(0.5f,0.72f);
 	
 
 }

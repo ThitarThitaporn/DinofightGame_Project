@@ -8,6 +8,7 @@ private:
 	sf::Clock animationTimer;
 	sf::Clock timeJumping;
 
+
 	//Animation
 	short animState;
 	sf::IntRect currentFrame;
@@ -17,6 +18,7 @@ private:
 	float delayJump;
 	bool changeJump = true;
 
+	
 	//physics
 	sf::Vector2f velocity;
 	float velocityMax;
