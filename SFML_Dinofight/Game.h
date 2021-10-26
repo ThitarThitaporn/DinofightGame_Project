@@ -1,6 +1,7 @@
 #pragma once
 #include"stdafx.h"
 #include"player.h"
+#include"Bullet.h"
 class Game
 {
 private:
@@ -14,10 +15,13 @@ private:
 	float backgroundX = 0;
 
 	Player* player;
+	Bullet* bullet;
+	
 
 	void initWindow();
 	void initplayer();
 	void initWorld();
+	void initBullet();
 
 
 
@@ -31,6 +35,8 @@ public:
 	void collision();
 	void updateplayer();
 	void updateWorld();
+	void updateBullet();
+
 	//void updateCollision();
 	void update();
 	void renderPlayer();

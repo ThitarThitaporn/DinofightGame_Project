@@ -29,6 +29,14 @@ void Player::initAnimation()
 	this->animationSwitch = true;
 }
 
+void Player::initFireball()
+{
+	if (!this->textureSheet.loadFromFile("texTure/fireBall1"))
+	{
+		std::cout << "ERROR" << "\n";
+	}
+}
+
 void Player::initPhysics()
 {
 	this->velocityMax = 10.f;

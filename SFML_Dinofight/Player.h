@@ -5,6 +5,8 @@ class Player
 private:
 	sf::Sprite sprite;
 	sf::Texture textureSheet;
+	sf::Texture fireBall;
+	sf::Sprite FireBalls;
 	sf::Clock animationTimer;
 	sf::Clock timeJumping;
 
@@ -18,7 +20,10 @@ private:
 	float delayJump;
 	bool changeJump = true;
 
+	//Fire ball
+	int shotTime = 0;
 	
+
 	//physics
 	sf::Vector2f velocity;
 	float velocityMax;
@@ -34,6 +39,7 @@ private:
 	void initTexture();
 	void initSprite();
 	void initAnimation();
+	void initFireball();
 	void initPhysics();
 
 

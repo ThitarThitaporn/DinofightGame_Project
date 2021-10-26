@@ -22,17 +22,23 @@ void Game::initWorld()
 	
 
 }
+void Game::initBullet()
+{
+	this->bullet = new Bullet();
+}
 Game::Game()
 
 {
 	this->initWindow();
 	this->initplayer();
 	this->initWorld();
+	this->initBullet();
 }
 
 Game::~Game()
 {
 	delete this->player;
+	delete this -> bullet;
 }
 
 void Game::collision()
@@ -56,6 +62,11 @@ void Game::updateWorld()
 {
 	this->worldBackground.setPosition(backgroundX, this->worldBackground.getPosition().y);
 	this->backgroundX -= 0.6; 
+}
+
+void Game::updateBullet()
+{
+	this->bullet->update();
 }
 
 //void Game::updateCollision()
@@ -96,6 +107,7 @@ void Game::update()
 	this->updateplayer();
 	this->collision();
 	this->updateWorld();
+	this->updateBullet();
 
 	//this->updateCollision();
 
