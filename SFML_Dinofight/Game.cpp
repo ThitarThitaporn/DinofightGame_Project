@@ -26,6 +26,7 @@ void Game::initBullet()
 {
 	this->bullet = new Bullet();
 }
+
 Game::Game()
 
 {
@@ -39,6 +40,19 @@ Game::~Game()
 {
 	delete this->player;
 	delete this -> bullet;
+
+	//Delete texteres
+	for (auto& i : this->textures)
+	{
+		delete i.second;
+	}
+
+	//Delete bullets
+	for (auto* i : this->bullets) 
+	{
+		delete i;
+	}
+
 }
 
 void Game::collision()
@@ -53,10 +67,23 @@ void Game::collision()
 	}
 }
 
+void Game::updateBullets()
+{
+	for (auto* bullet : this->bullets)
+	{
+		bullet->update();
+	}
+}
+
 void Game::updateplayer()
 {
 	this->player->update();
 }
+
+//void Game::updateBullet()
+//{
+//	this->bullet->update();
+//}
 
 void Game::updateWorld()
 {
@@ -64,10 +91,6 @@ void Game::updateWorld()
 	this->backgroundX -= 0.6; 
 }
 
-void Game::updateBullet()
-{
-	this->bullet->update();
-}
 
 //void Game::updateCollision()
 //{
@@ -103,12 +126,19 @@ void Game::update()
 				)
 			)
 			this->player->resetAnimationTimer();
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O)) //shoot
+		{
+			this->bullets.push_back(new Bullet( 0.f, 0.f, 0.f, 0.f, 0.f));
+			printf("no");
+		}
 	}
+
+	this->updateBullets();
 	this->updateplayer();
 	this->collision();
+	//this->updateBullet();
 	this->updateWorld();
-	this->updateBullet();
-
 	//this->updateCollision();
 
 }
@@ -116,6 +146,11 @@ void Game::update()
 void Game::renderPlayer()
 {
 	this->player->render(this->window);
+}
+
+void Game::renderBullet()
+{
+	this->bullet->render(this->window);
 }
 
 void Game::renderWorld()
@@ -126,13 +161,23 @@ void Game::renderWorld()
 void Game::render()
 {
 	this->window.clear();
+	
 
 	//draw wolrd
 	this->renderWorld();
 
 	//render game
 	this->renderPlayer();
+
+
+	this->renderBullet();
+	for (auto* bullet : this->bullets)
+	{
+		bullet->render(this->window);
+	}
+
 	this->window.display();
+
 
 }
 

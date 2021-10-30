@@ -1,4 +1,6 @@
 #pragma once
+#include<map>
+#include"Bullet.h"
 enum PLAYER_ANIMATION_STATES { IDLE = 0, MOVING_LEFT, MOVING_RIGHT, JUMPING, FALLING };
 class Player
 {
@@ -15,6 +17,10 @@ private:
 	short animState;
 	sf::IntRect currentFrame;
 	bool animationSwitch;
+
+	//Resources
+	std::map<std::string, sf::Texture*> textures;
+	std::vector<Bullet*> bullets;
 
 	//time
 	float delayJump;

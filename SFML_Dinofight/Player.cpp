@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "Bullet.h"
 
 void Player::initVariable()
 {
@@ -31,7 +32,7 @@ void Player::initAnimation()
 
 void Player::initFireball()
 {
-	if (!this->textureSheet.loadFromFile("texTure/fireBall1"))
+	if (!this->textureSheet.loadFromFile("texTure/fireBall"))
 	{
 		std::cout << "ERROR" << "\n";
 	}
@@ -208,10 +209,7 @@ void Player::updateMovement()
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) //Down
 	{
-		
-		
-			this->sprite.move(0.f, 1.f);
-		
+		this->sprite.move(0.f, 1.f);
 	}
 	
 }
