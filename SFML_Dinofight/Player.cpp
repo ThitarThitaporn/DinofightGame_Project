@@ -5,6 +5,8 @@
 void Player::initVariable()
 {
 	this->animState = PLAYER_ANIMATION_STATES::IDLE;
+	this->attackCooldownMax = 10.f;
+	this->attackCooldown = this->attackCooldownMax;
 
 }
 
@@ -102,6 +104,16 @@ void Player::resetVelocityX()
 const sf::Vector2f& Player::getPos() const
 {
 	return this->sprite.getPosition();
+}
+
+const bool Player::canAttack()
+{
+	if (this->attackCooldown >= this->attackCooldownMax)
+	{
+		this->attackCooldown = 0.f;
+		return true;
+	}
+	return false;
 }
 
 void Player::resetAnimationTimer()
@@ -272,6 +284,14 @@ void Player::updatAnimations()
 	else
 	{
 		this->animationTimer.restart();
+	}
+}
+
+void Player::updateAttack()
+{
+	if (this->attackCooldown < this->attackCooldownMax)
+	{
+		this->attackCooldown += 0.5f;
 	}
 }
 

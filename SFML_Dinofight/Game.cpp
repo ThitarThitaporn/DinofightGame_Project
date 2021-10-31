@@ -69,9 +69,21 @@ void Game::collision()
 
 void Game::updateBullets()
 {
+	unsigned counter = 0;
 	for (auto* bullet : this->bullets)
 	{
 		bullet->update();
+
+		//Bullet culling (top of screen)
+		if (bullet->getBounds().left + bullet->getBounds().width < 0.f)
+		{
+			//Delete bullet
+			delete bullet;
+			this->bullets.erase(this->bullets.begin() + counter);
+			--counter;
+			
+		}
+		++counter;
 	}
 }
 
@@ -129,11 +141,12 @@ void Game::update()
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O)) //shoot
 		{
-			this->bullets.push_back(new Bullet(this->player->getPos().x, this->player->getPos().y, 0.f, 0.f, 0.f));
+			this->bullets.push_back(new Bullet(this->player->getPos().x, this->player->getPos().y, 1.f, 0.f, 5.f));
 			printf("no");
 		}
 	}
 
+	this->player->update();
 	this->updateBullets();
 	this->updateplayer();
 	this->collision();

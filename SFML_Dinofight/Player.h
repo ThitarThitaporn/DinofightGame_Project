@@ -17,6 +17,9 @@ private:
 	short animState;
 	sf::IntRect currentFrame;
 	bool animationSwitch;
+	
+	float attackCooldown;
+	float attackCooldownMax;
 
 	//Resources
 	std::map<std::string, sf::Texture*> textures;
@@ -64,6 +67,7 @@ public:
 
 	//Accessor
 	const sf::Vector2f& getPos() const;
+	const bool canAttack();
 
 	//function
 	void resetAnimationTimer();
@@ -71,6 +75,7 @@ public:
 	void updatePhysics();
 	void updateMovement();
 	void updatAnimations();
+	void updateAttack();
 	void update();
 
 	//jumping
