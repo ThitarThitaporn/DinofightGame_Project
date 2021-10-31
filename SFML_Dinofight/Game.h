@@ -21,6 +21,9 @@ private:
 	std::map<std::string,sf::Texture*> textures;
 	std::vector<Bullet*> bullets;
 
+	//enemy
+	std::vector<Enemy*> enemys;
+
 	//Player
 	Player* player;
 

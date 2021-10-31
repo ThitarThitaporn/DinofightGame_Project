@@ -151,8 +151,10 @@ void Game::update()
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O)) //shoot
 		{
 			this->bullets.push_back(new Bullet(this->player->getPos().x, this->player->getPos().y, 1.f, 0.f, 5.f));
+			this->enemys.push_back(new Enemy( 0.f, 0.f));
 			printf("no");
 		}
+
 	}
 
 	this->player->update();
@@ -204,6 +206,12 @@ void Game::render()
 	}
 
 	this->renderEnemy();
+	for (auto* enemy : this->enemys)
+	{
+		printf("S");
+		enemy->render(this->window);
+	}
+
 	this->window.display();
 
 
