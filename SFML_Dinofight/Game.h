@@ -3,6 +3,7 @@
 #include"stdafx.h"
 #include"player.h"
 #include"Bullet.h"
+#include"Enemy.h"
 
 class Game
 {
@@ -20,13 +21,20 @@ private:
 	std::map<std::string,sf::Texture*> textures;
 	std::vector<Bullet*> bullets;
 
+	//Player
 	Player* player;
+
+	//Bullet
 	Bullet* bullet;
 	
+	//Enemies
+	Enemy* enemy;
 
 	void initWindow();
 	void initplayer();
 	void initBullet();
+	void initEnemy();
+
 	
 	void initWorld();
 
@@ -50,6 +58,7 @@ public:
 	void update();
 	void renderPlayer();
 	void renderBullet();
+	void renderEnemy();
 	void renderWorld();
 	void render();
 	const sf::RenderWindow& getWindow() const;

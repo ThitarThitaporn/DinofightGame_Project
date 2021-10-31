@@ -1,5 +1,6 @@
 #include"stdafx.h"
 #include "Game.h"
+#include"Enemy.h"
 void Game::initWindow()
 {
 	this->window.create(sf::VideoMode(1700, 850), "GAME Dino", sf::Style::Close | sf::Style::Titlebar, sf::ContextSettings());
@@ -9,6 +10,7 @@ void Game::initWindow()
 void Game::initplayer()
 {
 	this->player = new Player();
+	
 }
 void Game::initWorld()
 {
@@ -27,6 +29,11 @@ void Game::initBullet()
 	this->bullet = new Bullet();
 }
 
+void Game::initEnemy()
+{
+	this->enemy = new Enemy();
+}
+
 Game::Game()
 
 {
@@ -34,6 +41,8 @@ Game::Game()
 	this->initplayer();
 	this->initWorld();
 	this->initBullet();
+	this->initEnemy();
+	
 }
 
 Game::~Game()
@@ -166,6 +175,11 @@ void Game::renderBullet()
 	this->bullet->render(this->window);
 }
 
+void Game::renderEnemy()
+{
+	this->enemy->render(this->window);
+}
+
 void Game::renderWorld()
 {
 	this->window.draw(this->worldBackground);
@@ -189,6 +203,7 @@ void Game::render()
 		bullet->render(this->window);
 	}
 
+	this->renderEnemy();
 	this->window.display();
 
 

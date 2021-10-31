@@ -7,8 +7,8 @@ class Player
 private:
 	sf::Sprite sprite;
 	sf::Texture textureSheet;
-	sf::Texture fireBall;
-	sf::Sprite FireBalls;
+	//sf::Texture fireBall;
+	//sf::Sprite FireBalls;
 	sf::Clock animationTimer;
 	sf::Clock timeJumping;
 
