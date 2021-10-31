@@ -129,7 +129,7 @@ void Game::update()
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O)) //shoot
 		{
-			this->bullets.push_back(new Bullet( 0.f, 0.f, 0.f, 0.f, 0.f));
+			this->bullets.push_back(new Bullet(this->player->getPos().x, this->player->getPos().y, 0.f, 0.f, 0.f));
 			printf("no");
 		}
 	}

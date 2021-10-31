@@ -12,6 +12,7 @@ void Bullet::initBullet()
 void Bullet::initSprite()
 {
 	this->bulletFire.setTexture(this->bulletTex);
+	this->bulletFire.setScale(0.18f, 0.18f);
 
 }
 

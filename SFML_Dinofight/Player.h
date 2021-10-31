@@ -62,6 +62,9 @@ public:
 	void resetVelocityY();
 	void resetVelocityX();
 
+	//Accessor
+	const sf::Vector2f& getPos() const;
+
 	//function
 	void resetAnimationTimer();
 	void Move(const float dir_x, const float dir_y);

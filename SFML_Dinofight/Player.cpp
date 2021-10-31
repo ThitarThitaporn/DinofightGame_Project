@@ -99,6 +99,11 @@ void Player::resetVelocityX()
 	this->velocity.x = 0.f;
 }
 
+const sf::Vector2f& Player::getPos() const
+{
+	return this->sprite.getPosition();
+}
+
 void Player::resetAnimationTimer()
 {
 	this->animationTimer.restart();
