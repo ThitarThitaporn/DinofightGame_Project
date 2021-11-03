@@ -41,6 +41,7 @@ Enemy::Enemy(float pos_x, float pos_y)
 	this->initEnemySprite(); //forget
 	this->initVariables();
 	this->enemySprite.setPosition(pos_x, pos_y);
+	this->enemiesX = pos_x;
 }
 
 Enemy::~Enemy()
@@ -48,9 +49,15 @@ Enemy::~Enemy()
 
 }
 
+void Enemy::updateMovement()
+{
+	enemiesX -= 2;
+	this->enemySprite.setPosition(enemiesX, enemySprite.getPosition().y);
+}
+
 void Enemy::update()
 {
-
+	this->updateMovement();
 }
 
 void Enemy::render(sf::RenderTarget& target)

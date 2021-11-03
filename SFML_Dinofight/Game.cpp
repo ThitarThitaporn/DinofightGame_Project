@@ -96,6 +96,21 @@ void Game::updateBullets()
 	}
 }
 
+void Game::updateEnemy()
+{
+	
+	if (enemiseCount<=7)
+	{
+		this->enemys.push_back(new Enemy(rand() % 1500, rand() % 600)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		enemiseCount++;
+	}
+	for (int i = 0; i < enemys.size(); ++i) 
+	{
+		this->enemys[i]->update();
+	}
+	
+}
+
 void Game::updateplayer()
 {
 	this->player->update();
@@ -151,8 +166,7 @@ void Game::update()
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O)) //shoot
 		{
 			this->bullets.push_back(new Bullet(this->player->getPos().x, this->player->getPos().y, 1.f, 0.f, 5.f));
-			this->enemys.push_back(new Enemy( 0.f, 0.f));
-			printf("no");
+			
 		}
 
 	}
@@ -160,6 +174,7 @@ void Game::update()
 	this->player->update();
 	this->updateBullets();
 	this->updateplayer();
+	this->updateEnemy();
 	this->collision();
 	//this->updateBullet();
 	this->updateWorld();
@@ -208,7 +223,7 @@ void Game::render()
 	this->renderEnemy();
 	for (auto* enemy : this->enemys)
 	{
-		printf("S");
+		
 		enemy->render(this->window);
 	}
 

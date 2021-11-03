@@ -22,8 +22,7 @@ private:
 	std::vector<Bullet*> bullets;
 
 	//enemy
-	std::vector<Enemy*> enemys;
-
+	Enemy* enemy;
 	//Player
 	Player* player;
 
@@ -31,14 +30,14 @@ private:
 	Bullet* bullet;
 	
 	//Enemies
-	Enemy* enemy;
+	int enemiseCount= 0 ;
+	std::vector<Enemy*> enemys;
+	//Enemy* enemy; 
 
 	void initWindow();
 	void initplayer();
 	void initBullet();
 	void initEnemy();
-
-	
 	void initWorld();
 
 
@@ -52,6 +51,7 @@ public:
 
 	void collision();
 	void updateBullets();
+	void updateEnemy();
 	void updateplayer();
 	/*void updateBullet();*/
 	void updateWorld();

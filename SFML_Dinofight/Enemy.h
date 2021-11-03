@@ -8,6 +8,7 @@ private:
 	sf::Sprite enemySprite;
 	sf::Texture enemyTex;
 	
+	float enemiesX;
 	int type;
 	int hp;
 	int hpMax;
@@ -24,6 +25,7 @@ public:
 	virtual ~Enemy();
 
 	//functions
+	void updateMovement();
 	void update();
 	void render(sf::RenderTarget& target);
 };
