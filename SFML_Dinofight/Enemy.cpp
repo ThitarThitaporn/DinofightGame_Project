@@ -47,6 +47,7 @@ Enemy::Enemy(float pos_x, float pos_y)
 {
 	this->initEnemyTex();
 	this->initEnemySprite(); //forget
+	this->initAnimation();
 	this->initVariables();
 	this->enemySprite.setPosition(pos_x, pos_y);
 	this->enemiesX = pos_x;
@@ -55,6 +56,11 @@ Enemy::Enemy(float pos_x, float pos_y)
 Enemy::~Enemy()
 {
 
+}
+
+const sf::FloatRect Enemy::getBounds() const
+{
+	return this->enemySprite.getGlobalBounds();
 }
 
 void Enemy::updateMovement()

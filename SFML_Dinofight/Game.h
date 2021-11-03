@@ -30,7 +30,7 @@ private:
 	Bullet* bullet;
 	
 	//Enemies
-	int enemiseCount= 0 ;
+	int enemiseCount = 0 ;
 	std::vector<Enemy*> enemys;
 	//Enemy* enemy; 
 
@@ -38,6 +38,7 @@ private:
 	void initplayer();
 	void initBullet();
 	void initEnemy();
+
 	void initWorld();
 
 

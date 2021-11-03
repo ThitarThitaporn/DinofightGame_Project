@@ -61,7 +61,11 @@ Game::~Game()
 	{
 		delete i;
 	}
-
+	//Delete enemies
+	for (auto* i : this->enemys)
+	{
+		delete i;
+	}
 }
 
 void Game::collision()
@@ -101,14 +105,28 @@ void Game::updateEnemy()
 	
 	if (enemiseCount<=7)
 	{
-		this->enemys.push_back(new Enemy(rand() % 1500, rand() % 600)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		printf("1\n");
+		this->enemys.push_back(new Enemy(rand() % 1600, rand() % 740)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
 	for (int i = 0; i < enemys.size(); ++i) 
 	{
+		printf("2\n");
 		this->enemys[i]->update();
 	}
 	
+	//collision //fix
+	for (size_t i = 0; i < enemys.size(); i++)
+	{
+		printf("3\n");
+		if (this->player->getGlobalBouds().intersects(this->enemys[i]->getBounds()))
+		{
+			enemys.erase(enemys.begin() + i);
+			enemiseCount--;
+			printf("DD");
+		}
+		
+	}
 }
 
 void Game::updateplayer()

@@ -40,6 +40,7 @@ Bullet::~Bullet()
 const sf::FloatRect Bullet::getBounds() const
 {
 	return this->bulletFire.getGlobalBounds();
+	
 }
 
 void Bullet::update()

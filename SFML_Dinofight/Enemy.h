@@ -27,6 +27,7 @@ public:
 	Enemy(float pos_x, float pos_y);
 	virtual ~Enemy();
 
+	const sf::FloatRect getBounds() const;
 	//functions
 	void updateMovement();
 	void updateAnimation();
