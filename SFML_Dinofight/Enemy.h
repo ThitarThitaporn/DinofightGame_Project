@@ -7,6 +7,8 @@ class Enemy
 private:
 	sf::Sprite enemySprite;
 	sf::Texture enemyTex;
+	sf::IntRect currentFrame;
+	sf::Clock enemyTimer;
 	
 	float enemiesX;
 	int type;
@@ -17,6 +19,7 @@ private:
 
 	void initEnemyTex();
 	void initEnemySprite();
+	void initAnimation();
 	void initVariables();
 
 public:
@@ -26,6 +29,7 @@ public:
 
 	//functions
 	void updateMovement();
+	void updateAnimation();
 	void update();
 	void render(sf::RenderTarget& target);
 };

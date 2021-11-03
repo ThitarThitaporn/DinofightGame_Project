@@ -4,7 +4,7 @@
 
 void Enemy::initEnemyTex()
 {
-	if (!this->enemyTex.loadFromFile("texTure/enemy1.png"))
+	if (!this->enemyTex.loadFromFile("texTure/allenemy3.png"))
 	{
 		std::cout << "ERROR" << "\n";
 	}
@@ -13,7 +13,15 @@ void Enemy::initEnemyTex()
 void Enemy::initEnemySprite()
 {
 	this->enemySprite.setTexture(this->enemyTex);
-	this->enemySprite.setScale(0.5f, 0.5f);
+	this->currentFrame = sf::IntRect(0, 0, 144, 60);
+	this->enemySprite.setTextureRect(this->currentFrame);
+	this->enemySprite.setScale(2.f, 2.f);
+	
+}
+
+void Enemy::initAnimation()
+{
+	this->enemyTimer.restart();
 }
 
 void Enemy::initVariables()
@@ -55,9 +63,23 @@ void Enemy::updateMovement()
 	this->enemySprite.setPosition(enemiesX, enemySprite.getPosition().y);
 }
 
+void Enemy::updateAnimation()
+{
+	if (this->enemyTimer.getElapsedTime().asSeconds() >= 0.5f)
+	{
+		this->currentFrame.top = 0.f;
+		this->currentFrame.left += 144.f;
+		if (this->currentFrame.left >= 576.f)
+			this->currentFrame.left = 0;
+		this->enemyTimer.restart();
+		this->enemySprite.setTextureRect(this->currentFrame);
+	}
+}
+
 void Enemy::update()
 {
 	this->updateMovement();
+	this->updateAnimation();
 }
 
 void Enemy::render(sf::RenderTarget& target)
