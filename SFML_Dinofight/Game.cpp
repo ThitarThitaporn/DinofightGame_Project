@@ -1,6 +1,9 @@
 #include"stdafx.h"
 #include "Game.h"
 #include"Enemy.h"
+#include"Bullet.h"
+
+//init
 void Game::initWindow()
 {
 	this->window.create(sf::VideoMode(1700, 850), "GAME Dino", sf::Style::Close | sf::Style::Titlebar, sf::ContextSettings());
@@ -61,6 +64,7 @@ Game::~Game()
 	{
 		delete i;
 	}
+
 	//Delete enemies
 	for (auto* i : this->enemys)
 	{
@@ -80,10 +84,12 @@ void Game::collision()
 	}
 }
 
+// U P D A T E
+
 void Game::updateBullets()
 {
 	unsigned counter = 0;
-	for (auto* bullet : this->bullets)
+	for (auto* bullet : this->bullets) //
 	{
 		bullet->update();
 
@@ -103,7 +109,7 @@ void Game::updateBullets()
 void Game::updateEnemy()
 {
 	
-	if (enemiseCount<=7)
+	if (enemiseCount < 7)
 	{
 		printf("1\n");
 		this->enemys.push_back(new Enemy(rand() % 1600, rand() % 740)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
@@ -112,19 +118,26 @@ void Game::updateEnemy()
 	for (int i = 0; i < enemys.size(); ++i) 
 	{
 		printf("2\n");
+
 		this->enemys[i]->update();
-	}
-	
-	//collision //fix
-	for (size_t i = 0; i < enemys.size(); i++)
-	{
-		printf("3\n");
-		if (this->player->getGlobalBouds().intersects(this->enemys[i]->getBounds()))
+		for(int j = 0; j < bullets.size(); ++j)
+			{
+			if (this->bullets[j]->getBounds().intersects(this->enemys[i]->getBounds()))
+			{
+				//enemys.erase(enemys.begin() + i);
+				//bullets.erase(bullets.begin() + j);
+				//enemiseCount--;
+				printf("DD");
+			}
+
+			}
+
+	//
+		/*if(this->enemys[i]->getBounds().left > this->window.getSize().x)
 		{
-			enemys.erase(enemys.begin() + i);
-			enemiseCount--;
-			printf("DD");
-		}
+			this->enemys.erase(this->enemys.begin() + i);
+		
+		}*/
 		
 	}
 }
@@ -134,10 +147,6 @@ void Game::updateplayer()
 	this->player->update();
 }
 
-//void Game::updateBullet()
-//{
-//	this->bullet->update();
-//}
 
 void Game::updateWorld()
 {
@@ -145,21 +154,6 @@ void Game::updateWorld()
 	this->backgroundX -= 0.6; 
 }
 
-
-//void Game::updateCollision()
-//{
-//	//collision bottom of screen
-//	if (this->player->getGlobalBouds().top + this->player->getGlobalBouds().height > this->window.getSize().y);
-//	{
-//		this->player->resetVelocityY();
-//		this->player->setPosition
-//		(
-//			this->player->getGlobalBouds().left,
-//			this->window.getSize().y - this->player->getGlobalBouds().height
-//		);
-//	}
-//
-//}
 
 void Game::update()
 {
@@ -194,12 +188,12 @@ void Game::update()
 	this->updateplayer();
 	this->updateEnemy();
 	this->collision();
-	//this->updateBullet();
 	this->updateWorld();
-	//this->updateCollision();
+
 
 }
 
+// R E N D E R
 void Game::renderPlayer()
 {
 	this->player->render(this->window);
@@ -228,16 +222,20 @@ void Game::render()
 	//draw wolrd
 	this->renderWorld();
 
+
 	//render game
 	this->renderPlayer();
 
 
+	//render bullet
 	this->renderBullet();
 	for (auto* bullet : this->bullets)
 	{
 		bullet->render(this->window);
 	}
 
+
+	//render enemy
 	this->renderEnemy();
 	for (auto* enemy : this->enemys)
 	{
