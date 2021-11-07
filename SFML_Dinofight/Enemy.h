@@ -28,6 +28,8 @@ public:
 	virtual ~Enemy();
 
 	const sf::FloatRect getBounds() const;
+	const sf::Vector2f getPosition() const;
+	const sf::Vector2f setPosition(float x, float y) const;
 	//functions
 	void updateMovement();
 	void updateAnimation();

@@ -38,7 +38,6 @@ void Game::initEnemy()
 }
 
 Game::Game()
-
 {
 	this->initWindow();
 	this->initplayer();
@@ -112,32 +111,47 @@ void Game::updateEnemy()
 	if (enemiseCount < 7)
 	{
 		printf("1\n");
-		this->enemys.push_back(new Enemy(rand() % 1600, rand() % 740)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		this->enemys.push_back(new Enemy((rand() % 1600)+100, rand() % 740)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
 	for (int i = 0; i < enemys.size(); ++i) 
 	{
-		printf("2\n");
-
-		this->enemys[i]->update();
-		for(int j = 0; j < bullets.size(); ++j)
+		//fix
+		/*if (this->enemys[i]->getPosition().x < 0)
+		{
+			printf("KK");
+			try { enemys.erase(enemys.begin() + i); printf("fff");}
+			catch (std::out_of_range& err )
 			{
+				std::cerr << "Out of Range error: " << err.what() << '\n';
+				enemys[i]->setPosition(500.f, 500.f);
+			}
+		}*/
+		printf("2\n");
+		this->enemys[i]->update();
+		if (this->enemys[i]->getPosition().x < 0)
+		{
+			printf("1232652");
+			this->enemys.erase(this->enemys.begin() + i);
+			enemiseCount--;
+			break;
+		}
+		for(int j = 0; j < bullets.size(); ++j)
+		{
+	
+			
 			if (this->bullets[j]->getBounds().intersects(this->enemys[i]->getBounds()))
 			{
-				//enemys.erase(enemys.begin() + i);
-				//bullets.erase(bullets.begin() + j);
-				//enemiseCount--;
+				/*delete enemy;*/
+				this->bullets.erase(bullets.begin() + j);
+				this->enemys.erase(enemys.begin() + i);
+				enemiseCount--;
+				break;
 				printf("DD");
 			}
+		}
 
-			}
-
-	//
-		/*if(this->enemys[i]->getBounds().left > this->window.getSize().x)
-		{
-			this->enemys.erase(this->enemys.begin() + i);
 		
-		}*/
 		
 	}
 }
@@ -153,7 +167,6 @@ void Game::updateWorld()
 	this->worldBackground.setPosition(backgroundX, this->worldBackground.getPosition().y);
 	this->backgroundX -= 0.6; 
 }
-
 
 void Game::update()
 {
@@ -190,7 +203,6 @@ void Game::update()
 	this->collision();
 	this->updateWorld();
 
-
 }
 
 // R E N D E R
@@ -218,7 +230,6 @@ void Game::render()
 {
 	this->window.clear();
 	
-
 	//draw wolrd
 	this->renderWorld();
 
@@ -234,7 +245,6 @@ void Game::render()
 		bullet->render(this->window);
 	}
 
-
 	//render enemy
 	this->renderEnemy();
 	for (auto* enemy : this->enemys)
@@ -244,7 +254,6 @@ void Game::render()
 	}
 
 	this->window.display();
-
 
 }
 

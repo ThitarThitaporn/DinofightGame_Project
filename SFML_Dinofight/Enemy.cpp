@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Enemy.h"
 
-
 void Enemy::initEnemyTex()
 {
 	if (!this->enemyTex.loadFromFile("texTure/allenemy3.png"))
@@ -33,8 +32,6 @@ void Enemy::initVariables()
 	this->points	= 5;
 }
 
-
-
 Enemy::Enemy()
 {
 	printf("A");
@@ -63,10 +60,21 @@ const sf::FloatRect Enemy::getBounds() const
 	return this->enemySprite.getGlobalBounds();
 }
 
+const sf::Vector2f Enemy::getPosition() const
+{
+	return this->enemySprite.getPosition();
+}
+
+const sf::Vector2f Enemy::setPosition(float x,float y) const
+{
+	return this->enemySprite,setPosition(x,y);
+}
+
 void Enemy::updateMovement()
 {
 	enemiesX -= 2;
 	this->enemySprite.setPosition(enemiesX, enemySprite.getPosition().y);
+	//this->enemySprite.setPosition(enemySprite.getPosition().y, enemiesX);
 }
 
 void Enemy::updateAnimation()
