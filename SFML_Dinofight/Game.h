@@ -4,6 +4,7 @@
 #include"player.h"
 #include"Bullet.h"
 #include"Enemy.h"
+#include"PlayerGUI.h"
 
 class Game
 {
@@ -36,10 +37,17 @@ private:
 	std::vector<Enemy*> enemys;
 	//Enemy* enemy; 
 
+	//GUI
+	PlayerGUI* playerGUI;
+	PlayerGUI* hpBar;
+
+
 	void initWindow();
 	void initplayer();
 	void initBullet();
 	void initEnemy();
+	void initHpBar();
+	void initGUI();
 
 	void initWorld();
 
@@ -53,15 +61,16 @@ public:
 	//Functions
 
 	void collision();
+	void updateHpBar();
 	void updateBullets();
 	void updateEnemy();
 	void updateplayer();
-	/*void updateBullet();*/
-	void updateWorld();
-	
 
+	void updateWorld();
 	//void updateCollision();
 	void update();
+
+	void renderGUI();
 	void renderPlayer();
 	void renderBullet();
 	void renderEnemy();

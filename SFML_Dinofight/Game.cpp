@@ -37,6 +37,16 @@ void Game::initEnemy()
 	this->enemy = new Enemy();
 }
 
+void Game::initHpBar()
+{
+	this->hpBar = new PlayerGUI();
+}
+
+void Game::initGUI()
+{
+	this->playerGUI = new PlayerGUI();
+}
+
 Game::Game()
 {
 	this->initWindow();
@@ -44,7 +54,8 @@ Game::Game()
 	this->initWorld();
 	this->initBullet();
 	this->initEnemy();
-	
+	this->initGUI();
+	this->initHpBar();
 }
 
 Game::~Game()
@@ -82,8 +93,14 @@ void Game::collision()
 		this->player->gravityBool = false;
 	}
 }
-
 // U P D A T E
+
+void Game::updateHpBar()
+{
+	this->playerGUI->update();
+}
+
+
 
 void Game::updateBullets()
 {
@@ -152,6 +169,7 @@ void Game::updateEnemy()
 
 				this->bullets.erase(bullets.begin() + j);
 				this->enemys.erase(enemys.begin() + i);
+				this->playerGUI->setScore(1);
 				enemiseCount--;
 				
 				printf("DD");
@@ -210,8 +228,14 @@ void Game::update()
 	this->updateplayer();
 	this->updateEnemy();
 	this->collision();
+	this->updateHpBar();
 	this->updateWorld();
 
+}
+
+void Game::renderGUI()
+{
+	this->playerGUI->render(this->window);
 }
 
 // R E N D E R
@@ -262,6 +286,7 @@ void Game::render()
 		enemy->render(this->window);
 	}
 
+	this->renderGUI();
 	this->window.display();
 
 }
