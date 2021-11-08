@@ -10,6 +10,8 @@ void Game::initWindow()
 	this->window.create(sf::VideoMode(1700, 850), "GAME Dino", sf::Style::Close | sf::Style::Titlebar, sf::ContextSettings());
 	this->window.setFramerateLimit(60);
 
+	//menu
+	this->menu = new Menu (window.getSize().x, window.getSize().y);
 }
 void Game::initplayer()
 {
@@ -201,10 +203,8 @@ void Game::updateWorld()
 
 void Game::update()
 {
-	//menu
-	Menu menu(window.getSize().x, window.getSize().y);
-
-
+	
+	
 	//polling window event
 	while (this->window.pollEvent(this->ev))
 	{
@@ -232,18 +232,59 @@ void Game::update()
 			printf("bulletsize %d\n",bullets.size());
 		}
 
+		switch (ev.type)
+		{
+		case sf::Event::KeyReleased:
+			switch (ev.key.code)
+			{
+				case sf::Keyboard::Up:
+					this->menu->moveUp();
+					break;
+
+				case sf::Keyboard::Down:
+					this->menu->moveDown();
+					break;
+
+				case sf::Keyboard::Return:
+					switch (menu->getPressedItem())
+					{
+					case 0 :
+						printf("Player has been pressed");
+						//go to state
+						GameRun = true;
+						break;
+
+					case 1 :
+						//go to state
+						printf("Leader has been pressed");
+						break;
+
+					case 2 :
+						window.close();
+						break;
+					}
+					
+			}
+			break;
+
+		}		
+	}
+	if (GameRun == true)
+		{
+			this->player->update();
+			this->updateBullets();
+			this->updateplayer();
+			this->updateEnemy();
+			this->collision();
+			this->updateHpBar();
+			this->updateWorld();
+		}
+
 	}
 
-	menu.draw(window);
-	this->player->update();
-	this->updateBullets();
-	this->updateplayer();
-	this->updateEnemy();
-	this->collision();
-	this->updateHpBar();
-	this->updateWorld();
+	
 
-}
+
 
 void Game::renderGUI()
 {
@@ -275,6 +316,10 @@ void Game::render()
 {
 	this->window.clear();
 	
+
+	if (GameRun == true)
+	{
+
 	//draw wolrd
 	this->renderWorld();
 
@@ -299,6 +344,11 @@ void Game::render()
 	}
 
 	this->renderGUI();
+	}
+	else 
+	{
+		this->menu->render(window);
+	}
 	this->window.display();
 
 }

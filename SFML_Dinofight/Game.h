@@ -5,7 +5,7 @@
 #include"Bullet.h"
 #include"Enemy.h"
 #include"PlayerGUI.h"
-
+#include"Menu.h"
 class Game
 {
 private:
@@ -42,6 +42,9 @@ private:
 	PlayerGUI* playerGUI;
 	PlayerGUI* hpBar;
 
+	Menu* menu;
+
+	bool GameRun = false;
 
 	void initWindow();
 	void initplayer();

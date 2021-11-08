@@ -11,16 +11,22 @@ private:
 	sf::Font font;
 	sf::Text menu[MAX_ITEMS];
 
+	sf::Texture menuTex;
+	sf::Sprite menuSprite;
+
 
 public:
 	Menu(float width,float height);
 
 		~Menu();
+		int getPressedItem();
 
 	//functions
-		void draw(sf::RenderWindow& window);
+		void initBackground();
+		void render(sf::RenderWindow& window);
 		void moveUp();
 		void moveDown();
+		
 
 
 

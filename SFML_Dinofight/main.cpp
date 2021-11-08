@@ -5,6 +5,7 @@
 
 int main()
 {
+
 	srand((unsigned)time(NULL));
 	Game game;
 
