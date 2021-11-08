@@ -3,7 +3,7 @@
 
 void PlayerGUI::initFont()
 {
-	if (!this->font.loadFromFile("font/dinosaur1.ttf"))
+	if (!this->font.loadFromFile("font/dinosaurtext2.ttf"))
 		std::cout << "ERROR::PLAYERGUI::Could not load the Font sheet!" << "\n";
 }
 
@@ -69,7 +69,7 @@ void PlayerGUI::setHp(int n)
 
 void PlayerGUI::updateScore()
 {
-	this->scoreString = "score : " + std::to_string(this->score);
+	this->scoreString = "Score : " + std::to_string(this->score);
 	this->scoreTex.setString(this->scoreString);
 }
 
