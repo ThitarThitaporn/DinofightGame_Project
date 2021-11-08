@@ -32,6 +32,19 @@ void Enemy::initVariables()
 	this->points	= 5;
 }
 
+void Enemy::initHitbox()
+{
+	this->hitboxEnemies.setOutlineColor(sf::Color::Blue);
+	this->hitboxEnemies.setOutlineThickness(2.f);
+	this->hitboxEnemies.setFillColor(sf::Color::Transparent);
+	this->hitboxEnemies.setSize(sf::Vector2f(150.f, 90.f));
+}
+
+void Enemy::updateHitbox()
+{
+	this->hitboxEnemies.setPosition(enemySprite.getPosition().x + 50 , enemySprite.getPosition().y);
+}
+
 Enemy::Enemy()
 {
 	printf("A");
@@ -46,6 +59,11 @@ Enemy::Enemy(float pos_x, float pos_y)
 	this->initEnemySprite(); //forget
 	this->initAnimation();
 	this->initVariables();
+
+	//hitbox
+	this->initHitbox();
+	this->updateHitbox();
+
 	this->enemySprite.setPosition(pos_x, pos_y);
 	this->enemiesX = pos_x;
 }
@@ -68,6 +86,11 @@ const sf::Vector2f Enemy::getPosition() const
 const sf::Vector2f Enemy::setPosition(float x,float y) const
 {
 	return this->enemySprite,setPosition(x,y);
+}
+
+const sf::FloatRect Enemy::getBoundsHitbox() const
+{
+	return this->enemySprite.getGlobalBounds();
 }
 
 void Enemy::updateMovement()
@@ -94,9 +117,11 @@ void Enemy::update()
 {
 	this->updateMovement();
 	this->updateAnimation();
+	this->updateHitbox();
 }
 
 void Enemy::render(sf::RenderTarget& target)
 {
 	target.draw(this->enemySprite);
+	target.draw(this->hitboxEnemies);
 }

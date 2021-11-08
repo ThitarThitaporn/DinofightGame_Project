@@ -11,6 +11,8 @@ private:
 	sf::RenderWindow window;
 	sf::Event ev;
 
+	sf::Clock bulletTime;
+
 	//word bg
 	sf::Texture worldBackgroundTex;
 	sf::Sprite worldBackground;

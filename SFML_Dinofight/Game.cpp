@@ -88,12 +88,12 @@ void Game::collision()
 void Game::updateBullets()
 {
 	unsigned counter = 0;
-	for (auto* bullet : this->bullets) //
+	for (int j = 0; j < bullets.size(); ++j) //
 	{
-		bullet->update();
+		bullets[j]->update();
 
 		//Bullet culling (top of screen)
-		if (bullet->getBounds().left + bullet->getBounds().width < 0.f)
+		if (this->bullet->getBoundsHitbox().left + bullet->getBoundsHitbox().width < 0.f)
 		{
 			//Delete bullet
 			delete bullet;
@@ -102,6 +102,14 @@ void Game::updateBullets()
 			
 		}
 		++counter;
+		if (this->bullets[j]->getPosition().x > 1000)
+		{
+			printf("1232652");
+			this->bullets.erase(this->bullets.begin() + j);
+			counter--;
+			break;
+		}
+
 	}
 }
 
@@ -111,7 +119,7 @@ void Game::updateEnemy()
 	if (enemiseCount < 7)
 	{
 		printf("1\n");
-		this->enemys.push_back(new Enemy((rand() % 1600)+100, rand() % 740)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		this->enemys.push_back(new Enemy((rand() % 1600) + 500, (rand() % 650))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
 	for (int i = 0; i < enemys.size(); ++i) 
@@ -127,7 +135,7 @@ void Game::updateEnemy()
 				enemys[i]->setPosition(500.f, 500.f);
 			}
 		}*/
-		printf("2\n");
+		
 		this->enemys[i]->update();
 		if (this->enemys[i]->getPosition().x < 0)
 		{
@@ -138,16 +146,16 @@ void Game::updateEnemy()
 		}
 		for(int j = 0; j < bullets.size(); ++j)
 		{
-	
-			
-			if (this->bullets[j]->getBounds().intersects(this->enemys[i]->getBounds()))
+			if (this->bullets[j]->getBoundsHitbox().intersects(this->enemys[i]->getBoundsHitbox()))
 			{
 				/*delete enemy;*/
+
 				this->bullets.erase(bullets.begin() + j);
 				this->enemys.erase(enemys.begin() + i);
 				enemiseCount--;
-				break;
+				
 				printf("DD");
+				break;
 			}
 		}
 
@@ -188,10 +196,11 @@ void Game::update()
 			)
 			this->player->resetAnimationTimer();
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O)) //shoot
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O )&& (bulletTime.getElapsedTime().asSeconds() > 0.5f)) //shoot
 		{
 			this->bullets.push_back(new Bullet(this->player->getPos().x, this->player->getPos().y, 1.f, 0.f, 5.f));
-			
+			this->bulletTime.restart();
+			printf("bulletsize %d\n",bullets.size());
 		}
 
 	}

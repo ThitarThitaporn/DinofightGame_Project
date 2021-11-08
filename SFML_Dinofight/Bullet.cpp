@@ -16,6 +16,20 @@ void Bullet::initSprite()
 
 }
 
+void Bullet::initHitbox()
+{
+	this->hitboxBullet.setOutlineColor(sf::Color::Blue);
+	this->hitboxBullet.setOutlineThickness(2.f);
+	this->hitboxBullet.setFillColor(sf::Color::Transparent);
+	this->hitboxBullet.setSize(sf::Vector2f( 90.f, 70.f));
+}
+
+void Bullet::updateHitbox()
+{
+	this->hitboxBullet.setPosition(bulletFire.getPosition().x,bulletFire.getPosition().y+5);
+
+}
+
 Bullet::Bullet()
 {
 	this->initBullet();
@@ -25,7 +39,8 @@ Bullet::Bullet( float pos_x, float pos_y, float dir_x, float dir_y, float moveme
 {
 	this->initBullet();
 	this->initSprite();
-	
+	this->initHitbox();
+
 	this->bulletFire.setPosition(pos_x, pos_y);
 	this->direction.x = dir_x;
 	this->direction.y = dir_y;
@@ -43,13 +58,25 @@ const sf::FloatRect Bullet::getBounds() const
 	
 }
 
+const sf::Vector2f Bullet::getPosition() const
+{
+	return this->bulletFire.getPosition();
+}
+
+const sf::FloatRect Bullet::getBoundsHitbox() const
+{
+	return this->hitboxBullet.getGlobalBounds();
+}
+
 void Bullet::update()
 {
 	//Movement 
 	this->bulletFire.move(this->movementSpeed * this->direction);
+	this->updateHitbox();
 }
 
 void Bullet::render(sf::RenderTarget& target)
 {
 	target.draw(this->bulletFire);
+	target.draw(this->hitboxBullet);
 }

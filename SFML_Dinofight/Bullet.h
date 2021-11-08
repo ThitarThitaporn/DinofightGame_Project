@@ -13,11 +13,18 @@ class Bullet
 private:
 	sf::Sprite bulletFire;
 	sf::Texture bulletTex;
+	
+
+	//hitbox
+	sf::RectangleShape hitboxBullet;
+
 
 	sf::Vector2f direction;
 	float movementSpeed;
 	void initBullet();
 	void initSprite();
+	void initHitbox();
+	void updateHitbox();
 
 
 public:
@@ -27,6 +34,11 @@ public:
 
 		//Accessore
 		const sf::FloatRect getBounds() const;
+
+		const sf::Vector2f getPosition() const;
+		
+		//hitbox
+		const sf::FloatRect getBoundsHitbox() const;
 
 		void update();
 		void render(sf::RenderTarget& target);
