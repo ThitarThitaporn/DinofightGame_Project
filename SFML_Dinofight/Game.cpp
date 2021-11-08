@@ -156,9 +156,9 @@ void Game::updateEnemy()
 
 			//player collision with enemies
 			if (this->player->getBoundsHitbox().intersects(this->enemys[i]->getBoundsHitbox())
-				&& this->enemiesTime.getElapsedTime().asSeconds() >= 1.f)
+				&& this->enemiesTime.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 5)
 			{
-				printf("hp = %d\n", this->playerGUI->hp);
+				//printf("hp = %d\n", this->playerGUI->hp);
 				this->playerGUI->setHp(-5);
 				this->enemiesTime.restart();
 
