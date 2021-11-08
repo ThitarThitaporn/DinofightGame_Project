@@ -50,6 +50,15 @@ void Player::initPhysics()
 	this->velocityMaxY = 1.f;
 }
 
+void Player::inithitBox()
+{
+	this->hitboxPlayer.setOutlineColor(sf::Color::Blue);
+	this->hitboxPlayer.setOutlineThickness(2.f);
+	this->hitboxPlayer.setFillColor(sf::Color::Transparent);
+	this->hitboxPlayer.setSize(sf::Vector2f(175.f, 200.f));
+
+}
+
 Player::Player()
 {
 	this->initVariable();
@@ -57,6 +66,10 @@ Player::Player()
 	this->initSprite();
 	this->initAnimation();
 	this->initPhysics();
+
+	//hitbox
+	this->inithitBox();
+	
 }
 
 Player::~Player()
@@ -99,6 +112,11 @@ void Player::resetVelocityY()
 void Player::resetVelocityX()
 {
 	this->velocity.x = 0.f;
+}
+
+const sf::FloatRect Player::getBoundsHitbox() const
+{
+	return this->sprite.getGlobalBounds();
 }
 
 const sf::Vector2f& Player::getPos() const
@@ -295,14 +313,21 @@ void Player::updateAttack()
 	}
 }
 
+void Player::updateHitbox()
+{
+	this->hitboxPlayer.setPosition(sprite.getPosition().x + 50, sprite.getPosition().y + 60);
+}
+
 void Player::update()
 {
 	this->updateMovement();
 	this->updatAnimations();
 	this->updatePhysics();
+	this->updateHitbox();
 }
 
 void Player::render(sf::RenderTarget& target)
 {
 	target.draw(this->sprite);
+	target.draw(this->hitboxPlayer);
 }

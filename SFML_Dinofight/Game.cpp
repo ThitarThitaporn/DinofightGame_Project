@@ -141,17 +141,6 @@ void Game::updateEnemy()
 	}
 	for (int i = 0; i < enemys.size(); ++i) 
 	{
-		//fix
-		/*if (this->enemys[i]->getPosition().x < 0)
-		{
-			printf("KK");
-			try { enemys.erase(enemys.begin() + i); printf("fff");}
-			catch (std::out_of_range& err )
-			{
-				std::cerr << "Out of Range error: " << err.what() << '\n';
-				enemys[i]->setPosition(500.f, 500.f);
-			}
-		}*/
 		
 		this->enemys[i]->update();
 		if (this->enemys[i]->getPosition().x < 0)
@@ -161,6 +150,20 @@ void Game::updateEnemy()
 			enemiseCount--;
 			break;
 		}
+
+			//player collision with enemies
+			if (this->player->getBoundsHitbox().intersects(this->enemys[i]->getBoundsHitbox())
+				&& this->enemiesTime.getElapsedTime().asSeconds() >= 1.f)
+			{
+				printf("hp = %d\n", this->playerGUI->hp);
+				this->playerGUI->setHp(-5);
+				this->enemiesTime.restart();
+
+				this->enemys.erase(this->enemys.begin() + i);
+				enemiseCount--;
+				break;
+			}
+
 		for(int j = 0; j < bullets.size(); ++j)
 		{
 			if (this->bullets[j]->getBoundsHitbox().intersects(this->enemys[i]->getBoundsHitbox()))
@@ -175,6 +178,7 @@ void Game::updateEnemy()
 				printf("DD");
 				break;
 			}
+
 		}
 
 		

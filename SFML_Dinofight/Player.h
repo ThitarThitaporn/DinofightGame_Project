@@ -7,10 +7,12 @@ class Player
 private:
 	sf::Sprite sprite;
 	sf::Texture textureSheet;
-	//sf::Texture fireBall;
-	//sf::Sprite FireBalls;
+
 	sf::Clock animationTimer;
 	sf::Clock timeJumping;
+
+	//hitbox
+	sf::RectangleShape hitboxPlayer;
 
 
 	//Animation
@@ -50,6 +52,8 @@ private:
 	void initAnimation();
 	void initFireball();
 	void initPhysics();
+	void inithitBox();
+	
 
 
 public:
@@ -65,6 +69,9 @@ public:
 	void resetVelocityY();
 	void resetVelocityX();
 
+	//hitbox
+	const sf::FloatRect getBoundsHitbox() const;
+
 	//Accessor
 	const sf::Vector2f& getPos() const;
 	const bool canAttack();
@@ -76,6 +83,7 @@ public:
 	void updateMovement();
 	void updatAnimations();
 	void updateAttack();
+	void updateHitbox();
 	void update();
 
 	//jumping

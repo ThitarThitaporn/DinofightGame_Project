@@ -13,6 +13,7 @@ private:
 	sf::Event ev;
 
 	sf::Clock bulletTime;
+	sf::Clock enemiesTime;
 
 	//word bg
 	sf::Texture worldBackgroundTex;
