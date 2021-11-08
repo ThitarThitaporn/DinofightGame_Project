@@ -102,7 +102,7 @@ void Game::updateBullets()
 			
 		}
 		++counter;
-		if (this->bullets[j]->getPosition().x > 1000)
+		if (this->bullets[j]->getPosition().x > 1680)
 		{
 			printf("1232652");
 			this->bullets.erase(this->bullets.begin() + j);
@@ -119,7 +119,7 @@ void Game::updateEnemy()
 	if (enemiseCount < 7)
 	{
 		printf("1\n");
-		this->enemys.push_back(new Enemy((rand() % 1600) + 500, (rand() % 650))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		this->enemys.push_back(new Enemy((rand() % 1600) + 500, (rand() % 600))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
 	for (int i = 0; i < enemys.size(); ++i) 
