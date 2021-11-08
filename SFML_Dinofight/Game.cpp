@@ -2,6 +2,7 @@
 #include "Game.h"
 #include"Enemy.h"
 #include"Bullet.h"
+#include"Menu.h"
 
 //init
 void Game::initWindow()
@@ -200,14 +201,20 @@ void Game::updateWorld()
 
 void Game::update()
 {
+	//menu
+	Menu menu(window.getSize().x, window.getSize().y);
+
+
 	//polling window event
 	while (this->window.pollEvent(this->ev))
 	{
+		
 		if (this->ev.type == sf::Event::Closed)
 			this->window.close();
 		else if (this->ev.type == sf::Event::KeyPressed && this->ev.key.code == sf::Keyboard::Escape)
 			this->window.close();
 
+		 
 		if (this->ev.type == sf::Event::KeyReleased &&
 			(
 				this->ev.key.code == sf::Keyboard::A ||
@@ -227,6 +234,7 @@ void Game::update()
 
 	}
 
+	menu.draw(window);
 	this->player->update();
 	this->updateBullets();
 	this->updateplayer();
