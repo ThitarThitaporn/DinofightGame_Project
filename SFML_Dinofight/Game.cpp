@@ -175,7 +175,7 @@ void Game::updateEnemy()
 
 				this->bullets.erase(bullets.begin() + j);
 				this->enemys.erase(enemys.begin() + i);
-				this->playerGUI->setScore(1);
+				this->playerGUI->setScore(2);
 				enemiseCount--;
 				
 				printf("DD");
