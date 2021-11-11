@@ -83,6 +83,12 @@ Game::~Game()
 	{
 		delete i;
 	}
+
+	//HeartItem
+	for (auto* i : this->heartItem)
+	{
+		delete i;
+	}
 }
 
 void Game::collision()
@@ -96,7 +102,61 @@ void Game::collision()
 		this->player->gravityBool = false;
 	}
 }
+
 // U P D A T E
+void Game::updateHeartItem()
+{
+	unsigned countHeart  = 0;
+	if (this->playerGUI->hp <= 60)
+	{
+		if (this->randHeart.getElapsedTime().asSeconds() >= 8.5f)
+		{
+			
+			if (countHeart < 1)
+			{
+
+				heartX = 60 + rand() % 1500;
+				heartY = 100 + rand() % 500;
+				this->heartItem.push_back(new HeartItem(heartX, heartY));
+				this->randHeart.restart();
+				countHeart++;
+			}
+		}
+	}
+
+
+	//Update
+	for (int i = 0; i < this->heartItem.size(); ++i)
+	{
+		this->heartItem[i]->update();
+	}
+
+	//Collision
+	for (size_t i = 0; i < heartItem.size(); i++)
+	{
+		if (this->player->getBoundsHitbox().intersects(this->heartItem[i]->getBounds())
+			&& this->timeHeart.getElapsedTime().asSeconds() > 0.5f && this->playerGUI->hp <= 80)
+		{
+			//Boost Hp
+			this->playerGUI->setHp(20);
+
+			//Delete heart
+			this->heartItem.erase(this->heartItem.begin() + i);
+			countHeart--;
+			break;
+
+			this->timeHeart.restart();
+		}
+
+		//Left of screen
+		if (this->heartItem[i]->getPosition().x < 0)
+		{
+			this->heartItem.erase(this->heartItem.begin() + i);
+			countHeart--;
+			break;
+		}
+	}
+}
 
 void Game::updateHpBar()
 {
@@ -229,7 +289,7 @@ void Game::update()
 		{
 			this->bullets.push_back(new Bullet(this->player->getPos().x, this->player->getPos().y, 1.f, 0.f, 5.f));
 			this->bulletTime.restart();
-			printf("bulletsize %d\n",bullets.size());
+			//printf("bulletsize %d\n",bullets.size());
 		}
 
 		switch (ev.type)
@@ -277,6 +337,7 @@ void Game::update()
 			this->updateEnemy();
 			this->collision();
 			this->updateHpBar();
+			this->updateHeartItem();
 			this->updateWorld();
 		}
 
@@ -286,12 +347,20 @@ void Game::update()
 
 
 
+// R E N D E R
 void Game::renderGUI()
 {
 	this->playerGUI->render(this->window);
 }
 
-// R E N D E R
+void Game::renderHeartItem()
+{
+	for (auto* i : this->heartItem)
+	{
+		i->render(this->window);
+	}
+}
+
 void Game::renderPlayer()
 {
 	this->player->render(this->window);
@@ -320,35 +389,38 @@ void Game::render()
 	if (GameRun == true)
 	{
 
-	//draw wolrd
-	this->renderWorld();
+		//draw wolrd
+		this->renderWorld();
+
+		//render game
+		this->renderPlayer();
 
 
-	//render game
-	this->renderPlayer();
+		//render bullet
+		this->renderBullet();
+			for (auto* bullet : this->bullets)
+			{
+				bullet->render(this->window);
+			}
 
+		//render enemy
+		this->renderEnemy();
+		for (auto* enemy : this->enemys)
+		{		
+			enemy->render(this->window);
+		}
 
-	//render bullet
-	this->renderBullet();
-	for (auto* bullet : this->bullets)
-	{
-		bullet->render(this->window);
+		this->renderGUI();
+	
+		//render ITEM
+		this->renderHeartItem();
 	}
 
-	//render enemy
-	this->renderEnemy();
-	for (auto* enemy : this->enemys)
-	{
-		
-		enemy->render(this->window);
-	}
-
-	this->renderGUI();
-	}
 	else 
 	{
 		this->menu->render(window);
 	}
+
 	this->window.display();
 
 }

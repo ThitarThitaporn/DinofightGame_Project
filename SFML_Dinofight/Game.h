@@ -6,6 +6,8 @@
 #include"Enemy.h"
 #include"PlayerGUI.h"
 #include"Menu.h"
+#include"HeartItem.h"
+
 class Game
 {
 private:
@@ -27,23 +29,31 @@ private:
 
 	//enemy
 	Enemy* enemy;
+
+	//Enemies
+	int enemiseCount = 0 ;
+	std::vector<Enemy*> enemys;
+
 	//Player
 	Player* player;
 
 	//Bullet
 	Bullet* bullet;
 	
-	//Enemies
-	int enemiseCount = 0 ;
-	std::vector<Enemy*> enemys;
-	//Enemy* enemy; 
-
+	
 	//GUI
 	PlayerGUI* playerGUI;
 	PlayerGUI* hpBar;
 
-	Menu* menu;
+	//heartItem
+	std::vector<HeartItem*> heartItem;
+	sf::Clock randHeart;
+	sf::Clock timeHeart;
+	float heartX = 0;
+	float heartY = 0;
 
+	//menu
+	Menu* menu;
 	bool GameRun = false;
 
 	void initWindow();
@@ -65,16 +75,19 @@ public:
 	//Functions
 
 	void collision();
+	void updateHeartItem();
 	void updateHpBar();
 	void updateBullets();
 	void updateEnemy();
 	void updateplayer();
+
 
 	void updateWorld();
 	//void updateCollision();
 	void update();
 
 	void renderGUI();
+	void renderHeartItem();
 	void renderPlayer();
 	void renderBullet();
 	void renderEnemy();
