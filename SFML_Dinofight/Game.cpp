@@ -109,7 +109,7 @@ void Game::updateHeartItem()
 	unsigned countHeart  = 0;
 	if (this->playerGUI->hp <= 60)
 	{
-		if (this->randHeart.getElapsedTime().asSeconds() >= 8.5f)
+		if (this->randHeart.getElapsedTime().asSeconds() >= 9.5f)
 		{
 			
 			if (countHeart < 1)
@@ -161,6 +161,7 @@ void Game::updateHeartItem()
 void Game::updateHpBar()
 {
 	this->playerGUI->update();
+	
 }
 
 
@@ -184,7 +185,7 @@ void Game::updateBullets()
 		++counter;
 		if (this->bullets[j]->getPosition().x > 1680)
 		{
-			printf("1232652");
+			//printf("1232652");
 			this->bullets.erase(this->bullets.begin() + j);
 			counter--;
 			break;
@@ -210,6 +211,7 @@ void Game::updateEnemy()
 		{
 			printf("1232652");
 			this->enemys.erase(this->enemys.begin() + i);
+			this->playerGUI->setScore(-10);
 			enemiseCount--;
 			break;
 		}
@@ -235,7 +237,7 @@ void Game::updateEnemy()
 
 				this->bullets.erase(bullets.begin() + j);
 				this->enemys.erase(enemys.begin() + i);
-				this->playerGUI->setScore(2);
+				this->playerGUI->setScore(5);
 				enemiseCount--;
 				
 				printf("DD");
@@ -252,6 +254,7 @@ void Game::updateEnemy()
 void Game::updateplayer()
 {
 	this->player->update();
+	
 }
 
 

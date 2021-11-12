@@ -79,6 +79,8 @@ void PlayerGUI::updateHpBar()
 	this->hpBarInner.setSize(sf::Vector2f(this->hp * 3, this->hpBarInner.getSize().y));
 	this->hpBarString = std::to_string(this->hp) + " / " + std::to_string(100);
 	this->hpBarText.setString(this->hpBarString);
+
+	
 }
 
 void PlayerGUI::update()
