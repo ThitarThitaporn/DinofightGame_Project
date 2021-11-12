@@ -89,6 +89,13 @@ Game::~Game()
 	{
 		delete i;
 	}
+
+	//Chest
+	for (auto* i : this->chest)
+	{
+		delete i;
+	}
+
 }
 
 void Game::collision()
@@ -109,7 +116,7 @@ void Game::updateHeartItem()
 	unsigned countHeart  = 0;
 	if (this->playerGUI->hp <= 60)
 	{
-		if (this->randHeart.getElapsedTime().asSeconds() >= 9.5f)
+		if (this->randHeart.getElapsedTime().asSeconds() >= 12.f)
 		{
 			
 			if (countHeart < 1)
@@ -138,7 +145,7 @@ void Game::updateHeartItem()
 			&& this->timeHeart.getElapsedTime().asSeconds() > 0.5f && this->playerGUI->hp <= 80)
 		{
 			//Boost Hp
-			this->playerGUI->setHp(20);
+			this->playerGUI->setHp(10);
 
 			//Delete heart
 			this->heartItem.erase(this->heartItem.begin() + i);
@@ -157,6 +164,63 @@ void Game::updateHeartItem()
 		}
 	}
 }
+
+void Game::updateChest()
+{
+
+	unsigned countChest = 0;
+		
+	
+		
+	if (this->randChest.getElapsedTime().asSeconds() >= 2.f)
+	{
+		if (countChest < 1)
+		{
+			printf("chest");
+			ChestX = 500 + rand() % 1600;
+			ChestY = rand() % 800;
+			this->chest.push_back(new Chest(ChestX, ChestY));
+			this->randChest.restart();
+			countChest++;
+		}
+	}
+	
+
+
+	//Update
+	for (int i = 0; i < this->chest.size(); ++i)
+	{
+		this->chest[i]->update();
+	}
+
+	//Collision
+	for (size_t i = 0; i < chest.size(); i++)
+	{
+		if (this->player->getBoundsHitbox().intersects(this->chest[i]->getBounds())
+			&& this->timeChest.getElapsedTime().asSeconds() > 0.5f )
+		{
+			//Boost Hp
+			this->playerGUI->setScore(20);
+
+			//Delete heart
+			this->chest.erase(this->chest.begin() + i);
+			countChest--;
+			break;
+
+			this->timeChest.restart();
+		}
+
+		//Left of screen
+		if (this->chest[i]->getPosition().x < 0)
+		{
+			this->chest.erase(this->chest.begin() + i);
+			countChest--;
+			break;
+		}
+	}
+}
+
+
 
 void Game::updateHpBar()
 {
@@ -341,6 +405,7 @@ void Game::update()
 			this->collision();
 			this->updateHpBar();
 			this->updateHeartItem();
+			this->updateChest();
 			this->updateWorld();
 		}
 
@@ -359,6 +424,14 @@ void Game::renderGUI()
 void Game::renderHeartItem()
 {
 	for (auto* i : this->heartItem)
+	{
+		i->render(this->window);
+	}
+}
+
+void Game::renderChest()
+{
+	for (auto* i : this->chest)
 	{
 		i->render(this->window);
 	}
@@ -417,6 +490,9 @@ void Game::render()
 	
 		//render ITEM
 		this->renderHeartItem();
+
+		//render Chest
+		this->renderChest();
 	}
 
 	else 

@@ -7,6 +7,7 @@
 #include"PlayerGUI.h"
 #include"Menu.h"
 #include"HeartItem.h"
+#include"Chest.h"
 
 class Game
 {
@@ -52,6 +53,14 @@ private:
 	float heartX = 0;
 	float heartY = 0;
 
+	//Chest
+	std::vector<Chest*> chest;
+	sf::Clock randChest;
+	sf::Clock timeChest;
+	float ChestX = 0;
+	float ChestY = 0;
+
+
 	//menu
 	Menu* menu;
 	bool GameRun = false;
@@ -76,18 +85,20 @@ public:
 
 	void collision();
 	void updateHeartItem();
+	void updateChest();
 	void updateHpBar();
 	void updateBullets();
 	void updateEnemy();
 	void updateplayer();
-
-
 	void updateWorld();
-	//void updateCollision();
+	
+
 	void update();
+
 
 	void renderGUI();
 	void renderHeartItem();
+	void renderChest();
 	void renderPlayer();
 	void renderBullet();
 	void renderEnemy();
