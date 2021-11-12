@@ -3,6 +3,7 @@
 #include"Enemy.h"
 #include"Bullet.h"
 #include"Menu.h"
+#include"Endgame.h"
 
 //init
 void Game::initWindow()
@@ -177,8 +178,8 @@ void Game::updateChest()
 		if (countChest < 1)
 		{
 			printf("chest");
-			ChestX = 500 + rand() % 1600;
-			ChestY = rand() % 800;
+			ChestX = 60 + rand() % 1600;
+			ChestY = 100 + rand() % 800;
 			this->chest.push_back(new Chest(ChestX, ChestY));
 			this->randChest.restart();
 			countChest++;
@@ -199,10 +200,9 @@ void Game::updateChest()
 		if (this->player->getBoundsHitbox().intersects(this->chest[i]->getBounds())
 			&& this->timeChest.getElapsedTime().asSeconds() > 0.5f )
 		{
-			//Boost Hp
+			
 			this->playerGUI->setScore(20);
 
-			//Delete heart
 			this->chest.erase(this->chest.begin() + i);
 			countChest--;
 			break;
@@ -452,6 +452,11 @@ void Game::renderEnemy()
 	this->enemy->render(this->window);
 }
 
+void Game::renderEndgame()
+{
+	this->endGame->render(this->window);
+}
+
 void Game::renderWorld()
 {
 	this->window.draw(this->worldBackground);
@@ -493,6 +498,10 @@ void Game::render()
 
 		//render Chest
 		this->renderChest();
+
+		//this->endGame->render(window);
+
+		
 	}
 
 	else 

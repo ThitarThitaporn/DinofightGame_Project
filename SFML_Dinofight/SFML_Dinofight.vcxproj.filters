@@ -51,6 +51,9 @@
     <ClCompile Include="Chest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Endgame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Chest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Endgame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

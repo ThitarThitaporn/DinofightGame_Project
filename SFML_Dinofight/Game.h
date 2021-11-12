@@ -8,6 +8,7 @@
 #include"Menu.h"
 #include"HeartItem.h"
 #include"Chest.h"
+#include"Endgame.h"
 
 class Game
 {
@@ -45,6 +46,9 @@ private:
 	//GUI
 	PlayerGUI* playerGUI;
 	PlayerGUI* hpBar;
+
+	//endgame
+	Endgame* endGame;
 
 	//heartItem
 	std::vector<HeartItem*> heartItem;
@@ -102,6 +106,7 @@ public:
 	void renderPlayer();
 	void renderBullet();
 	void renderEnemy();
+	void renderEndgame();
 	void renderWorld();
 	void render();
 	const sf::RenderWindow& getWindow() const;

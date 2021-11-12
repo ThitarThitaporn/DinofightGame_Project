@@ -6,13 +6,13 @@ void Chest::initHitbox()
     this->chestHitbox.setOutlineColor(sf::Color::Blue);
     this->chestHitbox.setOutlineThickness(2.f);
     this->chestHitbox.setFillColor(sf::Color::Transparent);
-    this->chestHitbox.setSize(sf::Vector2f(50.f, 50.f));
+    this->chestHitbox.setSize(sf::Vector2f(140.f, 140.f));
 
 }
 
 void Chest::initSprite()
 {
-    if (!this->chestTex.loadFromFile("texTure/itemHeart1.jpg"))
+    if (!this->chestTex.loadFromFile("texTure/chest.png"))
     {
         std::cout << "ERROR::PLAYER::Could not load the boostHp sheet!" << "\n";
     }
@@ -21,12 +21,12 @@ void Chest::initSprite()
 void Chest::initTexture()
 {
     this->chestSprite.setTexture(this->chestTex);
-    this->chestSprite.setScale(2.f, 2.f);
+    this->chestSprite.setScale(1.25f, 1.25f);
 }
 
 void Chest::updateHitbox()
 {
-    this->chestHitbox.setPosition(chestSprite.getPosition().x + 2.5f, chestSprite.getPosition().y + 2.f);
+    this->chestHitbox.setPosition(chestSprite.getPosition().x + 40.f , chestSprite.getPosition().y + 40); 
 }
 
 void Chest::updateMovement()
@@ -44,9 +44,9 @@ Chest::~Chest()
 Chest::Chest(float x, float y)
 {
 
+    this->initSprite();
     this->initHitbox();
     this->initTexture();
-    this->initSprite();
     this->setPosition(x, y);
 
     chestX = x;
