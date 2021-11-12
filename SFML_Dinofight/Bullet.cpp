@@ -78,5 +78,5 @@ void Bullet::update()
 void Bullet::render(sf::RenderTarget& target)
 {
 	target.draw(this->bulletFire);
-	target.draw(this->hitboxBullet);
+	//target.draw(this->hitboxBullet);
 }

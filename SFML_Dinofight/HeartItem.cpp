@@ -81,6 +81,6 @@ void HeartItem::update()
 void HeartItem::render(sf::RenderTarget& target)
 {
 	target.draw(this->heartSprite);
-	target.draw(this->heartHitbox);
+	//target.draw(this->heartHitbox);
 }
 

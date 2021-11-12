@@ -83,6 +83,6 @@ void Chest::render(sf::RenderTarget& target)
 {
 
     target.draw(this->chestSprite);
-    target.draw(this->chestHitbox);
+    //target.draw(this->chestHitbox);
 
 }

@@ -173,7 +173,7 @@ void Game::updateChest()
 		
 	
 		
-	if (this->randChest.getElapsedTime().asSeconds() >= 2.f)
+	if (this->randChest.getElapsedTime().asSeconds() >= 4.f)
 	{
 		if (countChest < 1)
 		{

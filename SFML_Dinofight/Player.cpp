@@ -329,5 +329,5 @@ void Player::update()
 void Player::render(sf::RenderTarget& target)
 {
 	target.draw(this->sprite);
-	target.draw(this->hitboxPlayer);
+	//target.draw(this->hitboxPlayer);
 }

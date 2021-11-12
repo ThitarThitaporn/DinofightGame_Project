@@ -123,5 +123,5 @@ void Enemy::update()
 void Enemy::render(sf::RenderTarget& target)
 {
 	target.draw(this->enemySprite);
-	target.draw(this->hitboxEnemies);
+	//target.draw(this->hitboxEnemies);
 }
