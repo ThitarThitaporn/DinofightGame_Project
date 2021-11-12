@@ -499,13 +499,13 @@ void Game::render()
 		//render Chest
 		this->renderChest();
 
-		//this->endGame->render(window);
 
 		
 	}
 
 	else 
 	{
+		//this->endGame->render(window);
 		this->menu->render(window);
 	}
 

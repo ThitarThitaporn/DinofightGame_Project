@@ -34,6 +34,5 @@ void Endgame::initBoard()
 void Endgame::render(sf::RenderWindow& window)
 {
 	window.draw(egSprite);
-	
 
 }
