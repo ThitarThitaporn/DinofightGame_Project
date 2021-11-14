@@ -5,6 +5,16 @@
 #include"Menu.h"
 #include"Endgame.h"
 
+bool Game::over()
+{
+	return false;
+}
+
+void Game::reset()
+{
+
+}
+
 //init
 void Game::initWindow()
 {

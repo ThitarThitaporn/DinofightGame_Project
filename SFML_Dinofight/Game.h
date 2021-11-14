@@ -64,6 +64,9 @@ private:
 	float ChestX = 0;
 	float ChestY = 0;
 
+	bool over();
+	void reset();
+
 
 	//menu
 	Menu* menu;
