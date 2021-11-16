@@ -9,6 +9,7 @@
 #include"HeartItem.h"
 #include"Chest.h"
 #include"Endgame.h"
+#include"Stone.h"
 
 class Game
 {
@@ -31,8 +32,6 @@ private:
 
 	//enemy
 	Enemy* enemy;
-
-	//Enemies
 	int enemiseCount = 0 ;
 	std::vector<Enemy*> enemys;
 
@@ -64,6 +63,14 @@ private:
 	float ChestX = 0;
 	float ChestY = 0;
 
+	//Stone
+	std::vector<Stone*> stone;
+	sf::Clock delayStone;
+	sf::Clock randStone;
+	int countStone = 0;
+	float StoneX = 0;
+
+
 	bool over();
 	void reset();
 
@@ -93,6 +100,7 @@ public:
 	void collision();
 	void updateHeartItem();
 	void updateChest();
+	void updateStone();
 	void updateHpBar();
 	void updateBullets();
 	void updateEnemy();
@@ -106,6 +114,7 @@ public:
 	void renderGUI();
 	void renderHeartItem();
 	void renderChest();
+	void renderStone();
 	void renderPlayer();
 	void renderBullet();
 	void renderEnemy();

@@ -230,6 +230,43 @@ void Game::updateChest()
 	}
 }
 
+void Game::updateStone()
+{
+	//Count Spike
+	if(this->playerGUI->score <=500 && this->randStone.getElapsedTime().asSeconds() >= 4.f)
+	if (countStone < 10)
+	{
+		StoneX += 500.f;
+		this->stone.push_back(new Stone(StoneX, 610));
+	}
+
+	//Update
+	for (int i = 0; i < this->stone.size(); ++i)
+	{
+		this->stone[i]->update();
+	}
+
+	//Collision
+	for (size_t i = 0; i < stone.size(); i++)
+	{
+		if (this->player->getBoundsHitbox().intersects(this->stone[i]->getGlobalBoundsHitbox())
+			&& this->delayStone.getElapsedTime().asSeconds() >= 0.6f && this->playerGUI->hp >= 10)
+		{
+			this->playerGUI->setHp(-10);
+			printf("hp = %d\n", this->playerGUI->hp);
+			this->delayStone.restart();
+		}
+
+		//Left of screen
+		if (this->stone[i]->getPosition().x < 0)
+		{
+			this->stone.erase(this->stone.begin() + i);
+			countStone--;
+			break;
+		}
+	}
+}
+
 
 
 void Game::updateHpBar()
@@ -445,6 +482,10 @@ void Game::renderChest()
 	{
 		i->render(this->window);
 	}
+}
+
+void Game::renderStone()
+{
 }
 
 void Game::renderPlayer()
