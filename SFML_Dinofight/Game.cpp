@@ -245,7 +245,7 @@ void Game::updateStone()
 	unsigned countStone = 0;
 	if (this->playerGUI->score >= 50)
 	{
-		if (this->randChest.getElapsedTime().asSeconds() >= 10.f)
+		if (this->randStone.getElapsedTime().asSeconds() >= 10.f)
 		{
 
 			if (countStone < 1)

@@ -70,7 +70,7 @@ void Stone::updateHitbox()
 void Stone::updateMovement()
 {
 	this->stoneSprite.setPosition(StoneX, this->stoneSprite.getPosition().y);
-	StoneX -= 2;
+	StoneX -= 5;
 }
 
 void Stone::render(sf::RenderTarget& target)

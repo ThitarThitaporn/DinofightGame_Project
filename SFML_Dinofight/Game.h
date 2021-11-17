@@ -66,6 +66,7 @@ private:
 	//Stone
 	std::vector<Stone*> stone;
 	sf::Clock delayStone;
+	sf::Clock randStone;
 	sf::Clock timeStone;
 	int countStone = 0;
 	float StoneX = 0;
