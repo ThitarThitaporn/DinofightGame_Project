@@ -6,22 +6,24 @@ void Stone::initHitbox()
 	stoneHitbox.setOutlineColor(sf::Color::Blue);
 	stoneHitbox.setOutlineThickness(2.f);
 	stoneHitbox.setFillColor(sf::Color::Transparent);
-	stoneHitbox.setSize(sf::Vector2f(70.f, 50.f));
+	stoneHitbox.setSize(sf::Vector2f(140.f, 140.f));
 }
 
 void Stone::initSprite()
+
 {
-	this->stoneSprite.setTexture(this->stoneTex);
-	this->stoneSprite.setScale(5.f, 5.f);
+	if (!this->stoneTex.loadFromFile("texTure/chest.png"))
+	{
+		std::cout << "ERROR::PLAYER::Could not load the spike sheet!" << "\n";
+	}
+	
 	
 }
 
 void Stone::initTexture()
 {
-	if (!this->stoneTex.loadFromFile("texTure/stone.png"))
-	{
-		std::cout << "ERROR::PLAYER::Could not load the spike sheet!" << "\n";
-	}
+	this->stoneSprite.setTexture(this->stoneTex);
+	this->stoneSprite.setScale(1.25f, 1.25f);
 }
 
 Stone::~Stone()
@@ -30,9 +32,9 @@ Stone::~Stone()
 
 Stone::Stone(float x, float y)
 {
+	this->initSprite();
 	this->initHitbox();
 	this->initTexture();
-	this->initSprite();
 	this->setPosition(x, y);
 	StoneX = x;
 }
