@@ -12,12 +12,12 @@ void Stone::initHitbox()
 void Stone::initSprite()
 {
 	this->stoneSprite.setTexture(this->stoneTex);
-	this->stoneSprite.setScale(0.18f, 0.18f);
+	this->stoneSprite.setScale(30.f, 30.f);
 }
 
 void Stone::initTexture()
 {
-	if (!this->stoneTex.loadFromFile("Textures/spike.PNG"))
+	if (!this->stoneTex.loadFromFile("texTure/stone.PNG"))
 	{
 		std::cout << "ERROR::PLAYER::Could not load the spike sheet!" << "\n";
 	}

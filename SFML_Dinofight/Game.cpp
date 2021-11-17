@@ -107,6 +107,11 @@ Game::~Game()
 		delete i;
 	}
 
+	//Stone
+	for (auto* i : this->stone)
+	{
+		delete i;
+	}
 }
 
 void Game::collision()
@@ -182,7 +187,9 @@ void Game::updateChest()
 	unsigned countChest = 0;
 		
 	
-		
+	if (this->playerGUI->score >= 150)
+	{
+
 	if (this->randChest.getElapsedTime().asSeconds() >= 4.f)
 	{
 		if (countChest < 1)
@@ -196,6 +203,7 @@ void Game::updateChest()
 		}
 	}
 	
+	}
 
 
 	//Update
@@ -232,14 +240,25 @@ void Game::updateChest()
 
 void Game::updateStone()
 {
-	//Count Spike
-	if(this->playerGUI->score <=500 && this->randStone.getElapsedTime().asSeconds() >= 4.f)
-	if (countStone < 10)
-	{
-		StoneX += 500.f;
-		this->stone.push_back(new Stone(StoneX, 610));
-	}
+	//Count Stone
 
+	unsigned countStone = 0;
+	if (this->playerGUI->score >= 100)
+	{
+		if (this->randChest.getElapsedTime().asSeconds() >= 4.f)
+		{
+
+			if (countStone < 2)
+			{
+				printf("stone\n");
+				ChestX = 60 + rand() % 1600;
+				this->stone.push_back(new Stone(StoneX, 610));
+				countStone++;
+			}
+		}
+
+	}
+		
 	//Update
 	for (int i = 0; i < this->stone.size(); ++i)
 	{
@@ -253,8 +272,12 @@ void Game::updateStone()
 			&& this->delayStone.getElapsedTime().asSeconds() >= 0.6f && this->playerGUI->hp >= 10)
 		{
 			this->playerGUI->setHp(-10);
-			printf("hp = %d\n", this->playerGUI->hp);
-			this->delayStone.restart();
+			this->stone.erase(this->stone.begin() + i);
+			//this->delayStone.restart();
+			countStone--;
+			break;
+
+			this->timeStone.restart();
 		}
 
 		//Left of screen
@@ -453,6 +476,7 @@ void Game::update()
 			this->updateHpBar();
 			this->updateHeartItem();
 			this->updateChest();
+			this->updateStone();
 			this->updateWorld();
 		}
 
@@ -486,6 +510,10 @@ void Game::renderChest()
 
 void Game::renderStone()
 {
+	for (auto* i : this->stone)
+	{
+		i->render(this->window);
+	}
 }
 
 void Game::renderPlayer()
