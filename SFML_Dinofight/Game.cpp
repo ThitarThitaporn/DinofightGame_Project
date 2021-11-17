@@ -243,12 +243,12 @@ void Game::updateStone()
 	//Count Stone
 
 	unsigned countStone = 0;
-	if (this->playerGUI->score >= 100)
+	if (this->playerGUI->score >= 50)
 	{
-		if (this->randChest.getElapsedTime().asSeconds() >= 4.f)
+		if (this->randChest.getElapsedTime().asSeconds() >= 10.f)
 		{
 
-			if (countStone < 2)
+			if (countStone < 1)
 			{
 				printf("stone\n");
 				ChestX = 60 + rand() % 1600;
@@ -269,8 +269,9 @@ void Game::updateStone()
 	for (size_t i = 0; i < stone.size(); i++)
 	{
 		if (this->player->getBoundsHitbox().intersects(this->stone[i]->getGlobalBoundsHitbox())
-			&& this->delayStone.getElapsedTime().asSeconds() >= 0.6f && this->playerGUI->hp >= 10)
+			&& this->delayStone.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 10)
 		{
+			printf("col");
 			this->playerGUI->setHp(-10);
 			this->stone.erase(this->stone.begin() + i);
 			//this->delayStone.restart();

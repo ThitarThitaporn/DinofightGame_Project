@@ -17,7 +17,7 @@ void Stone::initSprite()
 
 void Stone::initTexture()
 {
-	if (!this->stoneTex.loadFromFile("texTure/stone.PNG"))
+	if (!this->stoneTex.loadFromFile("texTure/stone.png"))
 	{
 		std::cout << "ERROR::PLAYER::Could not load the spike sheet!" << "\n";
 	}
