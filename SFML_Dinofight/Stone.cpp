@@ -12,7 +12,8 @@ void Stone::initHitbox()
 void Stone::initSprite()
 {
 	this->stoneSprite.setTexture(this->stoneTex);
-	this->stoneSprite.setScale(30.f, 30.f);
+	this->stoneSprite.setScale(5.f, 5.f);
+	
 }
 
 void Stone::initTexture()
