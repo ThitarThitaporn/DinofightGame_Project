@@ -243,22 +243,27 @@ void Game::updateStone()
 	//Count Stone
 
 	unsigned countStone = 0;
-	if (this->playerGUI->score >= 50 && this->randStone.getElapsedTime().asSeconds() >= 10.f)
-	{
-		if (this->randStone.getElapsedTime().asSeconds() >= 10.f)
-		{
 
+
+	if (this->playerGUI->score >= 50)
+	{
+
+		if (this->randStone.getElapsedTime().asSeconds() >= 4.f)
+		{
 			if (countStone < 1)
 			{
-				printf("stone\n");
-				ChestX = 60 + rand() % 1600;
-				this->stone.push_back(new Stone(StoneX, 610));
+				printf("stone5");
+				StoneX = 60 + rand() % 1600;
+				
+				this->stone.push_back(new Stone(ChestX, 700));
+				this->randChest.restart();
 				countStone++;
 			}
 		}
 
 	}
-		
+
+
 	//Update
 	for (int i = 0; i < this->stone.size(); ++i)
 	{
@@ -268,13 +273,13 @@ void Game::updateStone()
 	//Collision
 	for (size_t i = 0; i < stone.size(); i++)
 	{
-		if (this->player->getBoundsHitbox().intersects(this->stone[i]->getGlobalBoundsHitbox())
-			&& this->delayStone.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 10)
+		if (this->player->getBoundsHitbox().intersects(this->stone[i]->getGlobalbounds())
+			&& this->timeStone.getElapsedTime().asSeconds() > 0.5f)
 		{
-			printf("col");
-			this->playerGUI->setHp(-10);
+
+			this->playerGUI->setScore(20);
+
 			this->stone.erase(this->stone.begin() + i);
-			//this->delayStone.restart();
 			countStone--;
 			break;
 
@@ -578,6 +583,9 @@ void Game::render()
 
 		//render Chest
 		this->renderChest();
+
+		//render Stone
+		this->renderStone();
 
 
 		

@@ -12,9 +12,9 @@ void Stone::initHitbox()
 void Stone::initSprite()
 
 {
-	if (!this->stoneTex.loadFromFile("texTure/chest.png"))
+	if (!this->stoneTex.loadFromFile("texTure/stone.png"))
 	{
-		std::cout << "ERROR::PLAYER::Could not load the spike sheet!" << "\n";
+		std::cout << "ERROR::PLAYER::Could not load the stone sheet!" << "\n";
 	}
 	
 	
@@ -23,7 +23,7 @@ void Stone::initSprite()
 void Stone::initTexture()
 {
 	this->stoneSprite.setTexture(this->stoneTex);
-	this->stoneSprite.setScale(1.25f, 1.25f);
+	this->stoneSprite.setScale(1.f, 1.f);
 }
 
 Stone::~Stone()
@@ -73,11 +73,11 @@ void Stone::updateHitbox()
 void Stone::updateMovement()
 {
 	this->stoneSprite.setPosition(StoneX, this->stoneSprite.getPosition().y);
-	StoneX -= 5;
+	StoneX -= 2;
 }
 
 void Stone::render(sf::RenderTarget& target)
 {
-	target.draw(this->stoneSprite);
 	target.draw(this->stoneHitbox);
+	target.draw(this->stoneSprite);
 }
