@@ -1,6 +1,8 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "stdafx.h"
 #include "score.h"
 
+using namespace std;
 score::score()
 {
 	font.loadFromFile("font/dinosaurtext2.ttf");
@@ -28,9 +30,9 @@ void score::ReadFile()
 	fp = fopen("./score.txt", "r");
 	for (int i = 0; i < 5; i++)
 	{
-		fscanf(fp, "%s", &temp);
+		fscanf_s(fp, "%s", &temp);
 		name[i] = temp;
-		fscanf(fp, "%d", &Score[i]);
+		fscanf_s(fp, "%d", &Score[i]);
 		this->userScore.push_back(make_pair(Score[i], name[i]));
 	}
 }
@@ -63,7 +65,7 @@ void score::setscoretext()
 
 void score::Drawscore(sf::RenderWindow& window)
 {
-	string stream ss[5];
+	std::stringstream ss[5];
 	ReadFile();
 	fclose(this->fp);
 	for (int i = 0; i < 5; i++) {
