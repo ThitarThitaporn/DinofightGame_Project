@@ -194,7 +194,7 @@ void Game::updateChest()
 	{
 		if (countChest < 1)
 		{
-			printf("chest");
+			//printf("chest");
 			ChestX = 60 + rand() % 1400;
 			ChestY = 100 + rand() % 600;
 			this->chest.push_back(new Chest(ChestX, ChestY));
@@ -331,7 +331,7 @@ void Game::updateEnemy()
 	
 	if (enemiseCount < 7)
 	{
-		printf("1\n");
+		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200)+ 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
@@ -372,7 +372,7 @@ void Game::updateEnemy()
 				this->playerGUI->setScore(5);
 				enemiseCount--;
 				
-				printf("DD");
+				//printf("DD");
 				break;
 			}
 
@@ -444,14 +444,14 @@ void Game::update()
 					switch (menu->getPressedItem())
 					{
 					case 0 :
-						printf("Player has been pressed");
+						//printf("Player has been pressed");
 						//go to state
 						GameRun = true;
 						break;
 
 					case 1 :
 						//go to state
-						printf("Leader has been pressed");
+						//printf("Leader has been pressed");
 						break;
 
 					case 2 :
