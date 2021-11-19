@@ -57,6 +57,9 @@
     <ClCompile Include="Stone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="score.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -96,6 +99,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Stone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="score.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
