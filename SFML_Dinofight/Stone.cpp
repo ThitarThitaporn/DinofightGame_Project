@@ -23,7 +23,7 @@ void Stone::initSprite()
 void Stone::initTexture()
 {
 	this->stoneSprite.setTexture(this->stoneTex);
-	this->stoneSprite.setScale(0.5f, 0.5f);
+	this->stoneSprite.setScale(0.4f, 0.4f);
 }
 
 Stone::~Stone()

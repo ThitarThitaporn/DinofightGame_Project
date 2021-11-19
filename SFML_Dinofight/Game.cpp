@@ -195,8 +195,8 @@ void Game::updateChest()
 		if (countChest < 1)
 		{
 			printf("chest");
-			ChestX = 60 + rand() % 1600;
-			ChestY = 100 + rand() % 800;
+			ChestX = 60 + rand() % 1400;
+			ChestY = 100 + rand() % 600;
 			this->chest.push_back(new Chest(ChestX, ChestY));
 			this->randChest.restart();
 			countChest++;
@@ -253,7 +253,7 @@ void Game::updateStone()
 			if (countStone < 1)
 			{
 				StoneX += 1100.f;
-				this->stone.push_back(new Stone(StoneX, 700));
+				this->stone.push_back(new Stone(StoneX, 720));
 				
 			}
 		//}
@@ -332,7 +332,7 @@ void Game::updateEnemy()
 	if (enemiseCount < 7)
 	{
 		printf("1\n");
-		this->enemys.push_back(new Enemy((rand() % 1600) + 500, (rand() % 600))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		this->enemys.push_back(new Enemy((rand() % 200)+ 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
 	for (int i = 0; i < enemys.size(); ++i) 
@@ -341,7 +341,7 @@ void Game::updateEnemy()
 		this->enemys[i]->update();
 		if (this->enemys[i]->getPosition().x < 0)
 		{
-			printf("1232652");
+			
 			this->enemys.erase(this->enemys.begin() + i);
 			this->playerGUI->setScore(-10);
 			enemiseCount--;
