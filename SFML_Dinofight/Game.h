@@ -10,6 +10,8 @@
 #include"Chest.h"
 #include"Endgame.h"
 #include"Stone.h"
+#include"Endgame.h"
+
 
 class Game
 {
@@ -75,6 +77,9 @@ private:
 	bool over();
 	void reset();
 
+	//game over
+	Endgame* gameOver;
+
 
 	//menu
 	Menu* menu;
@@ -86,6 +91,7 @@ private:
 	void initEnemy();
 	void initHpBar();
 	void initGUI();
+	void initGameover();
 
 	void initWorld();
 
@@ -96,6 +102,9 @@ public:
 	//Functions
 	Game();
 	virtual ~Game();
+
+	void run();
+
 	//Functions
 
 	void collision();
@@ -121,6 +130,7 @@ public:
 	void renderEnemy();
 	void renderEndgame();
 	void renderWorld();
+	void renderGameover();
 	void render();
 	const sf::RenderWindow& getWindow() const;
 };

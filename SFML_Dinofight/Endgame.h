@@ -19,7 +19,7 @@ private:
 
 
 public:
-	Endgame(float width, float height);
+	Endgame();
 
 	~Endgame();
 	

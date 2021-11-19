@@ -61,6 +61,11 @@ void Game::initGUI()
 	this->playerGUI = new PlayerGUI();
 }
 
+void Game::initGameover()
+{
+	this->gameOver = new Endgame();
+}
+
 Game::Game()
 {
 	this->initWindow();
@@ -70,6 +75,7 @@ Game::Game()
 	this->initEnemy();
 	this->initGUI();
 	this->initHpBar();
+	this->initGameover();
 }
 
 Game::~Game()
@@ -112,6 +118,10 @@ Game::~Game()
 	{
 		delete i;
 	}
+}
+
+void Game::run()
+{
 }
 
 void Game::collision()
@@ -187,16 +197,16 @@ void Game::updateChest()
 	unsigned countChest = 0;
 		
 	
-	if (this->playerGUI->score >= 150)
+	if (this->playerGUI->score >= 200)
 	{
 
-	if (this->randChest.getElapsedTime().asSeconds() >= 4.f)
+	if (this->randChest.getElapsedTime().asSeconds() >= 8.f)
 	{
 		if (countChest < 1)
 		{
 			//printf("chest");
 			ChestX = 60 + rand() % 1400;
-			ChestY = 100 + rand() % 600;
+			ChestY = 100 + rand() % 500;
 			this->chest.push_back(new Chest(ChestX, ChestY));
 			this->randChest.restart();
 			countChest++;
@@ -245,7 +255,7 @@ void Game::updateStone()
 	unsigned countStone = 0;
 
 
-	if (this->playerGUI->score >= 50)
+	if (this->playerGUI->score >= 100)
 	{
 
 		//if (this->randStone.getElapsedTime().asSeconds() >= 4.f)
@@ -464,7 +474,7 @@ void Game::update()
 
 		}		
 	}
-	if (GameRun == true)
+	if (GameRun == true && playerGUI->hp > 0)
 		{
 			this->player->update();
 			this->updateBullets();
@@ -539,12 +549,17 @@ void Game::renderWorld()
 	this->window.draw(this->worldBackground);
 }
 
+void Game::renderGameover()
+{
+	this->gameOver->render(window);
+}
+
 void Game::render()
 {
 	this->window.clear();
 	
 
-	if (GameRun == true)
+	if (GameRun == true  )
 	{
 
 		//draw wolrd
@@ -579,6 +594,11 @@ void Game::render()
 		//render Stone
 		this->renderStone();
 
+		//render Gameover
+		if (this->playerGUI->hp <= 0)
+		{
+			this->renderGameover();
+		}
 
 		
 	}

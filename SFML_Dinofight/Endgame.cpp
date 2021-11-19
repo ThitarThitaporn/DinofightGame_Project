@@ -3,7 +3,7 @@
 
 void Endgame::initSprite()
 {
-    if (!this->overTex.loadFromFile("texTure/gameover.png"))
+    if (!this->overTex.loadFromFile("texTure/gameover1.png"))
     {
         std::cout << "ERROR::PLAYER::Could not load the boostHp sheet!" << "\n";
     }
@@ -12,13 +12,14 @@ void Endgame::initSprite()
 void Endgame::initTexture()
 {
     this->overSprite.setTexture(this->overTex);
-    this->overSprite.setScale(1.25f, 1.25f);
+    this->overSprite.setScale(1.15f, 1.15f);
+    this->overSprite.setPosition(1700.f / 2.f - this->overSprite.getGlobalBounds().width / 2.f, 760.f / 2.f - this->overSprite.getGlobalBounds().height / 2.f);
 }
-Endgame::Endgame(float width, float height)
+Endgame::Endgame()
 {
     this->initSprite();
     this->initTexture();
-    this->setPosition(1700 / 2, 850 / 2);
+   
 }
 
 Endgame::~Endgame()
