@@ -73,6 +73,7 @@ void Stone::updateHitbox()
 void Stone::updateMovement()
 {
 	this->stoneSprite.setPosition(StoneX, this->stoneSprite.getPosition().y);
+	this->stoneSprite.setRotation(30.f);
 	StoneX -= 2;
 }
 

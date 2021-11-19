@@ -252,7 +252,7 @@ void Game::updateStone()
 		//{
 			if (countStone < 1)
 			{
-				StoneX += 1100.f;
+				StoneX += 1300.f;
 				this->stone.push_back(new Stone(StoneX, 720));
 				
 			}
@@ -271,7 +271,7 @@ void Game::updateStone()
 	for (size_t i = 0; i < stone.size(); i++)
 	{
 		if (this->player->getBoundsHitbox().intersects(this->stone[i]->getGlobalbounds())
-			&& this->timeStone.getElapsedTime().asSeconds() > 0.5f && this->playerGUI->hp >= 10)
+			&& this->timeStone.getElapsedTime().asSeconds() > 1.f && this->playerGUI->hp >= 10)
 		{
 
 			this->playerGUI->setHp(-10);
