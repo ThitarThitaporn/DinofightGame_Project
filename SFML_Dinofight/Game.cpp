@@ -253,7 +253,7 @@ void Game::updateStone()
 			if (countStone < 1)
 			{
 				StoneX += 1300.f;
-				this->stone.push_back(new Stone(StoneX, 720));
+				this->stone.push_back(new Stone(StoneX, 780));
 				
 			}
 		//}

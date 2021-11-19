@@ -14,6 +14,9 @@ private:
 	//Hitbox
 	sf::RectangleShape stoneHitbox;
 
+	//rotate
+	float stoneRotate = 0 ;
+
 	void initHitbox();
 	void initSprite();
 	void initTexture();

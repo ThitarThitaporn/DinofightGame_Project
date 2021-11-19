@@ -10,8 +10,12 @@ private:
 	sf::Font font;
 	sf::Text egText;
 
-	sf::Texture egTex;
-	sf::Sprite egSprite;
+	sf::Texture overTex;
+	sf::Sprite overSprite;
+
+	//functions
+	void initSprite();
+	void initTexture();
 
 
 public:
@@ -19,14 +23,17 @@ public:
 
 	~Endgame();
 	
-
-	//functions
-	void initBoard();
-	void render(sf::RenderWindow& window);
-	
-
+	const sf::Vector2f getPosition();
+	void setPosition(float x, float y);
+	void update();
+	void render(sf::RenderTarget& target);
 
 
 
 };
+
+
+
+
+
 

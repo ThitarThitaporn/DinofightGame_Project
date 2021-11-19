@@ -24,6 +24,9 @@ void Stone::initTexture()
 {
 	this->stoneSprite.setTexture(this->stoneTex);
 	this->stoneSprite.setScale(0.4f, 0.4f);
+	this->stoneSprite.setOrigin(114.f, 126.f);
+	//this->stoneSprite.setOrigin(getGlobalbounds().width/2, getGlobalbounds().height/2);
+	
 }
 
 Stone::~Stone()
@@ -73,7 +76,8 @@ void Stone::updateHitbox()
 void Stone::updateMovement()
 {
 	this->stoneSprite.setPosition(StoneX, this->stoneSprite.getPosition().y);
-	this->stoneSprite.setRotation(30.f);
+	this->stoneSprite.setRotation(stoneRotate);
+	stoneRotate += -4.2f;
 	StoneX -= 2;
 }
 

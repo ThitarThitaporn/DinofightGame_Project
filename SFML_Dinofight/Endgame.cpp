@@ -1,38 +1,51 @@
 #include "stdafx.h"
 #include "Endgame.h"
 
+void Endgame::initSprite()
+{
+    if (!this->overTex.loadFromFile("texTure/gameover.png"))
+    {
+        std::cout << "ERROR::PLAYER::Could not load the boostHp sheet!" << "\n";
+    }
+}
 
+void Endgame::initTexture()
+{
+    this->overSprite.setTexture(this->overTex);
+    this->overSprite.setScale(1.25f, 1.25f);
+}
 Endgame::Endgame(float width, float height)
 {
-	if (!this->font.loadFromFile("font/dinosaurtext2.ttf"))
-	{
-		std::cout << "ERROR::MENU::Could not load the Font sheet!" << "\n";
-	}
-
-	if (!this->egTex.loadFromFile("texTure/bg.png"))
-	{
-		std::cout << "ERROR" << "\n";
-	}
-
-	this->initBoard();
-
-	egText.setFont(font);
-	egText.setCharacterSize(110);
-	egText.setFillColor(sf::Color::Red);
-	egText.setString("Play");
-	egText.setOrigin(egText.getLocalBounds().width / 2, egText.getLocalBounds().height / 2);
-	egText.setPosition(sf::Vector2f(width / 2, height));
-
-
+    this->initSprite();
+    this->initTexture();
+    this->setPosition(1700 / 2, 850 / 2);
 }
 
-void Endgame::initBoard()
+Endgame::~Endgame()
 {
-	this->egSprite.setTexture(egTex);
+
 }
 
-void Endgame::render(sf::RenderWindow& window)
+
+const sf::Vector2f Endgame::getPosition()
 {
-	window.draw(egSprite);
+    return this->overSprite.getPosition();
+}
+
+void Endgame::setPosition(float x, float y)
+{  
 
 }
+
+void Endgame::update()
+{
+
+}
+
+void Endgame::render(sf::RenderTarget& target)
+{
+  target.draw(this->overSprite);
+}
+
+
+
