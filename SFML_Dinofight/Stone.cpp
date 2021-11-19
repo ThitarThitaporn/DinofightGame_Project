@@ -6,7 +6,7 @@ void Stone::initHitbox()
 	stoneHitbox.setOutlineColor(sf::Color::Blue);
 	stoneHitbox.setOutlineThickness(2.f);
 	stoneHitbox.setFillColor(sf::Color::Transparent);
-	stoneHitbox.setSize(sf::Vector2f(140.f, 140.f));
+	stoneHitbox.setSize(sf::Vector2f(140.f, 128.f));
 }
 
 void Stone::initSprite()
@@ -23,7 +23,7 @@ void Stone::initSprite()
 void Stone::initTexture()
 {
 	this->stoneSprite.setTexture(this->stoneTex);
-	this->stoneSprite.setScale(1.f, 1.f);
+	this->stoneSprite.setScale(0.5f, 0.5f);
 }
 
 Stone::~Stone()
@@ -78,6 +78,6 @@ void Stone::updateMovement()
 
 void Stone::render(sf::RenderTarget& target)
 {
-	target.draw(this->stoneHitbox);
+	//target.draw(this->stoneHitbox);
 	target.draw(this->stoneSprite);
 }

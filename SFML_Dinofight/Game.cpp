@@ -248,18 +248,15 @@ void Game::updateStone()
 	if (this->playerGUI->score >= 50)
 	{
 
-		if (this->randStone.getElapsedTime().asSeconds() >= 4.f)
-		{
+		//if (this->randStone.getElapsedTime().asSeconds() >= 4.f)
+		//{
 			if (countStone < 1)
 			{
-				printf("stone5");
-				StoneX = 60 + rand() % 1600;
+				StoneX += 1100.f;
+				this->stone.push_back(new Stone(StoneX, 700));
 				
-				this->stone.push_back(new Stone(ChestX, 700));
-				this->randChest.restart();
-				countStone++;
 			}
-		}
+		//}
 
 	}
 
@@ -274,20 +271,15 @@ void Game::updateStone()
 	for (size_t i = 0; i < stone.size(); i++)
 	{
 		if (this->player->getBoundsHitbox().intersects(this->stone[i]->getGlobalbounds())
-			&& this->timeStone.getElapsedTime().asSeconds() > 0.5f)
+			&& this->timeStone.getElapsedTime().asSeconds() > 0.5f && this->playerGUI->hp >= 10)
 		{
 
-			this->playerGUI->setScore(20);
-
-			this->stone.erase(this->stone.begin() + i);
-			countStone--;
-			break;
-
+			this->playerGUI->setHp(-10);
 			this->timeStone.restart();
 		}
 
 		//Left of screen
-		if (this->stone[i]->getPosition().x < 0)
+		if (this->stone[i]->getPosition().x + this->stone[i]->getGlobalbounds().width < 0)
 		{
 			this->stone.erase(this->stone.begin() + i);
 			countStone--;
