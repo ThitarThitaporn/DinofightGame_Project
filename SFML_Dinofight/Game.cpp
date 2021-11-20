@@ -69,7 +69,7 @@ void Game::initUsername()
 	this->nameboardTex.loadFromFile("texTure/background1.jpg");
 	this->nameboardSprite.setTexture(nameboardTex);
 	this->nameboardSprite.setScale(5, 5);
-	
+	this->nameboardSprite.setPosition(540 - (this->nameboardSprite.getGlobalBounds().width / 2), 260);	
 }
 
 void Game::initGameover()
@@ -89,7 +89,7 @@ Game::Game()
 	this->initGUI();
 	this->initHpBar();
 	this->initGameover();
-
+	//this->initUsername();
 	//this->scoreboard.wFile();
 
 }
@@ -437,14 +437,14 @@ void Game::update()
 	//polling window event
 	while (this->window.pollEvent(this->ev))
 	{
-		
-		
+
+
 		if (this->ev.type == sf::Event::Closed)
 			this->window.close();
 		else if (this->ev.type == sf::Event::KeyPressed && this->ev.key.code == sf::Keyboard::Escape)
 			this->window.close();
 
-		 
+
 		if (this->ev.type == sf::Event::KeyReleased &&
 			(
 				this->ev.key.code == sf::Keyboard::A ||
@@ -455,18 +455,20 @@ void Game::update()
 			)
 			this->player->resetAnimationTimer();
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O )&& (bulletTime.getElapsedTime().asSeconds() > 0.5f)) //shoot
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O) && (bulletTime.getElapsedTime().asSeconds() > 0.5f)) //shoot
 		{
 			this->bullets.push_back(new Bullet(this->player->getPos().x, this->player->getPos().y, 1.f, 0.f, 5.f));
 			this->bulletTime.restart();
 			//printf("bulletsize %d\n",bullets.size());
 		}
 
-		switch (ev.type)
+		if (GameRun == false)
 		{
-		case sf::Event::KeyReleased:
-			switch (ev.key.code)
+			switch (ev.type)
 			{
+			case sf::Event::KeyReleased:
+				switch (ev.key.code)
+				{
 				case sf::Keyboard::Up:
 					this->menu->moveUp();
 					break;
@@ -478,27 +480,29 @@ void Game::update()
 				case sf::Keyboard::Return:
 					switch (menu->getPressedItem())
 					{
-					case 0 :
-						//printf("Player has been pressed");
+					case 0:
+						printf("Player has been pressed");
 						//go to state
 						namestate = true;
-						GameRun = true;
+
+						//
 						break;
 
-					case 1 :
+					case 1:
 						//go to state
-						
+
 						break;
 
-					case 2 :
+					case 2:
 						window.close();
 						break;
 					}
-					
-			}
-			break;
 
-		}		
+				}
+				break;
+
+			}
+		}
 	}
 	if (GameRun == true && playerGUI->hp > 0)
 		{
@@ -529,8 +533,8 @@ void Game::renderUsername()
 	sf::Font font;
 	font.loadFromFile("font/dinosaurtext2.ttf");
 	sf::Text enter("Player name", font, 80);
-	enter.setFillColor(sf::Color(255, 255, 255, 100));
-	enter.setPosition(850, 150);
+	enter.setFillColor(sf::Color::White);
+	enter.setPosition(550, 150);
 	p_name.setFont(font);
 	for (int i = 0; i < username.size(); i++)
 	{
@@ -539,7 +543,7 @@ void Game::renderUsername()
 	p_name.setCharacterSize(55);
 	if (username.empty())
 	{
-		p_name.setFillColor(sf::Color(255, 255, 255, 180));
+		p_name.setFillColor(sf::Color::White);
 		p_name.setString("_");
 	}
 	else
@@ -549,11 +553,11 @@ void Game::renderUsername()
 		p_name.setString(str);
 		p_name.setFillColor(sf::Color::White);
 	}
-	p_name.setPosition(540 - (p_name.getGlobalBounds().width / 2), 330);
-	//this->initUsername.setPosition(540 - (this->initUsername.getGlobalBounds().width / 2), 260);
-	//window.draw(initUsername);
+	p_name.setPosition(820 - (p_name.getGlobalBounds().width / 2), 330);
+	
 	window.draw(p_name);
 	window.draw(enter);
+	
 
 
 }
@@ -629,54 +633,52 @@ void Game::render()
 
 	timeUS = timeText.getElapsedTime().asMilliseconds();
 	
+	//draw wolrd
+	this->renderWorld();
+
+	if (namestate) {
+
+
+		if (ev.type == sf::Event::TextEntered && timeUS > 500) {
+
+			timeText.restart();
+			username.push_back(ev.text.unicode);
+		}
+		if (!username.empty() && username.back() == 8)
+		{
+			username.pop_back();
+			if (!username.empty())
+				username.pop_back();
+		}
+		if (username.size() != 1 && !username.empty() && username.back() == 13)
+		{
+			username.pop_back();
+		}
+		if (!username.empty() && !((username.back() >= 'A' && username.back() <= 'Z') || (username.back() >= 'a' && username.back() <= 'z') || (username.back() >= '0' && username.back() <= '9') || username.back() == '_'))
+		{
+			username.pop_back();
+		}
+		if (username.size() > 15)
+		{
+			username.pop_back();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && username.size() != 0) 
+		{
+
+			this->getName(player_name);
+			//namestate = true;
+			namestate = false;
+			//printf("Enter");
+			GameRun = true;
+			std::cout << player_name;
+		}
+
+	}
 	
 
+	
 	if (GameRun == true  )
 	{
-		
-
-		//draw wolrd
-		this->renderWorld();
-
-		if (namestate) {
-
-			
-			if (ev.type == sf::Event::TextEntered && timeUS > 500 ) {
-				
-				timeText.restart();
-				username.push_back(ev.text.unicode);
-			}
-			if (!username.empty() && username.back() == 8)
-			{
-				username.pop_back();
-				if (!username.empty())
-					username.pop_back();
-			}
-			if (username.size() != 1 && !username.empty() && username.back() == 13)
-			{
-				username.pop_back();
-			}
-			if (!username.empty() && !((username.back() >= 'A' && username.back() <= 'Z') || (username.back() >= 'a' && username.back() <= 'z') || (username.back() >= '0' && username.back() <= '9') || username.back() == '_'))
-			{
-				username.pop_back();
-			}
-			if (username.size() > 15)
-			{
-				username.pop_back();
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && username.size() != 0) {
-
-				this->getName(player_name);
-				namestate = true;
-				namestate = false;
-				std::cout << player_name  ;
-			}
-		
-		}
-		if (namestate) 
-		{
-			this->renderUsername();
-		}
 		
 
 		//render game
@@ -731,6 +733,12 @@ void Game::render()
 	{
 		//this->endGame->render(window);
 		this->menu->render(window);
+
+		if (namestate)
+		{
+			this->renderUsername();
+
+		}
 	}
 
 	this->window.display();
