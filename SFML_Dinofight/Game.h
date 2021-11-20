@@ -102,6 +102,10 @@ private:
 	Menu* menu;
 	bool GameRun = false;
 	bool menuPlay = true;
+	
+
+	sf::Texture nameBackgroundTex;
+	sf::Sprite nameBackground;
 
 	void initWindow();
 	void initplayer();
@@ -141,6 +145,7 @@ public:
 	void update();
 
 	void renderUsername();
+	void renderNamebg();
 	void renderGUI();
 	void renderHeartItem();
 	void renderChest();

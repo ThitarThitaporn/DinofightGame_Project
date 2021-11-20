@@ -66,10 +66,12 @@ void Game::initGUI()
 
 void Game::initUsername()
 {
-	this->nameboardTex.loadFromFile("texTure/background1.jpg");
-	this->nameboardSprite.setTexture(nameboardTex);
-	this->nameboardSprite.setScale(5, 5);
-	this->nameboardSprite.setPosition(540 - (this->nameboardSprite.getGlobalBounds().width / 2), 260);	
+	if (!this->nameBackgroundTex.loadFromFile("texTure/bg2.png"))
+	{
+		std::cout << "ERORR Can't load background" << "\n";
+	}
+	this->nameBackground.setTexture(this->nameBackgroundTex);
+	this->nameBackground.setScale(1.12f, 1.2f);
 }
 
 void Game::initGameover()
@@ -82,6 +84,7 @@ Game::Game()
 	timeUS = timeText.getElapsedTime().asMilliseconds();
 	end = 0;
 	this->initWindow();
+	this->initUsername();
 	this->initplayer();
 	this->initWorld();
 	this->initBullet();
@@ -89,7 +92,6 @@ Game::Game()
 	this->initGUI();
 	this->initHpBar();
 	this->initGameover();
-	this->initUsername();
 	//this->scoreboard.wFile();
 
 }
@@ -224,18 +226,18 @@ void Game::updateChest()
 	if (this->playerGUI->score >= 200)
 	{
 
-	if (this->randChest.getElapsedTime().asSeconds() >= 8.f)
-	{
-		if (countChest < 1)
+		if (this->randChest.getElapsedTime().asSeconds() >= 8.f)
 		{
-			//printf("chest");
-			ChestX = 60 + rand() % 1400;
-			ChestY = 100 + rand() % 500;
-			this->chest.push_back(new Chest(ChestX, ChestY));
-			this->randChest.restart();
-			countChest++;
+			if (countChest < 1)
+			{
+				//printf("chest");
+				ChestX = 60 + rand() % 1400;
+				ChestY = 100 + rand() % 500;
+				this->chest.push_back(new Chest(ChestX, ChestY));
+				this->randChest.restart();
+				countChest++;
+			}
 		}
-	}
 	
 	}
 
@@ -542,19 +544,22 @@ void Game::renderUsername()
 	player_name = "";
 	sf::Text p_name;
 	sf::Font font;
+
+
+
 	font.loadFromFile("font/dinosaurtext2.ttf");
-	sf::Text enter("Player name", font, 80);
-	enter.setFillColor(sf::Color::White);
-	enter.setPosition(550, 150);
+	sf::Text enter("Player name", font, 90);
+	enter.setFillColor(sf::Color::Black);
+	enter.setPosition(610, 210);
 	p_name.setFont(font);
 	for (int i = 0; i < username.size(); i++)
 	{
 		player_name += username[i];
 	}
-	p_name.setCharacterSize(55);
+	p_name.setCharacterSize(60);
 	if (username.empty())
 	{
-		p_name.setFillColor(sf::Color::White);
+		p_name.setFillColor(sf::Color::Transparent);
 		p_name.setString("_");
 	}
 	else
@@ -562,15 +567,20 @@ void Game::renderUsername()
 		ss << player_name << "_";
 		std::string str = ss.str();
 		p_name.setString(str);
-		p_name.setFillColor(sf::Color::White);
+		p_name.setFillColor(sf::Color::Black);
 	}
-	p_name.setPosition(820 - (p_name.getGlobalBounds().width / 2), 330);
+	p_name.setPosition(860 - (p_name.getGlobalBounds().width / 2), 480);
 	
 	window.draw(p_name);
 	window.draw(enter);
 	
 
 
+}
+
+void Game::renderNamebg()
+{
+	this->window.draw(this->nameBackground);
 }
 
 	// R E N D E R
@@ -756,6 +766,7 @@ void Game::render()
 			if (namestate)
 			{
 			
+				this->renderNamebg();
 				this->renderUsername();
 
 			}
