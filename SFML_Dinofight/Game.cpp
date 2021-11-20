@@ -89,7 +89,7 @@ Game::Game()
 	this->initGUI();
 	this->initHpBar();
 	this->initGameover();
-	//this->initUsername();
+	this->initUsername();
 	//this->scoreboard.wFile();
 
 }
@@ -633,8 +633,7 @@ void Game::render()
 
 	timeUS = timeText.getElapsedTime().asMilliseconds();
 	
-	//draw wolrd
-	this->renderWorld();
+	
 
 	if (namestate) {
 
@@ -673,6 +672,7 @@ void Game::render()
 			std::cout << player_name;
 		}
 
+
 	}
 	
 
@@ -680,7 +680,8 @@ void Game::render()
 	if (GameRun == true  )
 	{
 		
-
+		//draw wolrd
+	this->renderWorld();
 		//render game
 		this->renderPlayer();
 
@@ -713,23 +714,23 @@ void Game::render()
 		//render Gameover
 		if (this->playerGUI->hp <= 0 )
 		{
-			this->scoreboard.scoreplayer = playerGUI->score ;
+			/*this->scoreboard.scoreplayer = playerGUI->score ;
 			
 			if (end < 1)
 			{
 
 				this->scoreboard.wFile();
 				end++;
-			}
+			}*/
 			this->renderGameover();
-			this->renderSavescore();
+			//this->renderSavescore();
 		}
 		
 
 		
 	}
 
-	else 
+	else if(GameRun == false)
 	{
 		//this->endGame->render(window);
 		this->menu->render(window);

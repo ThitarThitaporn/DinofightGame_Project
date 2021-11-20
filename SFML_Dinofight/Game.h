@@ -102,6 +102,7 @@ private:
 	Menu* menu;
 	bool GameRun = false;
 
+
 	void initWindow();
 	void initplayer();
 	void initBullet();
