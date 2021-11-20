@@ -79,6 +79,8 @@ void Game::initGameover()
 
 Game::Game()
 {
+	timeUS = timeText.getElapsedTime().asMilliseconds();
+	end = 0;
 	this->initWindow();
 	this->initplayer();
 	this->initWorld();
@@ -88,7 +90,7 @@ Game::Game()
 	this->initHpBar();
 	this->initGameover();
 
-	this->scoreboard.wFile();
+	//this->scoreboard.wFile();
 
 }
 
@@ -479,7 +481,7 @@ void Game::update()
 					case 0 :
 						//printf("Player has been pressed");
 						//go to state
-						
+						namestate = true;
 						GameRun = true;
 						break;
 
@@ -528,7 +530,7 @@ void Game::renderUsername()
 	font.loadFromFile("font/dinosaurtext2.ttf");
 	sf::Text enter("Player name", font, 80);
 	enter.setFillColor(sf::Color(255, 255, 255, 100));
-	enter.setPosition(340, 150);
+	enter.setPosition(850, 150);
 	p_name.setFont(font);
 	for (int i = 0; i < username.size(); i++)
 	{
@@ -624,6 +626,8 @@ void Game::renderGameover()
 void Game::render()
 {
 	this->window.clear();
+
+	timeUS = timeText.getElapsedTime().asMilliseconds();
 	
 	
 
@@ -635,7 +639,11 @@ void Game::render()
 		this->renderWorld();
 
 		if (namestate) {
-			if (ev.type == sf::Event::TextEntered) {
+
+			
+			if (ev.type == sf::Event::TextEntered && timeUS > 500 ) {
+				
+				timeText.restart();
 				username.push_back(ev.text.unicode);
 			}
 			if (!username.empty() && username.back() == 8)
@@ -661,10 +669,15 @@ void Game::render()
 				this->getName(player_name);
 				namestate = true;
 				namestate = false;
+				std::cout << player_name  ;
 			}
+		
 		}
-
-		this->renderUsername();
+		if (namestate) 
+		{
+			this->renderUsername();
+		}
+		
 
 		//render game
 		this->renderPlayer();
@@ -696,11 +709,20 @@ void Game::render()
 		this->renderStone();
 
 		//render Gameover
-		if (this->playerGUI->hp <= 0)
+		if (this->playerGUI->hp <= 0 )
 		{
+			this->scoreboard.scoreplayer = playerGUI->score ;
+			
+			if (end < 1)
+			{
+
+				this->scoreboard.wFile();
+				end++;
+			}
 			this->renderGameover();
 			this->renderSavescore();
 		}
+		
 
 		
 	}

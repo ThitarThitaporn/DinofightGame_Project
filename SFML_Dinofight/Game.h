@@ -16,6 +16,7 @@
 class Game
 {
 private:
+	int end;
 	sf::RenderWindow window;
 	sf::Event ev;
 
@@ -82,6 +83,8 @@ private:
 	float StoneX = 0;
 
 	//Score
+	sf::Clock timeText;
+	float timeUS;
 	score scoreboard;
 	std::string name;
 	std::string user_name;
