@@ -89,7 +89,7 @@ private:
 	std::string name;
 	std::string user_name;
 	sf::Text US_name;
-
+	bool scoreCheck = false;
 
 	bool over();
 	void reset();
@@ -101,7 +101,7 @@ private:
 	//menu
 	Menu* menu;
 	bool GameRun = false;
-
+	bool menuPlay = true;
 
 	void initWindow();
 	void initplayer();

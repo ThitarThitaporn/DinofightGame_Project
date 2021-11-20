@@ -483,13 +483,17 @@ void Game::update()
 					case 0:
 						printf("Player has been pressed");
 						//go to state
-						namestate = true;
 
+						namestate = true;
+						menuPlay = false;
 						//
 						break;
 
 					case 1:
 						//go to state
+
+						scoreCheck = true;
+						menuPlay = false;
 
 						break;
 
@@ -677,11 +681,11 @@ void Game::render()
 	
 
 	
-	if (GameRun == true  )
+	if (GameRun == true )
 	{
 		
 		//draw wolrd
-	this->renderWorld();
+		this->renderWorld();
 		//render game
 		this->renderPlayer();
 
@@ -714,14 +718,14 @@ void Game::render()
 		//render Gameover
 		if (this->playerGUI->hp <= 0 )
 		{
-			/*this->scoreboard.scoreplayer = playerGUI->score ;
+			this->scoreboard.scoreplayer = playerGUI->score ;
 			
 			if (end < 1)
 			{
 
 				this->scoreboard.wFile();
 				end++;
-			}*/
+			}
 			this->renderGameover();
 			//this->renderSavescore();
 		}
@@ -730,16 +734,30 @@ void Game::render()
 		
 	}
 
-	else if(GameRun == false)
+	else 
 	{
 		//this->endGame->render(window);
-		this->menu->render(window);
-
-		if (namestate)
+		if (menuPlay == true)
 		{
-			this->renderUsername();
+		this->menu->render(window);
+		}
+		
+		else
+		{
+			if (namestate)
+			{
+			
+				this->renderUsername();
+
+			}
+
+			if (scoreCheck == true)
+			{
+				this->renderSavescore();
+			}
 
 		}
+
 	}
 
 	this->window.display();
