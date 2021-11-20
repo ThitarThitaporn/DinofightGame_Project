@@ -5,17 +5,18 @@
 using namespace std;
 score::score()
 {
+	
 	font.loadFromFile("font/dinosaurtext2.ttf");
 	sf::Text ttext("ScoreBoard", font, 80);
 	main = ttext;
 	main.setFillColor(sf::Color::White);
 	main.setOrigin(sf::Vector2f(main.getGlobalBounds().width / 2, 0));
-	main.setPosition(sf::Vector2f(540, 50));
+	main.setPosition(sf::Vector2f(850, 100));
 	for (int i = 0; i < 5; i++)
 	{
 		scoretext[i].setCharacterSize(40);
 		scoretext[i].setFillColor(sf::Color::White);
-		scoretext[i].setPosition(540, 200 + (i * 80));
+		scoretext[i].setPosition(850, 200 + (i * 80));
 		scoretext[i].setFont(font);
 	}
 }

@@ -124,6 +124,14 @@ void Game::run()
 {
 }
 
+void Game::getName(std::string name)
+{
+	this->scoreboard.Pname = name;
+}
+
+
+
+
 void Game::collision()
 {
 	if (this->player->getPosition().y + this->player->getGlobalBouds().height  >  this-> window.getSize().y)
@@ -549,6 +557,11 @@ void Game::renderWorld()
 	this->window.draw(this->worldBackground);
 }
 
+void Game::renderSavescore()
+{
+	this->scoreboard.Drawscore(this->window);
+}
+
 void Game::renderGameover()
 {
 	this->gameOver->render(window);
@@ -598,6 +611,7 @@ void Game::render()
 		if (this->playerGUI->hp <= 0)
 		{
 			this->renderGameover();
+			this->renderSavescore();
 		}
 
 		

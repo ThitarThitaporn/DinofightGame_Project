@@ -7,6 +7,7 @@
 #include<sstream>
 #include<string.h>
 #include<algorithm>
+#include<stdio.h>
 
 
 //SFML

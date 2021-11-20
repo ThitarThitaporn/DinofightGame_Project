@@ -11,7 +11,7 @@
 #include"Endgame.h"
 #include"Stone.h"
 #include"Endgame.h"
-
+#include"score.h"
 
 class Game
 {
@@ -73,6 +73,12 @@ private:
 	int countStone = 0;
 	float StoneX = 0;
 
+	//Score
+	score scoreboard;
+	std::string name;
+	std::string user_name;
+	sf::Text US_name;
+
 
 	bool over();
 	void reset();
@@ -104,6 +110,7 @@ public:
 	virtual ~Game();
 
 	void run();
+	void getName(std::string name);
 
 	//Functions
 
@@ -128,6 +135,7 @@ public:
 	void renderPlayer();
 	void renderBullet();
 	void renderEnemy();
+	void renderSavescore();
 	void renderEndgame();
 	void renderWorld();
 	void renderGameover();
