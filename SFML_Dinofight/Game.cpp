@@ -461,6 +461,12 @@ void Game::update()
 			this->bulletTime.restart();
 			//printf("bulletsize %d\n",bullets.size());
 		}
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+		{
+			menuPlay = true;
+			GameRun = false;
+		}
 
 		if (GameRun == false)
 		{
@@ -485,13 +491,14 @@ void Game::update()
 						//go to state
 
 						namestate = true;
+						scoreCheck = false;
 						menuPlay = false;
 						//
 						break;
 
 					case 1:
 						//go to state
-
+						namestate = false;
 						scoreCheck = true;
 						menuPlay = false;
 
@@ -729,6 +736,8 @@ void Game::render()
 			this->renderGameover();
 			//this->renderSavescore();
 		}
+
+		
 		
 
 		

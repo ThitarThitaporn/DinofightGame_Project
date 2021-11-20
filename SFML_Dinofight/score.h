@@ -8,7 +8,8 @@ class score
 
 private:
 	sf::Font font;
-	sf::Text main, scoretext[5];
+	sf::Font font2;
+	sf::Text main, scoretext[5],menuPress;
 	sf::Sprite scoreBorder;
 	FILE* fp;
 	sf::Text top[5];

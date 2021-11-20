@@ -16,9 +16,17 @@ score::score()
 	{
 		scoretext[i].setCharacterSize(40);
 		scoretext[i].setFillColor(sf::Color::White);
-		scoretext[i].setPosition(850, 200 + (i * 80));
+		scoretext[i].setPosition(850, 250 + (i * 80));
 		scoretext[i].setFont(font);
 	}
+
+	font2.loadFromFile("font/rainyhearts.ttf");
+	sf::Text backMenu("Press \"Space Bar\" to exit to mainmenu", font2, 40);
+	menuPress = backMenu;
+	menuPress.setFillColor(sf::Color::Green);
+	menuPress.setOrigin(sf::Vector2f(menuPress.getGlobalBounds().width / 2, 0));
+	menuPress.setPosition(sf::Vector2f(850, 700));
+
 }
 
 score::~score()
@@ -72,6 +80,8 @@ void score::Drawscore(sf::RenderWindow& window)
 	ReadFile();
 	fclose(this->fp);
 
+	window.draw(menuPress);
+	
 	for (int i = 0; i < 5; i++) {
 		ss[i] << userScore[i].second << "       " << userScore[i].first;
 		scoretext[i].setString(ss[i].str());
