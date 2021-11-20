@@ -31,9 +31,9 @@ void score::ReadFile()
 	fp = fopen("./score.txt", "r");
 	for (int i = 0; i < 5; i++)
 	{
-		fscanf_s(fp, "%s", &temp);
+		fscanf(fp, "%s", &temp);
 		name[i] = temp;
-		fscanf_s(fp, "%d", &Score[i]);
+		fscanf(fp, "%d", &Score[i]);
 		this->userScore.push_back(make_pair(Score[i], name[i]));
 	}
 }
@@ -41,10 +41,12 @@ void score::ReadFile()
 void score::wFile()
 {
 	ReadFile();
+
 	this->name[5] = Pname;
 	this->Score[5] = scoreplayer;
 	this->userScore.push_back(make_pair(this->Score[5], this->name[5]));
 	sort(userScore.begin(), userScore.end());
+	//fclose(this->fp);
 	fp = fopen("./score.txt", "w");
 	for (int i = 5; i > 0; i--)
 	{
@@ -66,9 +68,10 @@ void score::setscoretext()
 
 void score::Drawscore(sf::RenderWindow& window)
 {
-	std::stringstream ss[5];
+	stringstream ss[5];
 	ReadFile();
 	fclose(this->fp);
+
 	for (int i = 0; i < 5; i++) {
 		ss[i] << userScore[i].second << "       " << userScore[i].first;
 		scoretext[i].setString(ss[i].str());
@@ -81,4 +84,5 @@ void score::Drawscore(sf::RenderWindow& window)
 	}
 
 	window.draw(main);
+
 }

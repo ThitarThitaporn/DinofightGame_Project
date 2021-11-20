@@ -4,6 +4,9 @@
 #include"Bullet.h"
 #include"Menu.h"
 #include"Endgame.h"
+#include"score.h"
+
+
 
 bool Game::over()
 {
@@ -61,6 +64,14 @@ void Game::initGUI()
 	this->playerGUI = new PlayerGUI();
 }
 
+void Game::initUsername()
+{
+	this->nameboardTex.loadFromFile("texTure/background1.jpg");
+	this->nameboardSprite.setTexture(nameboardTex);
+	this->nameboardSprite.setScale(5, 5);
+	
+}
+
 void Game::initGameover()
 {
 	this->gameOver = new Endgame();
@@ -76,6 +87,9 @@ Game::Game()
 	this->initGUI();
 	this->initHpBar();
 	this->initGameover();
+
+	this->scoreboard.wFile();
+
 }
 
 Game::~Game()
@@ -422,6 +436,7 @@ void Game::update()
 	while (this->window.pollEvent(this->ev))
 	{
 		
+		
 		if (this->ev.type == sf::Event::Closed)
 			this->window.close();
 		else if (this->ev.type == sf::Event::KeyPressed && this->ev.key.code == sf::Keyboard::Escape)
@@ -464,12 +479,13 @@ void Game::update()
 					case 0 :
 						//printf("Player has been pressed");
 						//go to state
+						
 						GameRun = true;
 						break;
 
 					case 1 :
 						//go to state
-						//printf("Leader has been pressed");
+						
 						break;
 
 					case 2 :
@@ -502,7 +518,45 @@ void Game::update()
 
 
 
-// R E N D E R
+void Game::renderUsername()	
+{
+
+	std::stringstream ss;
+	player_name = "";
+	sf::Text p_name;
+	sf::Font font;
+	font.loadFromFile("font/dinosaurtext2.ttf");
+	sf::Text enter("Player name", font, 80);
+	enter.setFillColor(sf::Color(255, 255, 255, 100));
+	enter.setPosition(340, 150);
+	p_name.setFont(font);
+	for (int i = 0; i < username.size(); i++)
+	{
+		player_name += username[i];
+	}
+	p_name.setCharacterSize(55);
+	if (username.empty())
+	{
+		p_name.setFillColor(sf::Color(255, 255, 255, 180));
+		p_name.setString("_");
+	}
+	else
+	{
+		ss << player_name << "_";
+		std::string str = ss.str();
+		p_name.setString(str);
+		p_name.setFillColor(sf::Color::White);
+	}
+	p_name.setPosition(540 - (p_name.getGlobalBounds().width / 2), 330);
+	//this->initUsername.setPosition(540 - (this->initUsername.getGlobalBounds().width / 2), 260);
+	//window.draw(initUsername);
+	window.draw(p_name);
+	window.draw(enter);
+
+
+}
+
+	// R E N D E R
 void Game::renderGUI()
 {
 	this->playerGUI->render(this->window);
@@ -571,12 +625,46 @@ void Game::render()
 {
 	this->window.clear();
 	
+	
 
 	if (GameRun == true  )
 	{
+		
 
 		//draw wolrd
 		this->renderWorld();
+
+		if (namestate) {
+			if (ev.type == sf::Event::TextEntered) {
+				username.push_back(ev.text.unicode);
+			}
+			if (!username.empty() && username.back() == 8)
+			{
+				username.pop_back();
+				if (!username.empty())
+					username.pop_back();
+			}
+			if (username.size() != 1 && !username.empty() && username.back() == 13)
+			{
+				username.pop_back();
+			}
+			if (!username.empty() && !((username.back() >= 'A' && username.back() <= 'Z') || (username.back() >= 'a' && username.back() <= 'z') || (username.back() >= '0' && username.back() <= '9') || username.back() == '_'))
+			{
+				username.pop_back();
+			}
+			if (username.size() > 15)
+			{
+				username.pop_back();
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && username.size() != 0) {
+
+				this->getName(player_name);
+				namestate = true;
+				namestate = false;
+			}
+		}
+
+		this->renderUsername();
 
 		//render game
 		this->renderPlayer();

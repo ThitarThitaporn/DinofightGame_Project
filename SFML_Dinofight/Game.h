@@ -21,6 +21,14 @@ private:
 
 	sf::Clock bulletTime;
 	sf::Clock enemiesTime;
+	
+	//Username
+	sf::Texture nameboardTex;
+	sf::Sprite nameboardSprite;
+	std::string player_name = "";
+	std::vector<char> username;
+	bool namestate = false;
+
 
 	//word bg
 	sf::Texture worldBackgroundTex;
@@ -97,6 +105,7 @@ private:
 	void initEnemy();
 	void initHpBar();
 	void initGUI();
+	void initUsername();
 	void initGameover();
 
 	void initWorld();
@@ -127,7 +136,7 @@ public:
 
 	void update();
 
-
+	void renderUsername();
 	void renderGUI();
 	void renderHeartItem();
 	void renderChest();
