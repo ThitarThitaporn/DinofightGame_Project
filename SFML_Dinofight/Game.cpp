@@ -542,12 +542,11 @@ void Game::renderUsername()
 
 	std::stringstream ss;
 	player_name = "";
-	sf::Text p_name;
-	sf::Font font;
-
-
+	sf::Text p_name, menuPress;
+	sf::Font font, font2;
 
 	font.loadFromFile("font/dinosaurtext2.ttf");
+	font2.loadFromFile("font/rainyhearts.ttf");
 	sf::Text enter("Player name", font, 90);
 	enter.setFillColor(sf::Color::Black);
 	enter.setPosition(610, 210);
@@ -570,9 +569,14 @@ void Game::renderUsername()
 		p_name.setFillColor(sf::Color::Black);
 	}
 	p_name.setPosition(860 - (p_name.getGlobalBounds().width / 2), 480);
-	
+	sf::Text backMenu("Press \"Enter\" to continue", font2, 40);
+	menuPress = backMenu;
+	menuPress.setFillColor(sf::Color::Black);
+	menuPress.setOrigin(sf::Vector2f(menuPress.getGlobalBounds().width / 2, 0));
+	menuPress.setPosition(sf::Vector2f(850, 650));
 	window.draw(p_name);
 	window.draw(enter);
+	window.draw(menuPress);
 	
 
 
