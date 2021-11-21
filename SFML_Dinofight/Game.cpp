@@ -162,6 +162,11 @@ void Game::collision()
 	}
 }
 
+void Game::updateSong()
+{
+	
+}
+
 // U P D A T E
 void Game::updateHeartItem()
 {

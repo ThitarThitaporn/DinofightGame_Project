@@ -163,6 +163,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Stone.cpp" />
+    <ClCompile Include="ThemeSong.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileMap.cpp" />
   </ItemGroup>
@@ -179,6 +180,7 @@
     <ClInclude Include="score.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Stone.h" />
+    <ClInclude Include="ThemeSong.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileMap.h" />
   </ItemGroup>

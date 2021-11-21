@@ -132,6 +132,8 @@ public:
 	//Functions
 
 	void collision();
+
+	void updateSong();
 	void updateHeartItem();
 	void updateChest();
 	void updateStone();
