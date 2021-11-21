@@ -27,6 +27,15 @@ void Game::initWindow()
 	//menu
 	this->menu = new Menu (window.getSize().x, window.getSize().y);
 }
+void Game::initSound()
+{
+	buffer[0].loadFromFile("Sound/gameRun.wav");
+	sound[0].setBuffer(buffer[0]);
+
+	buffer[1].loadFromFile("Sound/open.wav");
+	sound[1].setBuffer(buffer[1]);
+
+}
 void Game::initplayer()
 {
 	this->player = new Player();
@@ -84,6 +93,7 @@ Game::Game()
 	timeUS = timeText.getElapsedTime().asMilliseconds();
 	end = 0;
 	this->initWindow();
+	this->initSound();
 	this->initUsername();
 	this->initplayer();
 	this->initWorld();
@@ -164,7 +174,19 @@ void Game::collision()
 
 void Game::updateSong()
 {
-	
+	if (GameRun == true && ThemeSongOn == false)
+	{
+		ThemeSongOn = true;
+		sound[0].play();
+		sound[0].setVolume(2);
+	}
+
+	if ( Gameovercheck== true && GameOverSong == true)
+	{
+		sound[1].play();
+		sound[1].setVolume(2);
+		GameOverSong = false;
+	}
 }
 
 // U P D A T E
@@ -228,10 +250,10 @@ void Game::updateChest()
 	unsigned countChest = 0;
 		
 	
-	if (this->playerGUI->score >= 200)
+	if (this->playerGUI->score >= 400)
 	{
 
-		if (this->randChest.getElapsedTime().asSeconds() >= 8.f)
+		if (this->randChest.getElapsedTime().asSeconds() >= 10.f)
 		{
 			if (countChest < 1)
 			{
@@ -260,7 +282,7 @@ void Game::updateChest()
 			&& this->timeChest.getElapsedTime().asSeconds() > 0.5f )
 		{
 			
-			this->playerGUI->setScore(20);
+			this->playerGUI->setScore(50);
 
 			this->chest.erase(this->chest.begin() + i);
 			countChest--;
@@ -370,21 +392,31 @@ void Game::updateBullets()
 void Game::updateEnemy()
 {
 	
-	if (enemiseCount < 7)
+	if (enemiseCount < 5 && this->playerGUI->score <=500)
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200)+ 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
+
+	if (enemiseCount < 8 && this->playerGUI->score <= 1000 && this->playerGUI->score >= 500)
+	{
+		//printf("1\n");
+		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		enemiseCount++;
+	}
+
+
 	for (int i = 0; i < enemys.size(); ++i) 
 	{
 		
 		this->enemys[i]->update();
+		//left sceen
 		if (this->enemys[i]->getPosition().x < 0)
 		{
 			
 			this->enemys.erase(this->enemys.begin() + i);
-			this->playerGUI->setScore(-10);
+			//this->playerGUI->setScore(-10);
 			enemiseCount--;
 			break;
 		}
@@ -410,7 +442,7 @@ void Game::updateEnemy()
 
 				this->bullets.erase(bullets.begin() + j);
 				this->enemys.erase(enemys.begin() + i);
-				this->playerGUI->setScore(5);
+				this->playerGUI->setScore(10);
 				enemiseCount--;
 				
 				//printf("DD");
@@ -524,6 +556,7 @@ void Game::update()
 	}
 	if (GameRun == true && playerGUI->hp > 0)
 		{
+			this->updateSong();
 			this->player->update();
 			this->updateBullets();
 			this->updateplayer();
@@ -754,12 +787,10 @@ void Game::render()
 				end++;
 			}
 			this->renderGameover();
+			Gameovercheck = true;
+			GameOverSong = true;
 			//this->renderSavescore();
 		}
-
-		
-		
-
 		
 	}
 

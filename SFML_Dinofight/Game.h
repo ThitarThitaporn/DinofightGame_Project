@@ -102,12 +102,20 @@ private:
 	Menu* menu;
 	bool GameRun = false;
 	bool menuPlay = true;
+	bool Gameovercheck = false;
 	
 
 	sf::Texture nameBackgroundTex;
 	sf::Sprite nameBackground;
 
+	//Sound
+	sf::SoundBuffer buffer[3];
+	sf::Sound sound[3];
+	bool ThemeSongOn = false;
+	bool GameOverSong = false;
+
 	void initWindow();
+	void initSound();
 	void initplayer();
 	void initBullet();
 	void initEnemy();

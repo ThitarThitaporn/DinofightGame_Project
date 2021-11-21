@@ -1,9 +1,23 @@
 #include "stdafx.h"
 #include "Menu.h"
 
+void Menu::initHitbox()
+{
+	this->MynameHitbox.setOutlineColor(sf::Color::White);
+	this->MynameHitbox.setOutlineThickness(5.f);
+	this->MynameHitbox.setFillColor(sf::Color::Black);
+	this->MynameHitbox.setSize(sf::Vector2f(560.f, 82.f));
+	this->MynameHitbox.setPosition(25, 25);
+}
+
 Menu::Menu(float width, float height)
 {
 	if (!this->font.loadFromFile("font/dinosaurtext2.ttf"))
+	{
+		std::cout << "ERROR::MENU::Could not load the Font sheet!" << "\n";
+	}
+
+	if (!this->font2.loadFromFile("font/dinosaur1.ttf"))
 	{
 		std::cout << "ERROR::MENU::Could not load the Font sheet!" << "\n";
 	}
@@ -14,6 +28,13 @@ Menu::Menu(float width, float height)
 	}
 
 	this->initBackground();
+	this->initHitbox();
+	myName.setFont(font);
+	myName.setCharacterSize(35);
+	myName.setFillColor(sf::Color::White);
+	myName.setString("64011100 Thitaporn Longji");
+	myName.setOrigin(myName.getLocalBounds().width / 2, myName.getLocalBounds().height / 2);
+	myName.setPosition(300, 60);
 
 	menu[0].setFont(font);
 	menu[0].setCharacterSize(110);
@@ -59,6 +80,8 @@ void Menu::initBackground()
 void Menu::render(sf::RenderWindow& window)
 {
 	window.draw(menuSprite);
+	window.draw(MynameHitbox);
+	window.draw(myName);
 	for (int i = 0; i < MAX_ITEMS; i++)
 	{
 		window.draw(menu[i]);

@@ -14,6 +14,13 @@ private:
 	sf::Texture menuTex;
 	sf::Sprite menuSprite;
 
+	sf::RectangleShape MynameHitbox;
+
+	sf::Font font2;
+	sf::Text myName;
+
+	void initHitbox();
+
 
 public:
 	Menu(float width,float height);
@@ -23,6 +30,7 @@ public:
 
 	//functions
 		void initBackground();
+		
 		void render(sf::RenderWindow& window);
 		void moveUp();
 		void moveDown();
