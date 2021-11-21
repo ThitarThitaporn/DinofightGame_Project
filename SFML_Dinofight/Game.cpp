@@ -644,6 +644,7 @@ void Game::renderWorld()
 
 void Game::renderSavescore()
 {
+	this->scoreboard.renderScoreBackground(this->window);
 	this->scoreboard.Drawscore(this->window);
 }
 
