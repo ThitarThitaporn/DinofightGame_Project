@@ -75,12 +75,12 @@ void Game::initGUI()
 
 void Game::initUsername()
 {
-	if (!this->nameBackgroundTex.loadFromFile("texTure/bg2.png"))
+	if (!this->nameBackgroundTex.loadFromFile("texTure/entername.png"))
 	{
 		std::cout << "ERORR Can't load background" << "\n";
 	}
 	this->nameBackground.setTexture(this->nameBackgroundTex);
-	this->nameBackground.setScale(1.12f, 1.2f);
+	this->nameBackground.setScale(0.83f, 0.912f);
 }
 
 void Game::initGameover()
@@ -174,11 +174,12 @@ void Game::collision()
 
 void Game::updateSong()
 {
-	if (GameRun == true && ThemeSongOn == false)
+	if (GameRun == false && ThemeSongOn == false)
 	{
 		ThemeSongOn = true;
 		sound[0].play();
 		sound[0].setVolume(2);
+		//ThemeSongOn = false;
 	}
 
 	if ( Gameovercheck== true && GameOverSong == true)
@@ -224,7 +225,7 @@ void Game::updateHeartItem()
 			&& this->timeHeart.getElapsedTime().asSeconds() > 0.5f && this->playerGUI->hp <= 80)
 		{
 			//Boost Hp
-			this->playerGUI->setHp(10);
+			this->playerGUI->setHp(20);
 
 			//Delete heart
 			this->heartItem.erase(this->heartItem.begin() + i);
@@ -250,7 +251,7 @@ void Game::updateChest()
 	unsigned countChest = 0;
 		
 	
-	if (this->playerGUI->score >= 400)
+	if (this->playerGUI->score >= 250 && this->playerGUI->score <= 600)
 	{
 
 		if (this->randChest.getElapsedTime().asSeconds() >= 10.f)
@@ -268,6 +269,40 @@ void Game::updateChest()
 	
 	}
 
+	if (this->playerGUI->score >= 800 && this->playerGUI->score <= 1000)
+	{
+
+		if (this->randChest.getElapsedTime().asSeconds() >= 9.f)
+		{
+			if (countChest < 1)
+			{
+				//printf("chest");
+				ChestX = 60 + rand() % 1400;
+				ChestY = 100 + rand() % 500;
+				this->chest.push_back(new Chest(ChestX, ChestY));
+				this->randChest.restart();
+				countChest++;
+			}
+		}
+
+	}
+	if (this->playerGUI->score >= 1100)
+	{
+
+		if (this->randChest.getElapsedTime().asSeconds() >= 9.f)
+		{
+			if (countChest < 1)
+			{
+				//printf("chest");
+				ChestX = 60 + rand() % 1400;
+				ChestY = 100 + rand() % 500;
+				this->chest.push_back(new Chest(ChestX, ChestY));
+				this->randChest.restart();
+				countChest++;
+			}
+		}
+
+	}
 
 	//Update
 	for (int i = 0; i < this->chest.size(); ++i)
@@ -308,7 +343,7 @@ void Game::updateStone()
 	unsigned countStone = 0;
 
 
-	if (this->playerGUI->score >= 200)
+	if (this->playerGUI->score >= 200 && this->playerGUI->score <= 500)
 	{
 
 		//if (this->randStone.getElapsedTime().asSeconds() >= 4.f)
@@ -322,7 +357,21 @@ void Game::updateStone()
 		//}
 
 	}
-	if (this->playerGUI->score >= 700 && this->playerGUI->score <=200 )
+	if (this->playerGUI->score >= 700 && this->playerGUI->score <=1000 )
+	{
+
+		//if (this->randStone.getElapsedTime().asSeconds() >= 4.f)
+		//{
+		if (countStone < 1)
+		{
+			StoneX += 950.f;
+			this->stone.push_back(new Stone(StoneX, 780));
+
+		}
+		//}
+
+	}
+	if (this->playerGUI->score >=  1200)
 	{
 
 		//if (this->randStone.getElapsedTime().asSeconds() >= 4.f)
@@ -405,15 +454,24 @@ void Game::updateBullets()
 
 void Game::updateEnemy()
 {
-	
-	if (enemiseCount < 5 && this->playerGUI->score <=500)
+	//level1
+	if (enemiseCount < 4 && this->playerGUI->score <=300)
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200)+ 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
 
-	if (enemiseCount < 8 && this->playerGUI->score <= 1000 && this->playerGUI->score >= 500)
+	//level2,3
+	if (enemiseCount < 7 && this->playerGUI->score <= 1000 && this->playerGUI->score >= 300 && this->playerGUI->score <= 1500)
+	{
+		//printf("1\n");
+		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		enemiseCount++;
+	}
+
+	//level4,5
+	if (enemiseCount < 10 && this->playerGUI->score <= 1500 && this->playerGUI->score >= 1000)
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
@@ -491,7 +549,7 @@ void Game::update()
 	while (this->window.pollEvent(this->ev))
 	{
 
-
+		this->updateSong();
 		if (this->ev.type == sf::Event::Closed)
 			this->window.close();
 		else if (this->ev.type == sf::Event::KeyPressed && this->ev.key.code == sf::Keyboard::Escape)
@@ -621,8 +679,8 @@ void Game::renderUsername()
 		p_name.setFillColor(sf::Color::Black);
 	}
 	p_name.setPosition(860 - (p_name.getGlobalBounds().width / 2), 480);
-	sf::Text backMenu("Press \"Enter\" to continue", font2, 40);
-	menuPress = backMenu;
+	sf::Text Enterplay("Press \"Enter\" to continue", font2, 40);
+	menuPress = Enterplay;
 	menuPress.setFillColor(sf::Color::Black);
 	menuPress.setOrigin(sf::Vector2f(menuPress.getGlobalBounds().width / 2, 0));
 	menuPress.setPosition(sf::Vector2f(850, 650));
