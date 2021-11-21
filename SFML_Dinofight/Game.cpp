@@ -73,6 +73,18 @@ void Game::initGUI()
 	this->playerGUI = new PlayerGUI();
 }
 
+void Game::initLevel()
+{
+	std::stringstream ss;
+	ss << "Level :" << level;
+	std::string str = ss.str();
+	Level.setString(str);
+
+	Level.setString("LEVEL : 0");
+	Level.setPosition(50, 60);
+	Level.setFillColor(sf::Color::White);
+}
+
 void Game::initUsername()
 {
 	if (!this->nameBackgroundTex.loadFromFile("texTure/entername.png"))
@@ -95,6 +107,7 @@ Game::Game()
 	this->initWindow();
 	this->initSound();
 	this->initUsername();
+	this->initLevel();
 	this->initplayer();
 	this->initWorld();
 	this->initBullet();
@@ -422,6 +435,11 @@ void Game::updateHpBar()
 	
 }
 
+void Game::updatelevel()
+{
+
+}
+
 
 
 void Game::updateBullets()
@@ -703,6 +721,11 @@ void Game::renderGUI()
 	this->playerGUI->render(this->window);
 }
 
+void Game::renderLevel()
+{
+	window.draw(Level);
+}
+
 void Game::renderHeartItem()
 {
 	for (auto* i : this->heartItem)
@@ -820,6 +843,8 @@ void Game::render()
 		this->renderWorld();
 		//render game
 		this->renderPlayer();
+
+		this->renderLevel();
 
 
 		//render bullet

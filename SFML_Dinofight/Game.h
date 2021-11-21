@@ -114,6 +114,10 @@ private:
 	bool ThemeSongOn = false;
 	bool GameOverSong = false;
 
+	//Level
+	sf::Text Level;
+
+
 	void initWindow();
 	void initSound();
 	void initplayer();
@@ -121,6 +125,7 @@ private:
 	void initEnemy();
 	void initHpBar();
 	void initGUI();
+	void initLevel();
 	void initUsername();
 	void initGameover();
 
@@ -129,6 +134,10 @@ private:
 
 
 public:
+
+	//level
+	int level = 0;
+
 
 	//Functions
 	Game();
@@ -146,6 +155,7 @@ public:
 	void updateChest();
 	void updateStone();
 	void updateHpBar();
+	void updatelevel();
 	void updateBullets();
 	void updateEnemy();
 	void updateplayer();
@@ -157,6 +167,7 @@ public:
 	void renderUsername();
 	void renderNamebg();
 	void renderGUI();
+	void renderLevel();
 	void renderHeartItem();
 	void renderChest();
 	void renderStone();
