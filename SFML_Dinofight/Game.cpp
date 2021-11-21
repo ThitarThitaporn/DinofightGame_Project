@@ -308,7 +308,7 @@ void Game::updateStone()
 	unsigned countStone = 0;
 
 
-	if (this->playerGUI->score >= 100)
+	if (this->playerGUI->score >= 200)
 	{
 
 		//if (this->randStone.getElapsedTime().asSeconds() >= 4.f)
@@ -319,6 +319,20 @@ void Game::updateStone()
 				this->stone.push_back(new Stone(StoneX, 780));
 				
 			}
+		//}
+
+	}
+	if (this->playerGUI->score >= 700 && this->playerGUI->score <=200 )
+	{
+
+		//if (this->randStone.getElapsedTime().asSeconds() >= 4.f)
+		//{
+		if (countStone < 1)
+		{
+			StoneX += 950.f;
+			this->stone.push_back(new Stone(StoneX, 780));
+
+		}
 		//}
 
 	}
