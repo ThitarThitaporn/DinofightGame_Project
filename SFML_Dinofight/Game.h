@@ -165,7 +165,6 @@ public:
 	//Functions
 
 	void collision();
-
 	void updateSong();
 	void updateHeartItem();
 	void updateShield();

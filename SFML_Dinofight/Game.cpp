@@ -39,7 +39,8 @@ void Game::initSound()
 	buffer[2].loadFromFile("Sound/sound_over.wav");
 	sound[2].setBuffer(buffer[2]);
 
-
+	buffer[3].loadFromFile("Sound/bullet.wav");
+	sound[3].setBuffer(buffer[3]);
 }
 void Game::initplayer()
 {
@@ -750,6 +751,8 @@ void Game::update()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O) && (bulletTime.getElapsedTime().asSeconds() > 0.5f)) //shoot
 		{
+			sound[3].play();
+			sound[3].setVolume(4);
 			this->bullets.push_back(new Bullet(this->player->getPos().x, this->player->getPos().y, 1.f, 0.f, 5.f));
 			this->bulletTime.restart();
 			//printf("bulletsize %d\n",bullets.size());
@@ -1066,12 +1069,12 @@ void Game::render()
 			if (end < 1)
 			{
 
+				sound[2].play();
+				sound[2].setVolume(5);
 				this->scoreboard.wFile();
 				end++;
 			}
 			this->renderGameover();
-			sound[2].play();
-			sound[2].setVolume(5);
 			Gameovercheck = true;
 			GameOverSong = true;
 			//this->renderSavescore();
