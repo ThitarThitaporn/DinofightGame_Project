@@ -73,17 +73,6 @@ void Game::initGUI()
 	this->playerGUI = new PlayerGUI();
 }
 
-void Game::initLevel()
-{
-	std::stringstream ss;
-	ss << "Level :" << level;
-	std::string str = ss.str();
-	Level.setString(str);
-
-	Level.setString("LEVEL : 0");
-	Level.setPosition(50, 60);
-	Level.setFillColor(sf::Color::White);
-}
 
 void Game::initUsername()
 {
@@ -107,7 +96,6 @@ Game::Game()
 	this->initWindow();
 	this->initSound();
 	this->initUsername();
-	this->initLevel();
 	this->initplayer();
 	this->initWorld();
 	this->initBullet();
@@ -264,7 +252,7 @@ void Game::updateChest()
 	unsigned countChest = 0;
 		
 	
-	if (this->playerGUI->score >= 250 && this->playerGUI->score <= 600)
+	if (this->playerGUI->score >= 300 && this->playerGUI->score <= 600)
 	{
 
 		if (this->randChest.getElapsedTime().asSeconds() >= 10.f)
@@ -435,11 +423,6 @@ void Game::updateHpBar()
 	
 }
 
-void Game::updatelevel()
-{
-
-}
-
 
 
 void Game::updateBullets()
@@ -472,8 +455,8 @@ void Game::updateBullets()
 
 void Game::updateEnemy()
 {
-	//level1
-	if (enemiseCount < 4 && this->playerGUI->score <=300)
+	//level 1,2,3
+	if (enemiseCount < 5 && this->playerGUI->score <=300)
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200)+ 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
@@ -489,13 +472,26 @@ void Game::updateEnemy()
 	}
 
 	//level4,5
-	if (enemiseCount < 10 && this->playerGUI->score <= 1500 && this->playerGUI->score >= 1000)
+	if (enemiseCount < 9 && this->playerGUI->score <= 1500 && this->playerGUI->score >= 1000)
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
 
+	if (enemiseCount < 11 && this->playerGUI->score >= 1500 )
+	{
+		//printf("1\n");
+		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		enemiseCount++;
+	}
+
+	if (enemiseCount < 5 && this->playerGUI->score >= 1500)
+	{
+		//printf("1\n");
+		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		enemiseCount++;
+	}
 
 	for (int i = 0; i < enemys.size(); ++i) 
 	{
@@ -721,10 +717,7 @@ void Game::renderGUI()
 	this->playerGUI->render(this->window);
 }
 
-void Game::renderLevel()
-{
-	window.draw(Level);
-}
+
 
 void Game::renderHeartItem()
 {
@@ -844,7 +837,7 @@ void Game::render()
 		//render game
 		this->renderPlayer();
 
-		this->renderLevel();
+	
 
 
 		//render bullet

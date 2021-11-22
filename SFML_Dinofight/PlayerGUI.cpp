@@ -34,18 +34,38 @@ void PlayerGUI::initScoreBar()
 	this->scoreTex.setFont(this->font);
 	this->scoreTex.setFillColor(sf::Color::Black);
 	this->scoreTex.setCharacterSize(40.f);
-	this->scoreTex.setPosition(1400.f, 10.f);
+	this->scoreTex.setPosition(1440.f, 10.f);
 
 }
+void PlayerGUI::initLevelBar()
+{
+	this->levelTex.setFont(this->font);
+	this->levelTex.setFillColor(sf::Color::Black);
+	this->levelTex.setCharacterSize(40.f);
+	this->levelTex.setPosition(1180.f, 10.f);
+}
+//void Game::initLevel()
+//{
+//	std::stringstream ss;
+//	ss << "Level :" << level;
+//	std::string str = ss.str();
+//	Level.setString(str);
+//
+//	Level.setString("LEVEL : 0");
+//	Level.setPosition(50, 60);
+//	Level.setFillColor(sf::Color::White);
+//}
 
 PlayerGUI::PlayerGUI()
 {
 	this->initFont();
 	this->initHpBar();
 	this->initScoreBar();
+	this->initLevelBar();
 
 	this->hp;
 	this->score;
+	this->level;
 
 }
 
@@ -67,6 +87,11 @@ void PlayerGUI::setHp(int n)
 		this->hp += n;
 }
 
+void PlayerGUI::setLevel(int n)
+{
+	this->level = n;
+}
+
 void PlayerGUI::updateScore()
 {
 	this->scoreString = "Score : " + std::to_string(this->score);
@@ -83,10 +108,40 @@ void PlayerGUI::updateHpBar()
 	
 }
 
+void PlayerGUI::updatLevel()
+{
+	this->levelString = "Level : " + std::to_string(this->level);
+	this->levelTex.setString(this->levelString);
+
+	if (this->score >= 200 && this->score <= 400)
+	{
+		this->setLevel(1);
+	}
+	else if (this->score >= 400 && this->score <= 600)
+	{
+		this->setLevel(2);
+	}
+	else if (this->score >= 600 && this->score <= 800)
+	{
+		this->setLevel(3);
+	}
+	else if (this->score >= 800 && this->score <= 1000)
+	{
+		this->setLevel(4);
+	}
+	
+	else if(this->score >= 1000)
+	{
+		this->setLevel(5);
+	}
+	
+}
+
 void PlayerGUI::update()
 {
 	this->updateHpBar();
 	this->updateScore();
+	this->updatLevel();
 }
 
 void PlayerGUI::renderScore(sf::RenderTarget& target)
@@ -101,8 +156,14 @@ void PlayerGUI::renderHpBar(sf::RenderTarget& target)
 	target.draw(this->hpBarText);
 }
 
+void PlayerGUI::renderLevel(sf::RenderTarget& target)
+{
+	target.draw(this->levelTex);
+}
+
 void PlayerGUI::render(sf::RenderTarget& target)
 {
 	this->renderHpBar(target);
 	this->renderScore(target);
+	this->renderLevel(target);
 }
