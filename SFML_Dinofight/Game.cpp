@@ -5,6 +5,7 @@
 #include"Menu.h"
 #include"Endgame.h"
 #include"score.h"
+#include"Monster.h"
 
 
 
@@ -35,6 +36,10 @@ void Game::initSound()
 	buffer[1].loadFromFile("Sound/open.wav");
 	sound[1].setBuffer(buffer[1]);
 
+	buffer[2].loadFromFile("Sound/sound_over.wav");
+	sound[2].setBuffer(buffer[2]);
+
+
 }
 void Game::initplayer()
 {
@@ -61,6 +66,11 @@ void Game::initBullet()
 void Game::initEnemy()
 {
 	this->enemy = new Enemy();
+}
+
+void Game::initMonster()
+{
+	this->monster = new Monster();
 }
 
 void Game::initHpBar()
@@ -100,6 +110,7 @@ Game::Game()
 	this->initWorld();
 	this->initBullet();
 	this->initEnemy();
+	this->initMonster();
 	this->initGUI();
 	this->initHpBar();
 	this->initGameover();
@@ -129,6 +140,13 @@ Game::~Game()
 	{
 		delete i;
 	}
+
+	//Delete monster
+	for (auto* i : this->monsterP)
+	{
+		delete i;
+	}
+
 
 	//HeartItem
 	for (auto* i : this->heartItem)
@@ -183,17 +201,19 @@ void Game::updateSong()
 	if (GameRun == false && ThemeSongOn == false)
 	{
 		ThemeSongOn = true;
+		
 		sound[0].play();
-		sound[0].setVolume(2);
-		//ThemeSongOn = false;
+		sound[0].setVolume(4);
+	///*	sound[1].play();
+	//	sound[1].setVolume(2);*/
+	//	//ThemeSongOn = false;
 	}
 
-	if ( Gameovercheck== true && GameOverSong == true)
+	/*if ( Gameovercheck== true && GameOverSong == true)
 	{
-		sound[1].play();
-		sound[1].setVolume(2);
+		
 		GameOverSong = false;
-	}
+	}*/
 }
 
 // U P D A T E
@@ -531,38 +551,40 @@ void Game::updateBullets()
 
 void Game::updateEnemy()
 {
-	//level 1,2,3
-	if (enemiseCount < 5 && this->playerGUI->score <=300)
+	//level 1
+	if (enemiseCount < 5 && this->playerGUI->score <=200)
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200)+ 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
 
-	//level2,3
-	if (enemiseCount < 7 && this->playerGUI->score <= 1000 && this->playerGUI->score >= 300 && this->playerGUI->score <= 1500)
+	//level 2
+	if (enemiseCount < 7 && this->playerGUI->score <= 400 && this->playerGUI->score >= 200 )
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
 
-	//level4,5
-	if (enemiseCount < 9 && this->playerGUI->score <= 1500 && this->playerGUI->score >= 1000)
+	//level 3
+	if (enemiseCount < 9 && this->playerGUI->score <= 400 && this->playerGUI->score >= 600)
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
 
-	if (enemiseCount < 11 && this->playerGUI->score >= 1500 )
+	//level 4
+	if (enemiseCount < 11 && this->playerGUI->score <= 600 && this->playerGUI->score >= 800 )
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		enemiseCount++;
 	}
 
-	if (enemiseCount < 5 && this->playerGUI->score >= 1500)
+	//level 5
+	if (enemiseCount < 4 && this->playerGUI->score >= 1000)
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
@@ -615,6 +637,76 @@ void Game::updateEnemy()
 
 		
 		
+	}
+}
+
+void Game::updateMonster()
+{
+	if (monsterCount < 1 && this->playerGUI->score <= 600 && this->playerGUI->score >= 800)
+	{
+		//printf("1\n");
+		this->monsterP.push_back(new Monster(1200, 450)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		monsterCount++;
+	}
+
+	if (monsterCount < 3 && this->playerGUI->score <= 1000 && this->playerGUI->score >= 800)
+	{
+		//printf("1\n");
+		this->monsterP.push_back(new Monster(1200, 450)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		monsterCount++;
+	}
+	if (monsterCount < 5 && this->playerGUI->score >= 1500)
+	{
+		//printf("1\n");
+		this->monsterP.push_back(new Monster(1200, 450)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		monsterCount++;
+	}
+	for (int i = 0; i < monsterP.size(); ++i)
+	{
+
+		this->monsterP[i]->update();
+		//left sceen
+		if (this->monsterP[i]->getPosition().x < 0)
+		{
+
+			this->monsterP.erase(this->monsterP.begin() + i);
+			//this->playerGUI->setScore(-10);
+			monsterCount--;
+			break;
+		}
+
+		//player collision with enemies
+		if (this->player->getBoundsHitbox().intersects(this->monsterP[i]->getBoundsHitbox())
+			&& this->monsterTime.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 5 && this->delayAura.getElapsedTime().asSeconds() >= 5.f)
+		{
+			//printf("hp = %d\n", this->playerGUI->hp);
+			this->playerGUI->setHp(-5);
+			this->monsterTime.restart();
+
+			this->monsterP.erase(this->monsterP.begin() + i);
+			monsterCount--;
+			break;
+		}
+
+		for (int j = 0; j < bullets.size(); ++j)
+		{
+			if (this->bullets[j]->getBoundsHitbox().intersects(this->monsterP[i]->getBoundsHitbox()))
+			{
+				/*delete enemy;*/
+
+				this->bullets.erase(bullets.begin() + j);
+				this->monsterP.erase(monsterP.begin() + i);
+				this->playerGUI->setScore(10);
+				monsterCount--;
+
+				//printf("DD");
+				break;
+			}
+
+		}
+
+
+
 	}
 }
 
@@ -723,6 +815,7 @@ void Game::update()
 			this->updateBullets();
 			this->updateplayer();
 			this->updateEnemy();
+			this->updateMonster();
 			this->collision();
 			this->updateHpBar();
 			this->updateHeartItem();
@@ -846,6 +939,11 @@ void Game::renderEnemy()
 	this->enemy->render(this->window);
 }
 
+void Game::renderMonster()
+{
+
+}
+
 void Game::renderEndgame()
 {
 	this->endGame->render(this->window);
@@ -872,7 +970,6 @@ void Game::render()
 	this->window.clear();
 
 	timeUS = timeText.getElapsedTime().asMilliseconds();
-	
 	
 
 	if (namestate) {
@@ -943,6 +1040,14 @@ void Game::render()
 			enemy->render(this->window);
 		}
 
+		//render monster
+		this->renderMonster();
+		for (auto* monster : this->monsterP)
+		{
+			monster->render(this->window);
+		}
+
+
 		this->renderGUI();
 	
 		//render ITEM
@@ -965,6 +1070,8 @@ void Game::render()
 				end++;
 			}
 			this->renderGameover();
+			sound[2].play();
+			sound[2].setVolume(5);
 			Gameovercheck = true;
 			GameOverSong = true;
 			//this->renderSavescore();

@@ -13,6 +13,7 @@
 #include"Endgame.h"
 #include"score.h"
 #include"Shield.h"
+#include"Monster.h"
 
 class Game
 {
@@ -23,6 +24,7 @@ private:
 
 	sf::Clock bulletTime;
 	sf::Clock enemiesTime;
+	sf::Clock monsterTime;
 	
 	//Username
 	sf::Texture nameboardTex;
@@ -52,6 +54,11 @@ private:
 
 	//Bullet
 	Bullet* bullet;
+
+	//monster
+	Monster* monster;
+	int monsterCount = 0;
+	std::vector<Monster*> monsterP;
 	
 	
 	//GUI
@@ -121,8 +128,8 @@ private:
 	sf::Sprite nameBackground;
 
 	//Sound
-	sf::SoundBuffer buffer[3];
-	sf::Sound sound[3];
+	sf::SoundBuffer buffer[5];
+	sf::Sound sound[5];
 	bool ThemeSongOn = false;
 	bool GameOverSong = false;
 
@@ -133,6 +140,7 @@ private:
 	void initplayer();
 	void initBullet();
 	void initEnemy();
+	void initMonster();
 	void initHpBar();
 	void initGUI();
 	void initUsername();
@@ -166,6 +174,7 @@ public:
 	void updateHpBar();
 	void updateBullets();
 	void updateEnemy();
+	void updateMonster();
 	void updateplayer();
 	void updateWorld();
 	
@@ -182,6 +191,7 @@ public:
 	void renderPlayer();
 	void renderBullet();
 	void renderEnemy();
+	void renderMonster();
 	void renderSavescore();
 	void renderEndgame();
 	void renderWorld();
