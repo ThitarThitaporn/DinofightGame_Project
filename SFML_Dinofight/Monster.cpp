@@ -22,18 +22,24 @@ void Monster::initAnimation()
 	this->monsterTimer.restart();
 }
 
+void Monster::initVariables()
+{
+	
+	this->hp = 3;
+}
+
 void Monster::initHitbox()
 {
 
-	this->hitboxEnemies.setOutlineColor(sf::Color::Blue);
-	this->hitboxEnemies.setOutlineThickness(2.f);
-	this->hitboxEnemies.setFillColor(sf::Color::Transparent);
-	this->hitboxEnemies.setSize(sf::Vector2f(150.f, 90.f));
+	this->hitboxMonster.setOutlineColor(sf::Color::Blue);
+	this->hitboxMonster.setOutlineThickness(2.f);
+	this->hitboxMonster.setFillColor(sf::Color::Transparent);
+	this->hitboxMonster.setSize(sf::Vector2f(150.f, 90.f));
 }
 
 void Monster::updateHitbox()
 {
-	this->hitboxEnemies.setPosition(monsterSprite.getPosition().x + 50, monsterSprite.getPosition().y);
+	this->hitboxMonster.setPosition(monsterSprite.getPosition().x + 50, monsterSprite.getPosition().y);
 }
 
 Monster::Monster()
@@ -46,6 +52,7 @@ Monster::Monster(float pos_x, float pos_y)
 	this->initMonsterTex();
 	this->initMonsterSprite(); //forget
 	this->initAnimation();
+	this->initVariables();
 	
 
 	//hitbox
@@ -98,6 +105,17 @@ void Monster::updateAnimation()
 		this->monsterSprite.setTextureRect(this->currentFrame);
 	}
 }
+
+void Monster::setHP(int n)
+{
+	if (hpClock.getElapsedTime().asSeconds() > 0.3f)
+	{
+		hp--;
+		printf("%d", hp);
+		this->hpClock.restart();
+	}
+}
+
 
 void Monster::update()
 {

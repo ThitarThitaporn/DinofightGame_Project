@@ -151,6 +151,7 @@
     <ClCompile Include="Chest.cpp" />
     <ClCompile Include="Endgame.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Foeman.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HeartItem.cpp" />
     <ClCompile Include="main.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Chest.h" />
     <ClInclude Include="Endgame.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Foeman.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HeartItem.h" />
     <ClInclude Include="Menu.h" />

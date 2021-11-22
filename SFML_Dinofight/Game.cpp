@@ -74,6 +74,11 @@ void Game::initMonster()
 	this->monster = new Monster();
 }
 
+void Game::initFoeman()
+{
+	this->foeman = new Foeman();
+}
+
 void Game::initHpBar()
 {
 	this->hpBar = new PlayerGUI();
@@ -112,6 +117,7 @@ Game::Game()
 	this->initBullet();
 	this->initEnemy();
 	this->initMonster();
+	this->initFoeman();
 	this->initGUI();
 	this->initHpBar();
 	this->initGameover();
@@ -148,6 +154,11 @@ Game::~Game()
 		delete i;
 	}
 
+	//Delete Foeman
+	for (auto* i : this->foemans)
+	{
+		delete i;
+	}
 
 	//HeartItem
 	for (auto* i : this->heartItem)
@@ -626,6 +637,7 @@ void Game::updateEnemy()
 				/*delete enemy;*/
 
 				this->bullets.erase(bullets.begin() + j);
+
 				this->enemys.erase(enemys.begin() + i);
 				this->playerGUI->setScore(10);
 				enemiseCount--;
@@ -643,22 +655,25 @@ void Game::updateEnemy()
 
 void Game::updateMonster()
 {
-	if (monsterCount < 1 && this->playerGUI->score <= 600 && this->playerGUI->score >= 800)
+	if (monsterCount < 1 && this->playerGUI->score <= 800 && this->playerGUI->score >= 600)
 	{
 		//printf("1\n");
+		MonsterX += 1300.f;
 		this->monsterP.push_back(new Monster(1200, 450)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		monsterCount++;
 	}
 
-	if (monsterCount < 3 && this->playerGUI->score <= 1000 && this->playerGUI->score >= 800)
+	if (monsterCount < 3 && this->playerGUI->score <= 800 && this->playerGUI->score >= 1000)
 	{
 		//printf("1\n");
+		MonsterX += 1000.f;
 		this->monsterP.push_back(new Monster(1200, 450)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		monsterCount++;
 	}
 	if (monsterCount < 5 && this->playerGUI->score >= 1500)
 	{
 		//printf("1\n");
+		MonsterX += 1000.f;
 		this->monsterP.push_back(new Monster(1200, 450)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		monsterCount++;
 	}
@@ -694,11 +709,90 @@ void Game::updateMonster()
 			if (this->bullets[j]->getBoundsHitbox().intersects(this->monsterP[i]->getBoundsHitbox()))
 			{
 				/*delete enemy;*/
-
 				this->bullets.erase(bullets.begin() + j);
-				this->monsterP.erase(monsterP.begin() + i);
-				this->playerGUI->setScore(10);
-				monsterCount--;
+				this->monsterP[i]->setHP(-1);
+				if (this->monsterP[i]->hp == 0)
+				{
+					this->monsterP.erase(monsterP.begin() + i);
+					this->playerGUI->setScore(20);
+					monsterCount--;
+				}
+
+				//printf("DD");
+				break;
+			}
+
+		}
+
+
+
+	}
+}
+
+void Game::updateFoeman()
+{
+	
+	
+	if (foemanCount < 2 && this->playerGUI->score <= 800 && this->playerGUI->score >= 20)
+	{
+		printf("foeman");
+		//FoemanX += 1300.f;
+		this->foemans.push_back(new Foeman(850, 425)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		foemanCount++;
+	}
+
+	if (foemanCount < 3 && this->playerGUI->score <= 800 && this->playerGUI->score >= 1000)
+	{
+		//printf("1\n");
+		FoemanX += 1100.f;
+		this->foemans.push_back(new Foeman(1200, 650)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		foemanCount++;
+	}
+	if (foemanCount < 5 && this->playerGUI->score >= 1500)
+	{
+		//printf("1\n");
+		FoemanX += 1100.f;
+		this->foemans.push_back(new Foeman(1200, 650)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		foemanCount++;
+	}
+	for (int i = 0; i < foemans.size(); ++i)
+	{
+		//this->foemans[i]->updateMovement(this->player->getPos().x, this->player->getPos().y);
+
+		this->foemans[i]->update();
+		//left sceen
+		if (this->foemans[i]->getPosition().x < 0)
+		{
+
+			this->foemans.erase(this->foemans.begin() + i);
+			//this->playerGUI->setScore(-10);
+			foemanCount--;
+			break;
+		}
+
+		//player collision with enemies
+		if (this->player->getBoundsHitbox().intersects(this->foemans[i]->getBoundsHitbox())
+			&& this->foemanTime.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 5 && this->delayAura.getElapsedTime().asSeconds() >= 5.f)
+		{
+			//printf("hp = %d\n", this->playerGUI->hp);
+			this->playerGUI->setHp(-10);
+			this->foemanTime.restart();
+
+			this->foemans.erase(this->foemans.begin() + i);
+			foemanCount--;
+			break;
+		}
+
+		for (int j = 0; j < bullets.size(); ++j)
+		{
+			if (this->bullets[j]->getBoundsHitbox().intersects(this->foemans[i]->getBoundsHitbox()))
+			{
+				/*delete enemy;*/
+				this->bullets.erase(bullets.begin() + j);
+					this->foemans.erase(foemans.begin() + i);
+					this->playerGUI->setScore(15);
+					foemanCount--;
+				
 
 				//printf("DD");
 				break;
@@ -819,6 +913,7 @@ void Game::update()
 			this->updateplayer();
 			this->updateEnemy();
 			this->updateMonster();
+			this->updateFoeman();
 			this->collision();
 			this->updateHpBar();
 			this->updateHeartItem();
@@ -944,7 +1039,12 @@ void Game::renderEnemy()
 
 void Game::renderMonster()
 {
+	this->monster->render(this->window);
+}
 
+void Game::renderFoeman()
+{
+	this->foeman->render(this->window);
 }
 
 void Game::renderEndgame()
@@ -1048,6 +1148,13 @@ void Game::render()
 		for (auto* monster : this->monsterP)
 		{
 			monster->render(this->window);
+		}
+
+		//render foeman
+		this->renderFoeman();
+		for (auto* foeman : this->foemans)
+		{
+			foeman->render(this->window);
 		}
 
 

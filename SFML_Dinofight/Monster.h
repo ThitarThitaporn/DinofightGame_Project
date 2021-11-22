@@ -7,12 +7,12 @@ private:
 	sf::IntRect currentFrame;
 	sf::Clock monsterTimer;
 
-	//hitbox
-	sf::RectangleShape hitboxEnemies;
+	sf::Clock hpClock;
 
-	float MonsterX;
+	//hitbox
+	sf::RectangleShape hitboxMonster;
+
 	int type;
-	int hp;
 	int hpMax;
 	int damage;
 	int points;
@@ -20,6 +20,7 @@ private:
 	void initMonsterTex();
 	void initMonsterSprite();
 	void initAnimation();
+	void initVariables();
 	void initHitbox();
 	void updateHitbox();
 
@@ -28,6 +29,8 @@ public:
 	Monster(float pos_x, float pos_y);
 	virtual ~Monster();
 
+	int hp;
+	float MonsterX;
 	const sf::FloatRect getBounds() const;
 	const sf::Vector2f getPosition() const;
 	const sf::Vector2f setPosition(float x, float y) const;
@@ -38,6 +41,7 @@ public:
 	//functions
 	void updateMovement();
 	void updateAnimation();
+	void setHP(int n);
 	void update();
 	void render(sf::RenderTarget& target);
 };

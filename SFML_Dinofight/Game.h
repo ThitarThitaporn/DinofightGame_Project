@@ -14,6 +14,7 @@
 #include"score.h"
 #include"Shield.h"
 #include"Monster.h"
+#include"Foeman.h"
 
 class Game
 {
@@ -25,6 +26,7 @@ private:
 	sf::Clock bulletTime;
 	sf::Clock enemiesTime;
 	sf::Clock monsterTime;
+	sf::Clock foemanTime;
 	
 	//Username
 	sf::Texture nameboardTex;
@@ -59,7 +61,13 @@ private:
 	Monster* monster;
 	int monsterCount = 0;
 	std::vector<Monster*> monsterP;
+	float MonsterX = 0;
 	
+	//monster
+	Foeman* foeman;
+	int foemanCount = 0;
+	std::vector<Foeman*> foemans;
+	float FoemanX = 0;
 	
 	//GUI
 	PlayerGUI* playerGUI;
@@ -141,6 +149,7 @@ private:
 	void initBullet();
 	void initEnemy();
 	void initMonster();
+	void initFoeman();
 	void initHpBar();
 	void initGUI();
 	void initUsername();
@@ -174,6 +183,7 @@ public:
 	void updateBullets();
 	void updateEnemy();
 	void updateMonster();
+	void updateFoeman();
 	void updateplayer();
 	void updateWorld();
 	
@@ -191,6 +201,7 @@ public:
 	void renderBullet();
 	void renderEnemy();
 	void renderMonster();
+	void renderFoeman();
 	void renderSavescore();
 	void renderEndgame();
 	void renderWorld();
