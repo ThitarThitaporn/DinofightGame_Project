@@ -147,6 +147,11 @@ Game::~Game()
 	{
 		delete i;
 	}
+	//Shield
+	for (auto* i : this->shield)
+	{
+		delete i;
+	}
 }
 
 void Game::run()
@@ -244,6 +249,77 @@ void Game::updateHeartItem()
 			break;
 		}
 	}
+}
+
+void Game::updateShield()
+{
+	if (this->playerGUI->hp <= 80)
+	{
+		if (this->randomShield.getElapsedTime().asSeconds() >= 12.f)
+		{
+			if (countShield < 1)
+			{
+				shieldX = 70 + rand() % 1500;
+				shieldY = 100 + rand() % 450;
+				this->shield.push_back(new Shield(shieldX, shieldY));
+				this->randomShield.restart();
+				countShield++;
+			}
+
+		}
+
+	}
+	//Update
+	for (int i = 0; i < this->shield.size(); ++i)
+	{
+		this->shield[i]->update();
+	}
+
+	//Collision
+	for (size_t i = 0; i < this->shield.size(); i++)
+	{
+		if (this->player->getBoundsHitbox().intersects(this->shield[i]->getGlobalBoundsHitbox())
+			&& this->delayShield.getElapsedTime().asSeconds() > 0.5f && this->playerGUI->hp >= 0)
+		{
+			//Do not decrease Hp
+			this->playerGUI->setHp(0);
+			IsAura = true;
+			IsStart = true;
+
+			//Delete Shield
+			this->shield.erase(this->shield.begin() + i);
+			countShield--;
+
+			this->delayShield.restart();
+			this->delayAura.restart();
+			break;
+
+		}
+		/*else
+		{
+			IsAura = false;
+			IsStart = false;
+		}*/
+
+		//Left of screen
+		if (this->shield[i]->getPosition().x + this->shield[i]->getGlobalbounds().width < 0)
+		{
+			this->shield.erase(this->shield.begin() + i);
+			countShield--;
+			break;
+		}
+
+		//Draw Aura 
+		if (IsAura == true)
+		{
+			this->shield[i]->setPositionAura(this->player->getPosition().x - 40.f, this->player->getPosition().y + 25.f);
+		}
+
+		if (delayAura.getElapsedTime().asSeconds() >= 5.f)
+			IsAura = false;
+
+	}
+
 }
 
 void Game::updateChest()
@@ -398,7 +474,7 @@ void Game::updateStone()
 	for (size_t i = 0; i < stone.size(); i++)
 	{
 		if (this->player->getBoundsHitbox().intersects(this->stone[i]->getGlobalbounds())
-			&& this->timeStone.getElapsedTime().asSeconds() > 1.f && this->playerGUI->hp >= 10)
+			&& this->timeStone.getElapsedTime().asSeconds() > 1.f && this->playerGUI->hp >= 10 && this->delayAura.getElapsedTime().asSeconds() >= 5.f)
 		{
 
 			this->playerGUI->setHp(-10);
@@ -509,7 +585,7 @@ void Game::updateEnemy()
 
 			//player collision with enemies
 			if (this->player->getBoundsHitbox().intersects(this->enemys[i]->getBoundsHitbox())
-				&& this->enemiesTime.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 5)
+				&& this->enemiesTime.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 5 && this->delayAura.getElapsedTime().asSeconds() >= 5.f)
 			{
 				//printf("hp = %d\n", this->playerGUI->hp);
 				this->playerGUI->setHp(-5);
@@ -650,6 +726,7 @@ void Game::update()
 			this->collision();
 			this->updateHpBar();
 			this->updateHeartItem();
+			this->updateShield();
 			this->updateChest();
 			this->updateStone();
 			this->updateWorld();
@@ -724,6 +801,17 @@ void Game::renderHeartItem()
 	for (auto* i : this->heartItem)
 	{
 		i->render(this->window);
+	}
+}
+
+void Game::renderShield()
+{
+	for (auto* i : this->shield)
+	{
+		i->render(this->window);
+
+		if (IsAura == true)
+			i->renderAura(this->window);
 	}
 }
 
@@ -835,6 +923,7 @@ void Game::render()
 		//draw wolrd
 		this->renderWorld();
 		//render game
+		this->renderShield();
 		this->renderPlayer();
 
 	
@@ -858,9 +947,8 @@ void Game::render()
 	
 		//render ITEM
 		this->renderHeartItem();
-
-		//render Chest
 		this->renderChest();
+		
 
 		//render Stone
 		this->renderStone();

@@ -12,6 +12,7 @@
 #include"Stone.h"
 #include"Endgame.h"
 #include"score.h"
+#include"Shield.h"
 
 class Game
 {
@@ -82,6 +83,17 @@ private:
 	int countStone = 0;
 	float StoneX = 0;
 
+	/*Shield*/
+	std::vector<Shield*> shield;
+	sf::Clock randomShield;
+	sf::Clock delayShield;
+	sf::Clock delayAura;
+	bool IsStart = false;
+	bool IsAura = false;
+	float shieldX = 0;
+	float shieldY = 0;
+	int countShield = 0;
+
 	//Score
 	sf::Clock timeText;
 	float timeUS;
@@ -114,8 +126,6 @@ private:
 	bool ThemeSongOn = false;
 	bool GameOverSong = false;
 
-	//Level
-	sf::Text Level;
 
 
 	void initWindow();
@@ -125,7 +135,6 @@ private:
 	void initEnemy();
 	void initHpBar();
 	void initGUI();
-	void initLevel();
 	void initUsername();
 	void initGameover();
 
@@ -135,8 +144,7 @@ private:
 
 public:
 
-	//level
-	int level = 0;
+	
 
 
 	//Functions
@@ -152,10 +160,10 @@ public:
 
 	void updateSong();
 	void updateHeartItem();
+	void updateShield();
 	void updateChest();
 	void updateStone();
 	void updateHpBar();
-	void updatelevel();
 	void updateBullets();
 	void updateEnemy();
 	void updateplayer();
@@ -167,8 +175,8 @@ public:
 	void renderUsername();
 	void renderNamebg();
 	void renderGUI();
-	void renderLevel();
 	void renderHeartItem();
+	void renderShield();
 	void renderChest();
 	void renderStone();
 	void renderPlayer();
