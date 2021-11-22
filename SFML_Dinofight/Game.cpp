@@ -315,7 +315,7 @@ void Game::updateShield()
 			this->shield[i]->setPositionAura(this->player->getPosition().x - 40.f, this->player->getPosition().y + 25.f);
 		}
 
-		if (delayAura.getElapsedTime().asSeconds() >= 5.f)
+		if (delayAura.getElapsedTime().asSeconds() >= 3.f)
 			IsAura = false;
 
 	}
