@@ -47,7 +47,7 @@ void Enemy::updateHitbox()
 
 Enemy::Enemy()
 {
-	printf("A");
+	//printf("A");
 	this->initEnemyTex();
 	this->initVariables();
 	

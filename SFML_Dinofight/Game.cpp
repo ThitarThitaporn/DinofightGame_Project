@@ -580,7 +580,7 @@ void Game::updateEnemy()
 	}
 
 	//level 3
-	if (enemiseCount < 6 && this->playerGUI->score <= 600 && this->playerGUI->score >= 400)
+	if (enemiseCount < 4 && this->playerGUI->score <= 600 && this->playerGUI->score >= 400)
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
@@ -588,7 +588,7 @@ void Game::updateEnemy()
 	}
 
 	//level 4
-	if (enemiseCount < 4 && this->playerGUI->score <= 800 && this->playerGUI->score >= 600 )
+	if (enemiseCount < 3 && this->playerGUI->score <= 800 && this->playerGUI->score >= 600 )
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
@@ -881,7 +881,7 @@ void Game::update()
 					switch (menu->getPressedItem())
 					{
 					case 0:
-						printf("Player has been pressed");
+						//printf("Player has been pressed");
 						//go to state
 
 						namestate = true;
