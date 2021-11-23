@@ -34,12 +34,12 @@ void Monster::initHitbox()
 	this->hitboxMonster.setOutlineColor(sf::Color::Blue);
 	this->hitboxMonster.setOutlineThickness(2.f);
 	this->hitboxMonster.setFillColor(sf::Color::Transparent);
-	this->hitboxMonster.setSize(sf::Vector2f(150.f, 90.f));
+	this->hitboxMonster.setSize(sf::Vector2f(450.f, 400.f));
 }
 
 void Monster::updateHitbox()
 {
-	this->hitboxMonster.setPosition(monsterSprite.getPosition().x + 50, monsterSprite.getPosition().y);
+	this->hitboxMonster.setPosition(monsterSprite.getPosition().x + 40 , monsterSprite.getPosition().y +50 );
 }
 
 Monster::Monster()
@@ -89,7 +89,7 @@ const sf::FloatRect Monster::getBoundsHitbox() const
 
 void Monster::updateMovement()
 {
-	MonsterX -= 2;
+	MonsterX -= 1.5;
 	this->monsterSprite.setPosition(MonsterX,monsterSprite.getPosition().y);
 }
 
@@ -127,4 +127,5 @@ void Monster::update()
 void Monster::render(sf::RenderTarget& target)
 {
 	target.draw(this->monsterSprite);
+	//target.draw(this->hitboxMonster);
 }

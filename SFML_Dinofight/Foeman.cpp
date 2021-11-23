@@ -35,7 +35,7 @@ void Foeman::initHitbox()
 
 void Foeman::updateHitbox()
 {
-	this->hitboxfoeman.setPosition(hitboxfoeman.getPosition().x + 50, hitboxfoeman.getPosition().y);
+	this->hitboxfoeman.setPosition(foemanSprite.getPosition().x - 5, foemanSprite.getPosition().y+5);
 }
 
 Foeman::Foeman()
@@ -86,7 +86,7 @@ const sf::FloatRect Foeman::getBoundsHitbox() const
 void Foeman::updateMovement()
 {
 	//printf("updateMM");
-	FoemanX -= 1.f;
+	FoemanX -= 3.f;
 	this->foemanSprite.setPosition(FoemanX, foemanSprite.getPosition().y);
 }
 
@@ -114,4 +114,5 @@ void Foeman::update()
 void Foeman::render(sf::RenderTarget& target)
 {
 	target.draw(this->foemanSprite);
+	//target.draw(this->hitboxfoeman);
 }

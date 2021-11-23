@@ -564,7 +564,7 @@ void Game::updateBullets()
 void Game::updateEnemy()
 {
 	//level 1
-	if (enemiseCount < 5 && this->playerGUI->score <=200)
+	if (enemiseCount < 4 && this->playerGUI->score <=200)
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200)+ 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
@@ -572,7 +572,7 @@ void Game::updateEnemy()
 	}
 
 	//level 2
-	if (enemiseCount < 7 && this->playerGUI->score <= 400 && this->playerGUI->score >= 200 )
+	if (enemiseCount < 6 && this->playerGUI->score <= 400 && this->playerGUI->score >= 200 )
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
@@ -580,7 +580,7 @@ void Game::updateEnemy()
 	}
 
 	//level 3
-	if (enemiseCount < 9 && this->playerGUI->score <= 400 && this->playerGUI->score >= 600)
+	if (enemiseCount < 6 && this->playerGUI->score <= 400 && this->playerGUI->score >= 600)
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
@@ -588,7 +588,7 @@ void Game::updateEnemy()
 	}
 
 	//level 4
-	if (enemiseCount < 11 && this->playerGUI->score <= 600 && this->playerGUI->score >= 800 )
+	if (enemiseCount < 4 && this->playerGUI->score <= 600 && this->playerGUI->score >= 800 )
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
@@ -655,22 +655,24 @@ void Game::updateEnemy()
 
 void Game::updateMonster()
 {
-	if (monsterCount < 1 && this->playerGUI->score <= 800 && this->playerGUI->score >= 600)
-	{
-		//printf("1\n");
-		MonsterX += 1300.f;
-		this->monsterP.push_back(new Monster(1200, 450)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
-		monsterCount++;
-	}
+	//if (monsterCount < 1 && this->playerGUI->score <= 800 && this->playerGUI->score >= 700)
+	//{
+	//	//printf("1\n");
+	//	MonsterX += 1300.f;
+	//	this->monsterP.push_back(new Monster(1200, 450)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+	//	monsterCount++;
+	//}
 
-	if (monsterCount < 3 && this->playerGUI->score <= 800 && this->playerGUI->score >= 1000)
+	//level 4 
+	if (monsterCount < 1 && this->playerGUI->score <= 1000 && this->playerGUI->score >= 800)
 	{
 		//printf("1\n");
 		MonsterX += 1000.f;
 		this->monsterP.push_back(new Monster(1200, 450)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		monsterCount++;
 	}
-	if (monsterCount < 5 && this->playerGUI->score >= 1500)
+	//level 5
+	if (monsterCount < 3 && this->playerGUI->score >= 1500)
 	{
 		//printf("1\n");
 		MonsterX += 1000.f;
@@ -732,27 +734,29 @@ void Game::updateMonster()
 void Game::updateFoeman()
 {
 	
-	
+	//level 3
 	if (foemanCount < 2 && this->playerGUI->score <= 800 && this->playerGUI->score >= 20)
 	{
 		printf("foeman");
 		//FoemanX += 1300.f;
-		this->foemans.push_back(new Foeman(850, 425)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		this->foemans.push_back(new Foeman((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		foemanCount++;
 	}
 
-	if (foemanCount < 3 && this->playerGUI->score <= 800 && this->playerGUI->score >= 1000)
+	//level 4
+	if (foemanCount < 3 && this->playerGUI->score <= 1000 && this->playerGUI->score >= 800)
 	{
 		//printf("1\n");
 		FoemanX += 1100.f;
-		this->foemans.push_back(new Foeman(1200, 650)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		this->foemans.push_back(new Foeman((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		foemanCount++;
 	}
-	if (foemanCount < 5 && this->playerGUI->score >= 1500)
+	//level 5
+	if (foemanCount < 4 && this->playerGUI->score >= 1000)
 	{
 		//printf("1\n");
 		FoemanX += 1100.f;
-		this->foemans.push_back(new Foeman(1200, 650)); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
+		this->foemans.push_back(new Foeman((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
 		foemanCount++;
 	}
 	for (int i = 0; i < foemans.size(); ++i)
