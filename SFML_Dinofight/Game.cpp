@@ -572,7 +572,7 @@ void Game::updateEnemy()
 	}
 
 	//level 2
-	if (enemiseCount < 6 && this->playerGUI->score <= 400 && this->playerGUI->score >= 200 )
+	if (enemiseCount < 5 && this->playerGUI->score <= 400 && this->playerGUI->score >= 200 )
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา
@@ -596,7 +596,7 @@ void Game::updateEnemy()
 	}
 
 	//level 5
-	if (enemiseCount < 4 && this->playerGUI->score >= 1000)
+	if (enemiseCount < 3 && this->playerGUI->score >= 1000)
 	{
 		//printf("1\n");
 		this->enemys.push_back(new Enemy((rand() % 200) + 1500, (rand() % 500))); // ใส่ในอัพเดท เเล้วค่อยใส่เรนดอมเวลา

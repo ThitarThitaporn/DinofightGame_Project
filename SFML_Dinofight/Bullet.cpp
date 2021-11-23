@@ -41,7 +41,7 @@ Bullet::Bullet( float pos_x, float pos_y, float dir_x, float dir_y, float moveme
 	this->initSprite();
 	this->initHitbox();
 
-	this->bulletFire.setPosition(pos_x, pos_y);
+	this->bulletFire.setPosition(pos_x + 210, pos_y + 100);
 	this->direction.x = dir_x;
 	this->direction.y = dir_y;
 	this->movementSpeed = movement_speed;
