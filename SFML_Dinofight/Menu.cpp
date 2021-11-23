@@ -104,7 +104,7 @@ void Menu::moveDown()
 {
 	if (selectedItem < MAX_ITEMS - 1  )
 	{
-		printf("%d", this->selectedItem);
+	//	printf("%d", this->selectedItem);
 		menu[selectedItem].setFillColor(sf::Color::White);
 			selectedItem++ ;
 			menu[selectedItem].setFillColor(sf::Color::Red);
