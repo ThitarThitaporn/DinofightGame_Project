@@ -74,6 +74,11 @@ void Game::initMonster()
 	this->monster = new Monster();
 }
 
+void Game::initAura()
+{
+	this->aura = new Shield();
+}
+
 void Game::initFoeman()
 {
 	this->foeman = new Foeman();
@@ -116,6 +121,7 @@ Game::Game()
 	this->initWorld();
 	this->initBullet();
 	this->initEnemy();
+	this->initAura();
 	this->initMonster();
 	this->initFoeman();
 	this->initGUI();
@@ -341,16 +347,14 @@ void Game::updateShield()
 			break;
 		}
 
-		//Draw Aura 
+	}
 		if (IsAura == true)
 		{
-			this->shield[i]->setPositionAura(this->player->getPosition().x - 40.f, this->player->getPosition().y + 25.f);
+			this->aura->setPositionAura(this->player->getPosition().x - 40.f, this->player->getPosition().y + 25.f);
 		}
 
 		if (delayAura.getElapsedTime().asSeconds() >= 3.f)
 			IsAura = false;
-
-	}
 
 }
 
@@ -506,7 +510,7 @@ void Game::updateStone()
 	for (size_t i = 0; i < stone.size(); i++)
 	{
 		if (this->player->getBoundsHitbox().intersects(this->stone[i]->getGlobalbounds())
-			&& this->timeStone.getElapsedTime().asSeconds() > 1.f && this->playerGUI->hp >= 10 && this->delayAura.getElapsedTime().asSeconds() >= 5.f)
+			&& this->timeStone.getElapsedTime().asSeconds() > 1.f && this->playerGUI->hp >= 10 && this->delayAura.getElapsedTime().asSeconds() >= 3.f)
 		{
 
 			this->playerGUI->setHp(-10);
@@ -619,7 +623,7 @@ void Game::updateEnemy()
 
 			//player collision with enemies
 			if (this->player->getBoundsHitbox().intersects(this->enemys[i]->getBoundsHitbox())
-				&& this->enemiesTime.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 5 && this->delayAura.getElapsedTime().asSeconds() >= 5.f)
+				&& this->enemiesTime.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 5 && this->delayAura.getElapsedTime().asSeconds() >= 3.f)
 			{
 				//printf("hp = %d\n", this->playerGUI->hp);
 				this->playerGUI->setHp(-5);
@@ -695,7 +699,7 @@ void Game::updateMonster()
 
 		//player collision with enemies
 		if (this->player->getBoundsHitbox().intersects(this->monsterP[i]->getBoundsHitbox())
-			&& this->monsterTime.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 5 && this->delayAura.getElapsedTime().asSeconds() >= 5.f)
+			&& this->monsterTime.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 5 && this->delayAura.getElapsedTime().asSeconds() >= 3.f)
 		{
 			//printf("hp = %d\n", this->playerGUI->hp);
 			this->playerGUI->setHp(-5);
@@ -776,7 +780,7 @@ void Game::updateFoeman()
 
 		//player collision with enemies
 		if (this->player->getBoundsHitbox().intersects(this->foemans[i]->getBoundsHitbox())
-			&& this->foemanTime.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 5 && this->delayAura.getElapsedTime().asSeconds() >= 5.f)
+			&& this->foemanTime.getElapsedTime().asSeconds() >= 1.f && this->playerGUI->hp >= 5 && this->delayAura.getElapsedTime().asSeconds() >= 3.f)
 		{
 			//printf("hp = %d\n", this->playerGUI->hp);
 			this->playerGUI->setHp(-10);
@@ -1005,9 +1009,9 @@ void Game::renderShield()
 	{
 		i->render(this->window);
 
-		if (IsAura == true)
-			i->renderAura(this->window);
 	}
+		if (IsAura == true)
+			aura->renderAura(this->window);
 }
 
 void Game::renderChest()

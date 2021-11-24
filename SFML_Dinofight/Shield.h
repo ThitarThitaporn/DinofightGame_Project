@@ -27,6 +27,7 @@ public:
 	virtual ~Shield();
 
 	Shield(float x, float y);
+	Shield();
 
 	const sf::Vector2f getPosition();
 	const sf::FloatRect getGlobalbounds() const;

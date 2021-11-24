@@ -60,6 +60,13 @@ Shield::Shield(float x, float y)
 	shieldX = x;
 }
 
+Shield::Shield()
+{
+	this->initHitbox();
+	this->initTexture();
+	this->initSprite();
+}
+
 const sf::Vector2f Shield::getPosition()
 {
 	return this->shield.getPosition();

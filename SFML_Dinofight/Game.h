@@ -27,6 +27,7 @@ private:
 	sf::Clock enemiesTime;
 	sf::Clock monsterTime;
 	sf::Clock foemanTime;
+
 	
 	//Username
 	sf::Texture nameboardTex;
@@ -100,6 +101,7 @@ private:
 
 	/*Shield*/
 	std::vector<Shield*> shield;
+	Shield* aura;
 	sf::Clock randomShield;
 	sf::Clock delayShield;
 	sf::Clock delayAura;
@@ -149,6 +151,7 @@ private:
 	void initBullet();
 	void initEnemy();
 	void initMonster();
+	void initAura();
 	void initFoeman();
 	void initHpBar();
 	void initGUI();
